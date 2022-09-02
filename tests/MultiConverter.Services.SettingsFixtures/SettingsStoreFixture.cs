@@ -1,3 +1,4 @@
+using System.Text.Json;
 using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
 using MultiConverter.Services.Abstractions.Settings;
@@ -6,30 +7,39 @@ using NUnit.Framework;
 
 namespace MultiConverter.Services.SettingsFixtures;
 
-
 public class SettingsStoreFixture
 {
     [Test]
-    public void WriteState()
+    public void Write_Custom_State_Value_Should_Succeed()
     {
-        var state = new State(1, "Test");
+        const string key = "WriteCustomStateTestFile";
+        const string testJsonValue = "{\"TestValue\" : 1}";
+
+        var state = new State(1, testJsonValue);
 
         var store = new FileSettingsStore(NullLogger.Instance);
-        store.Save("testfile", state);
+        store.Save(key, state);
 
-        var restored = store.Load("testfile");
+        var restored = store.Load(key);
         restored.Should().Be(state);
     }
 
     [Test]
-    public void WriteComplexState()
+    public void Write_Custom_Record_Struct_Should_Succeed()
     {
-        var state = new State(1, "<<something weird<> which breaks xml {}");
+        const string key = "WriteCustomRecordStructTestFile";
+        var value = new TestStruct("None", 10);
+
+        var jsonValue = JsonSerializer.Serialize(value, new JsonSerializerOptions { WriteIndented = true });
+
+        var state = new State(1, jsonValue);
 
         var store = new FileSettingsStore(NullLogger.Instance);
-        store.Save("wierdfile", state);
+        store.Save(key, state);
 
-        var restored = store.Load("wierdfile");
+        var restored = store.Load(key);
         restored.Should().Be(state);
     }
 }
+
+public readonly record struct TestStruct(string Name, int Age);
