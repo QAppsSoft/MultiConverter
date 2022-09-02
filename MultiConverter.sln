@@ -29,6 +29,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{12BB63F6-7EBC-48EF-938A-AB60E0BB5603}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiConverter.Models", "src\MultiConverter.Models\MultiConverter.Models.csproj", "{28D57A5E-0E2F-4AF6-AAAC-3A7536FA5627}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +50,8 @@ Global
 		{EC88467F-41FD-439A-9074-1383564CB2F6} = {630D301C-9335-4B0C-BD2B-700312A6A3F1}
 		{F9430786-B93E-4998-B983-C80C54552908} = {EC88467F-41FD-439A-9074-1383564CB2F6}
 		{EE8506B9-23F3-425D-A146-60D994381841} = {F9430786-B93E-4998-B983-C80C54552908}
+		{12BB63F6-7EBC-48EF-938A-AB60E0BB5603} = {964005A3-3576-4C7B-AB34-0E3FB12647CF}
+		{28D57A5E-0E2F-4AF6-AAAC-3A7536FA5627} = {12BB63F6-7EBC-48EF-938A-AB60E0BB5603}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2D083104-C547-4509-8A11-C6D74094BDEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -60,5 +66,9 @@ Global
 		{EE8506B9-23F3-425D-A146-60D994381841}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE8506B9-23F3-425D-A146-60D994381841}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE8506B9-23F3-425D-A146-60D994381841}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28D57A5E-0E2F-4AF6-AAAC-3A7536FA5627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28D57A5E-0E2F-4AF6-AAAC-3A7536FA5627}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28D57A5E-0E2F-4AF6-AAAC-3A7536FA5627}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28D57A5E-0E2F-4AF6-AAAC-3A7536FA5627}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
