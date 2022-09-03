@@ -31,5 +31,5 @@ public interface IContainer
     /// <summary>
     ///     Gets the video associated with this Container
     /// </summary>
-    IVideoStream Video { get; }
+    IVideoStream? Video { get; }
 }
