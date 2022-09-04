@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiConverter.Models", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiConverter.Services.Media", "src\MultiConverter.Services.Media\MultiConverter.Services.Media.csproj", "{DA800CE9-F966-404E-94E7-42DDC4A5F0E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiConverter.Services.MediaFixtures", "tests\MultiConverter.Services.MediaFixtures\MultiConverter.Services.MediaFixtures.csproj", "{F0E8A1B5-E8CD-452F-8057-E086F58347A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,7 @@ Global
 		{12BB63F6-7EBC-48EF-938A-AB60E0BB5603} = {964005A3-3576-4C7B-AB34-0E3FB12647CF}
 		{28D57A5E-0E2F-4AF6-AAAC-3A7536FA5627} = {12BB63F6-7EBC-48EF-938A-AB60E0BB5603}
 		{DA800CE9-F966-404E-94E7-42DDC4A5F0E1} = {7DEBDF5F-65DA-43AA-A575-EDDA0B36258F}
+		{F0E8A1B5-E8CD-452F-8057-E086F58347A6} = {F9430786-B93E-4998-B983-C80C54552908}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2D083104-C547-4509-8A11-C6D74094BDEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -77,5 +80,9 @@ Global
 		{DA800CE9-F966-404E-94E7-42DDC4A5F0E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA800CE9-F966-404E-94E7-42DDC4A5F0E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA800CE9-F966-404E-94E7-42DDC4A5F0E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0E8A1B5-E8CD-452F-8057-E086F58347A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0E8A1B5-E8CD-452F-8057-E086F58347A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0E8A1B5-E8CD-452F-8057-E086F58347A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0E8A1B5-E8CD-452F-8057-E086F58347A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
