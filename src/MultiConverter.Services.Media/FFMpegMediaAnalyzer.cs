@@ -64,49 +64,49 @@ public class FFMpegMediaAnalyzer : IMediaAnalyzer
         mediaInfo.SubtitleStreams.Select((subtitleStream, index) =>
             CreateSubtitle(subtitleStream, index, filePath));
 
-    private static IVideoStream CreateVideo(VideoInfo videoStream, string filePath) =>
+    private static IVideoStream CreateVideo(VideoInfo videoInfo, string filePath) =>
         // ReSharper disable once HeapView.BoxingAllocation
         new VideoStream
         {
-            Index = videoStream.Index,
+            Index = videoInfo.Index,
             StreamIndex = 0,
             Source = filePath,
             AutoCropDimensions = Cropping.NoCrop(),
-            Format = videoStream.CodecName,
-            FrameRate = videoStream.FrameRate,
-            Size = new Size(videoStream.Width, videoStream.Height)
+            Format = videoInfo.CodecName,
+            FrameRate = videoInfo.FrameRate,
+            Size = new Size(videoInfo.Width, videoInfo.Height)
         };
 
-    private static IAudioStream CreateAudio(AudioInfo audioStream, int streamIndex, string filePath) =>
+    private static IAudioStream CreateAudio(AudioInfo audioInfo, int streamIndex, string filePath) =>
         // ReSharper disable once HeapView.BoxingAllocation
         new AudioStream
         {
-            BitRate = audioStream.BitRate,
-            Duration = audioStream.Duration,
-            Format = audioStream.CodecName,
-            IsDefault = GetDispositionValue(audioStream, "default"),
-            IsForced = GetDispositionValue(audioStream, "forced"),
-            Language = GetTagValue(audioStream, "title"),
-            LanguageCode = GetTagValue(audioStream, "language"),
-            SampleRate = audioStream.SampleRateHz,
-            Index = audioStream.Index,
+            BitRate = audioInfo.BitRate,
+            Duration = audioInfo.Duration,
+            Format = audioInfo.CodecName,
+            IsDefault = GetDispositionValue(audioInfo, "default"),
+            IsForced = GetDispositionValue(audioInfo, "forced"),
+            Language = string.Empty,
+            LanguageCode = audioInfo.Language ?? string.Empty,
+            SampleRate = audioInfo.SampleRateHz,
+            Index = audioInfo.Index,
             StreamIndex = streamIndex,
             Source = filePath
         };
 
-    private static ISubtitleStream CreateSubtitle(SubtitleInfo subtitleStream, int streamIndex, string filePath) =>
+    private static ISubtitleStream CreateSubtitle(SubtitleInfo subtitleInfo, int streamIndex, string filePath) =>
         // ReSharper disable once HeapView.BoxingAllocation
         new SubtitleStream
         {
-            Index = subtitleStream.Index,
+            Index = subtitleInfo.Index,
             StreamIndex = streamIndex,
             Source = filePath,
-            IsDefault = GetDispositionValue(subtitleStream, "default"),
-            IsForced = GetDispositionValue(subtitleStream, "forced"),
-            Language = GetTagValue(subtitleStream, "title"),
-            LanguageCode = GetTagValue(subtitleStream, "language"),
-            SubtitleType = ParseSubtitleType(subtitleStream.CodecName),
-            Title = string.Empty // TODO: Get title?
+            IsDefault = GetDispositionValue(subtitleInfo, "default"),
+            IsForced = GetDispositionValue(subtitleInfo, "forced"),
+            Language = string.Empty,
+            LanguageCode = subtitleInfo.Language ?? string.Empty,
+            SubtitleType = ParseSubtitleType(subtitleInfo.CodecName),
+            Title = GetTagValue(subtitleInfo, "title")
         };
 
     private static bool GetDispositionValue(MediaStream mediaStream, string key) =>
