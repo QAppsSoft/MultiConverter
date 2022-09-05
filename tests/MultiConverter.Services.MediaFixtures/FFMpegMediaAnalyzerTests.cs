@@ -9,7 +9,7 @@ using NUnit.Framework;
 
 namespace MultiConverter.Services.MediaFixtures;
 
-public class FfMpegMediaAnalyzerTests
+public class FFMpegMediaAnalyzerTests
 {
     [SetUp]
     public void Setup()
