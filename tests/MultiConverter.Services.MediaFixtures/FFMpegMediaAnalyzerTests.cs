@@ -21,8 +21,6 @@ public class FFMpegMediaAnalyzerTests
     {
         FFMpegMediaAnalyzer analyzer = new();
         IContainer container = await analyzer.AnalyzeAsync(Resources.MkvWithSubtitles);
-        IAudioStream audioTrack = container.AudioTracks.First();
-        ISubtitleStream[] subtitles = container.Subtitles.ToArray();
 
         // Container tests
         container.Duration.Should().Be(new TimeSpan(0, 1, 29, 37, 878));
@@ -39,6 +37,8 @@ public class FFMpegMediaAnalyzerTests
         // Audio tests
         container.AudioTracks.Count().Should().Be(1);
 
+        IAudioStream audioTrack = container.AudioTracks.First();
+
         audioTrack.BitRate.Should().Be(0);
         audioTrack.Format.Should().Be("aac");
         audioTrack.IsDefault.Should().BeTrue();
@@ -47,6 +47,8 @@ public class FFMpegMediaAnalyzerTests
 
         // Subtitle tests
         container.Subtitles.Count().Should().Be(2);
+
+        ISubtitleStream[] subtitles = container.Subtitles.ToArray();
 
         subtitles[0].Index.Should().Be(2);
         subtitles[0].StreamIndex.Should().Be(0);
@@ -75,9 +77,8 @@ public class FFMpegMediaAnalyzerTests
     public async Task Subtitle_file_container_creation()
     {
         FFMpegMediaAnalyzer analyzer = new();
-        var options = new AnalyzerOptions { Timeout = new TimeSpan(0, 0, 6, 0) };
+        var options = new AnalyzerOptions { Timeout = TimeSpan.FromMinutes(6) };
         IContainer container = await analyzer.AnalyzeAsync(Resources.SubtitleSrt, options);
-        ISubtitleStream[] subtitles = container.Subtitles.ToArray();
 
         // Container tests
         container.Duration.Should().Be(new TimeSpan(0, 0, 0, 0, 0));
@@ -90,6 +91,8 @@ public class FFMpegMediaAnalyzerTests
 
         // Subtitle tests
         container.Subtitles.Count().Should().Be(1);
+
+        ISubtitleStream[] subtitles = container.Subtitles.ToArray();
 
         subtitles[0].Index.Should().Be(0);
         subtitles[0].StreamIndex.Should().Be(0);
