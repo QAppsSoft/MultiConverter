@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>   
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\MultiConverter.Services.Abstractions\MultiConverter.Services.Abstractions.csproj" />
+      <ProjectReference Include="..\..\src\MultiConverter.Services.Media\MultiConverter.Services.Media.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Resources\multipleStreamSample.mkv">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Resources\audio.mp3">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Resources\mkvWithSubtitles.mkv">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Resources\sampleSrt.srt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>
