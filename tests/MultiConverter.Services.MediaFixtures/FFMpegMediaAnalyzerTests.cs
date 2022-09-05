@@ -105,4 +105,34 @@ public class FFMpegMediaAnalyzerTests
         subtitles[0].Title.Should().BeEmpty();
         subtitles[0].IsExternalSubtitle.Should().BeTrue();
     }
+
+    [Test]
+    public async Task Audio_file_container_creation()
+    {
+        FFMpegMediaAnalyzer analyzer = new();
+        var options = AnalyzerOptions .Default();
+        IContainer container = await analyzer.AnalyzeAsync(Resources.Mp3, options);
+
+        // Container tests
+        container.Duration.Should().Be(new TimeSpan(0, 0, 0, 13, 536));
+
+        // Video tests
+        container.Video.Should().BeNull();
+
+        // Audio tests
+        container.AudioTracks.Count().Should().Be(1);
+
+        IAudioStream[] audioStreams = container.AudioTracks.ToArray();
+
+        audioStreams[0].Index.Should().Be(0);
+        audioStreams[0].StreamIndex.Should().Be(0);
+        audioStreams[0].BitRate.Should().Be(128000);
+        audioStreams[0].Format.Should().Be("mp3");
+        audioStreams[0].IsDefault.Should().BeFalse();
+        audioStreams[0].IsForced.Should().BeFalse();
+        audioStreams[0].SampleRate.Should().Be(48000);
+
+        // Subtitle tests
+        container.Subtitles.Count().Should().Be(0);
+    }
 }
