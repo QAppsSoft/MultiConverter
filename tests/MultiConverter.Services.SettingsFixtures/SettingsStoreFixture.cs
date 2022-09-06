@@ -15,12 +15,13 @@ public class SettingsStoreFixture
         const string key = "WriteCustomStateTestFile";
         const string testJsonValue = "{\"TestValue\" : 1}";
 
+        using TemporalFile settingFile = TemporalFile.Create($"{key}.setting");
         var state = new State(1, testJsonValue);
+        var store = new FileSettingsStore(NullLogger.Instance, settingFile);
 
-        var store = new FileSettingsStore(NullLogger.Instance);
         store.Save(key, state);
-
         var restored = store.Load(key);
+
         restored.Should().Be(state);
     }
 
@@ -31,13 +32,14 @@ public class SettingsStoreFixture
         var value = new TestStruct("None", 10);
 
         var jsonValue = JsonSerializer.Serialize(value, new JsonSerializerOptions { WriteIndented = true });
-
         var state = new State(1, jsonValue);
 
-        var store = new FileSettingsStore(NullLogger.Instance);
-        store.Save(key, state);
+        using TemporalFile settingFile = TemporalFile.Create($"{key}.setting");
+        var store = new FileSettingsStore(NullLogger.Instance, settingFile);
 
+        store.Save(key, state);
         var restored = store.Load(key);
+
         restored.Should().Be(state);
     }
 }
