@@ -4,7 +4,7 @@ MultiConverter aims to be a full replacement for a closed source video converter
 
 ### TODO
 
-- [ ] Video loading and analysis
+- [X] Video loading and analysis
   - [ ] Black border detection
 
 
