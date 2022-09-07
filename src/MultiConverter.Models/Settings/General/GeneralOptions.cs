@@ -5,8 +5,9 @@ using MultiConverter.Models.Settings.General.FileFilters;
 
 namespace MultiConverter.Models.Settings.General;
 
-public readonly record struct GeneralOptions([property: JsonConverter(typeof(JsonStringEnumConverter))] Theme Theme, string Language, int AnalysisTimeout, string TemporalFolder,
-    string[] SupportedFilesExtensions, FileFilter[] FileFilters, bool LoadFilesAlreadyInQueue)
+public readonly record struct GeneralOptions([property: JsonConverter(typeof(JsonStringEnumConverter))]
+    Theme Theme, string Language, int AnalysisTimeout, string TemporalFolder, string[] SupportedFilesExtensions,
+    FileFilter[] FileFilters, bool LoadFilesAlreadyInQueue)
 {
     private static readonly Lazy<GeneralOptions> s_defaultGeneralOptions = new(GenerateDefaultOption, true);
 
@@ -20,7 +21,8 @@ public readonly record struct GeneralOptions([property: JsonConverter(typeof(Jso
         string temporalFolder = Path.GetTempPath();
         FileFilter[] fileFilters = Array.Empty<FileFilter>();
 
-        string[] supportedFilesExtensions = {
+        string[] supportedFilesExtensions =
+        {
             ".264", ".3g2", ".3gp", ".amv", ".asf", ".avi", ".avs", ".bik", ".cpk", ".dat", ".dif", ".divx", ".dv",
             ".dvr-ms", ".f4v", ".fli", ".flv", ".h264", ".m2ts", ".m4v", ".mkv", ".mkv", ".mod", ".mov", ".mp4",
             ".mp4", ".mpeg", ".mpg", ".mts", ".ogm", ".qt", ".rm", ".rmvb", ".ts", ".vfw", ".vob", ".webm", ".wmv",
@@ -32,4 +34,4 @@ public readonly record struct GeneralOptions([property: JsonConverter(typeof(Jso
     }
 
     public static GeneralOptions Default() => s_defaultGeneralOptions.Value;
-};
+}
