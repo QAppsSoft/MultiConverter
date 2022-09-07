@@ -22,7 +22,7 @@ public class SettingsStoreFixture
         store.Save(key, state);
         var restored = store.Load(key);
 
-        restored.Should().Be(state);
+        restored.Should().BeEquivalentTo(state, o => o.ComparingByMembers<State>());
     }
 
     [Test]
@@ -40,7 +40,7 @@ public class SettingsStoreFixture
         store.Save(key, state);
         var restored = store.Load(key);
 
-        restored.Should().Be(state);
+        restored.Should().BeEquivalentTo(state, o => o.ComparingByMembers<State>());
     }
 }
 
