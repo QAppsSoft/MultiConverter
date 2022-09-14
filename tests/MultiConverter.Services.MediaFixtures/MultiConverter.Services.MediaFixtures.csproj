@@ -3,9 +3,8 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
-
         <IsPackable>false</IsPackable>
-    </PropertyGroup>   
+    </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\MultiConverter.Services.Abstractions\MultiConverter.Services.Abstractions.csproj" />
