@@ -1,6 +1,7 @@
 using System.Text.Json;
 using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
+using MultiConverter.Common.Testing;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.Services.Settings;
 using NUnit.Framework;
@@ -15,9 +16,9 @@ public class SettingsStoreFixture
         const string key = "WriteCustomStateTestFile";
         const string testJsonValue = "{\"TestValue\" : 1}";
 
-        using TemporalFile settingFile = TemporalFile.Create($"{key}.setting");
+        using TemporalFilePath settingFilePath = TemporalFilePath.Create($"{key}.setting");
         var state = new State(1, testJsonValue);
-        var store = new FileSettingsStore(NullLogger.Instance, settingFile);
+        var store = new FileSettingsStore(NullLogger.Instance, settingFilePath);
 
         store.Save(key, state);
         var restored = store.Load(key);
@@ -34,8 +35,8 @@ public class SettingsStoreFixture
         var jsonValue = JsonSerializer.Serialize(value, new JsonSerializerOptions { WriteIndented = true });
         var state = new State(1, jsonValue);
 
-        using TemporalFile settingFile = TemporalFile.Create($"{key}.setting");
-        var store = new FileSettingsStore(NullLogger.Instance, settingFile);
+        using TemporalFilePath settingFilePath = TemporalFilePath.Create($"{key}.setting");
+        var store = new FileSettingsStore(NullLogger.Instance, settingFilePath);
 
         store.Save(key, state);
         var restored = store.Load(key);
