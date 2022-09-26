@@ -1,5 +1,11 @@
 # MultiConverter
 
+<a href="https://dotnet.microsoft.com/download" alt=".NET target"><img alt=".NET target" src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FQAppsSoft%2FMultiConverter%2Fmain%2Fsrc%2FMultiConverter.Desktop%2FMultiConverter.Desktop.csproj&logo=.net" title="Go To .NET Download"></a>
+<img src="https://img.shields.io/github/license/QAppsSoft/MultiConverter" alt="License">
+<a href="https://github.com/QAppsSoft/MultiConverter/issues"><img alt="Github Issues" src="https://img.shields.io/github/issues/QAppsSoft/MultiConverter" title="Go To Github Issues"></a>
+<img src="https://img.shields.io/github/forks/QAppsSoft/MultiConverter" alt="Forks">
+<img src="https://img.shields.io/github/stars/QAppsSoft/MultiConverter" alt="Stars">
+
 MultiConverter aims to be a full replacement for a closed source video converter used in my daily job (developed by me). I will reuse some parts of the original code but mostly will be new code. This was my first attempt in WPF and C#.
 
 ### TODO
@@ -34,7 +40,7 @@ MultiConverter aims to be a full replacement for a closed source video converter
     - Format
     - Others
   - [ ] Failed conversion reasons
-    
+
 
 - [ ] Remote and/or local conversion
   - [ ] Limit parallel conversions
@@ -50,7 +56,7 @@ MultiConverter aims to be a full replacement for a closed source video converter
 
 
 - [ ] Conversion Presets
-  - [ ] Default preset selection 
+  - [ ] Default preset selection
   - [ ] Video format
     - Output format
     - Video codec
@@ -62,7 +68,7 @@ MultiConverter aims to be a full replacement for a closed source video converter
     - Audio codec
     - Bitrate
     - Sample rate
-  - [ ] Advanced    
+  - [ ] Advanced
     - [ ] After conversion action
       - Nothing
       - Delete
