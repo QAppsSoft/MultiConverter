@@ -15,13 +15,35 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 6.0.x
+
       - name: Prepare FFMpeg
         uses: FedericoCarboni/setup-ffmpeg@v1
+
       - name: Restore dependencies
         run: dotnet restore
+
       - name: Test
-        run: dotnet test --no-restore --logger GitHubActions
+        run: dotnet test --no-restore --verbosity normal --collect:"XPlat Code Coverage" --logger GitHubActions --results-directory coverage
+
+      - name: Copy Coverage To Predictable Location
+        run: cp coverage/*/coverage.cobertura.xml coverage/coverage.cobertura.xml
+
+      - name: Code Coverage Summary Report
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: coverage/coverage.cobertura.xml
+          badge: true
+          format: 'markdown'
+          output: 'both'
+
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          recreate: true
+          path: code-coverage-results.md
