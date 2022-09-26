@@ -1,6 +1,6 @@
 # MultiConverter
 
-<a href="https://dotnet.microsoft.com/download" alt=".NET target"><img alt=".NET target" src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FQAppsSoft%2FMultiConverter%2Fmain%2Fsrc%2FMultiConverter.Desktop%2FMultiConverter.Desktop.csproj" title="Go To .NET Download"></a>
+<a href="https://dotnet.microsoft.com/download" alt=".NET target"><img alt=".NET target" src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FQAppsSoft%2FMultiConverter%2Fmain%2Fsrc%2FMultiConverter.Desktop%2FMultiConverter.Desktop.csproj&logo=.net" title="Go To .NET Download"></a>
 
 MultiConverter aims to be a full replacement for a closed source video converter used in my daily job (developed by me). I will reuse some parts of the original code but mostly will be new code. This was my first attempt in WPF and C#.
 
