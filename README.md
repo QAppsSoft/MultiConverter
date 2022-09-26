@@ -5,6 +5,7 @@
 <a href="https://github.com/QAppsSoft/MultiConverter/issues"><img alt="Github Issues" src="https://img.shields.io/github/issues/QAppsSoft/MultiConverter" title="Go To Github Issues"></a>
 <img src="https://img.shields.io/github/forks/QAppsSoft/MultiConverter" alt="Forks">
 <img src="https://img.shields.io/github/stars/QAppsSoft/MultiConverter" alt="Stars">
+[![Coverage Status](https://coveralls.io/repos/github/QAppsSoft/MultiConverter/badge.svg)](https://coveralls.io/github/QAppsSoft/MultiConverter)
 
 MultiConverter aims to be a full replacement for a closed source video converter used in my daily job (developed by me). I will reuse some parts of the original code but mostly will be new code. This was my first attempt in WPF and C#.
 
