@@ -1,8 +1,8 @@
-﻿using ReactiveUI;
+﻿using MultiConverter.ViewModels.Interfaces;
+using ReactiveUI;
 
-namespace MultiConverter.ViewModels
+namespace MultiConverter.ViewModels;
+
+public class ViewModelBase : ReactiveObject, IViewModel
 {
-    public class ViewModelBase : ReactiveObject
-    {
-    }
 }

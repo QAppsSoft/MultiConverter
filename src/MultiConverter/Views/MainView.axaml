@@ -3,6 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:MultiConverter.ViewModels"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:vmi="clr-namespace:MultiConverter.ViewModels.Interfaces"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.MainView"
              Foreground="White"
@@ -11,5 +13,20 @@
     <viewModels:MainViewModel />
   </Design.DataContext>
 
-  <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <controls:NavigationView
+        MenuItems="{Binding Pages}"
+        Content="{Binding CurrentPage.ContentViewModel}"
+        SelectedItem="{Binding CurrentPage}"
+        AlwaysShowHeader="False"
+        Classes="SampleAppNav"
+        PaneDisplayMode="Left"
+        IsPaneOpen="False"
+        Name="NavView"
+        IsSettingsVisible="False">
+        <controls:NavigationView.MenuItemTemplate>
+            <DataTemplate DataType="{x:Type vmi:IPageViewModel}">
+                <controls:NavigationViewItem Icon="{Binding Icon}" Content="{Binding Name}" />
+            </DataTemplate>
+        </controls:NavigationView.MenuItemTemplate>
+    </controls:NavigationView>
 </UserControl>
