@@ -9,12 +9,13 @@
              x:Class="MultiConverter.Views.MainView"
              Foreground="White"
              Background="#171C2C">
-  <Design.DataContext>
-    <viewModels:MainViewModel />
-  </Design.DataContext>
+    <Design.DataContext>
+        <viewModels:MainViewModel />
+    </Design.DataContext>
 
     <controls:NavigationView
         MenuItems="{Binding Pages}"
+        FooterMenuItems="{Binding FooterPages}"
         Content="{Binding CurrentPage.ContentViewModel}"
         SelectedItem="{Binding CurrentPage}"
         AlwaysShowHeader="False"
