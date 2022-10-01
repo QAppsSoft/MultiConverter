@@ -5,8 +5,8 @@ using MultiConverter.Models.Settings.General.FileFilters;
 
 namespace MultiConverter.Models.Settings.General;
 
-public readonly record struct GeneralOptions([property: JsonConverter(typeof(JsonStringEnumConverter))]
-    Theme Theme, string Language, int AnalysisTimeout, string TemporalFolder, string[] SupportedFilesExtensions,
+public readonly record struct GeneralOptions([property: JsonConverter(typeof(JsonStringEnumConverter))] Theme Theme,
+    string Language, int AnalysisTimeout, string TemporalFolder, string[] SupportedFilesExtensions,
     FileFilter[] FileFilters, bool LoadFilesAlreadyInQueue)
 {
     private static readonly Lazy<GeneralOptions> s_defaultGeneralOptions = new(GenerateDefaultOption, true);
