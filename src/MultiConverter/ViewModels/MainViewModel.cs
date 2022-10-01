@@ -1,16 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using MultiConverter.Pages;
-using MultiConverter.ViewModels.Editor;
 using MultiConverter.ViewModels.Interfaces;
 
 namespace MultiConverter.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
-    public MainViewModel()
+    public MainViewModel(IEnumerable<IPageViewModel> pages)
     {
-        Pages = new IPageViewModel[] { new EditorPage(() => new EditorViewModel()) };
+        ArgumentNullException.ThrowIfNull(pages);
+
+        Pages = pages;
 
         CurrentPage = Pages.First();
     }

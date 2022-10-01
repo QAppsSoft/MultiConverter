@@ -1,12 +1,14 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using MultiConverter.DependencyInjection;
 using MultiConverter.ViewModels;
 using MultiConverter.Views;
+using Splat;
 
 namespace MultiConverter
 {
-    public partial class App : Application
+    public class App : Application
     {
         public override void Initialize()
         {
@@ -15,22 +17,26 @@ namespace MultiConverter
 
         public override void OnFrameworkInitializationCompleted()
         {
+            var mainViewModel = GetRequiredService<MainViewModel>();
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainViewModel()
+                    DataContext = mainViewModel
                 };
             }
             else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
             {
                 singleViewPlatform.MainView = new MainView
                 {
-                    DataContext = new MainViewModel()
+                    DataContext = mainViewModel
                 };
             }
 
             base.OnFrameworkInitializationCompleted();
         }
+
+        private static T GetRequiredService<T>() => Locator.Current.GetRequiredService<T>();
     }
 }
