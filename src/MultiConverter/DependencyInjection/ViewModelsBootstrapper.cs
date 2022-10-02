@@ -1,5 +1,7 @@
 ﻿using MultiConverter.Common;
+using MultiConverter.Models.Settings.General;
 using MultiConverter.Pages;
+using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.ViewModels;
 using MultiConverter.ViewModels.Editor;
 using MultiConverter.ViewModels.Interfaces;
@@ -10,7 +12,7 @@ namespace MultiConverter.DependencyInjection;
 
 public static class ViewModelsBootstrapper
 {
-    public static void RegisterViewModels(IMutableDependencyResolver services, IReadonlyDependencyResolver resolver)
+    public static void Register(IMutableDependencyResolver services, IReadonlyDependencyResolver resolver)
     {
         RegisterCommonViewModels(services, resolver);
         RegisterPages(services, resolver);
@@ -27,7 +29,8 @@ public static class ViewModelsBootstrapper
         );
     }
 
-    private static void RegisterCommonViewModels(IMutableDependencyResolver services, IReadonlyDependencyResolver resolver)
+    private static void RegisterCommonViewModels(IMutableDependencyResolver services,
+        IReadonlyDependencyResolver resolver)
     {
         services.Register(() => new MainViewModel(
             resolver.GetServices<IGeneralPageViewModel>(),
@@ -38,6 +41,9 @@ public static class ViewModelsBootstrapper
             resolver.GetRequiredService<ISchedulerProvider>())
         );
 
-        services.Register(() => new OptionsViewModel());
+        services.Register(() => new OptionsViewModel(
+            resolver.GetRequiredService<ISchedulerProvider>(),
+            resolver.GetRequiredService<ISetting<GeneralOptions>>()
+        ));
     }
 }

@@ -6,6 +6,6 @@ namespace MultiConverter.DependencyInjection;
 
 public static class ServicesBootstrapper
 {
-    public static void RegisterServices(IMutableDependencyResolver services, IReadonlyDependencyResolver resolver) =>
+    public static void Register(IMutableDependencyResolver services, IReadonlyDependencyResolver resolver) =>
         services.Register<ISchedulerProvider>(() => new SchedulerProvider());
 }
