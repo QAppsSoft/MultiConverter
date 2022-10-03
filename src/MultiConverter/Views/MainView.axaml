@@ -2,24 +2,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModels="clr-namespace:MultiConverter.ViewModels"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              xmlns:vmi="clr-namespace:MultiConverter.ViewModels.Interfaces"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.MainView"
              Foreground="White"
              Background="#171C2C">
-    <Design.DataContext>
-        <viewModels:MainViewModel />
-    </Design.DataContext>
-
+    <UserControl.Styles>
+        <Style Selector="controls|NavigationView.AppNav">
+            <Setter Property="IsPaneToggleButtonVisible" Value="True" />
+            <Setter Property="OpenPaneLength" Value="150" />
+        </Style>
+    </UserControl.Styles>
     <controls:NavigationView
         MenuItems="{Binding Pages}"
         FooterMenuItems="{Binding FooterPages}"
         Content="{Binding CurrentPage.ContentViewModel}"
         SelectedItem="{Binding CurrentPage}"
         AlwaysShowHeader="False"
-        Classes="SampleAppNav"
+        Classes="AppNav"
         PaneDisplayMode="Left"
         IsPaneOpen="False"
         Name="NavView"
