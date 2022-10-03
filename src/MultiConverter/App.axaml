@@ -9,5 +9,6 @@
 
     <Application.Styles>
         <styling:FluentAvaloniaTheme />
+        <StyleInclude Source="/Styles/OptionsDisplayItemStyles.axaml" />
     </Application.Styles>
 </Application>
