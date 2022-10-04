@@ -10,5 +10,7 @@
     <Application.Styles>
         <styling:FluentAvaloniaTheme />
         <StyleInclude Source="/Styles/OptionsDisplayItemStyles.axaml" />
+        <StyleInclude Source="/Styles/OptionsExpanderSeparatorStyles.axaml" />
+        <StyleInclude Source="/Styles/OptionsDisplayExpanderItemStyles.axaml" />
     </Application.Styles>
 </Application>
