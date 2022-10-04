@@ -60,11 +60,9 @@
                                            HorizontalAlignment="Left"
                                            TextTrimming="CharacterEllipsis"/>
 
-                                <TextBlock Text="{TemplateBinding Description}"
-                                           Classes="CaptionTextBlockStyle"
-                                           Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                           TextWrapping="Wrap"
-                                           Name="DescriptionPresenter"/>
+                                <ContentPresenter Content="{TemplateBinding Description}"
+                                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                  Name="DescriptionPresenter"/>
 
                             </StackPanel>
 

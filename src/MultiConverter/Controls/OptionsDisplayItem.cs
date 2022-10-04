@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -14,8 +15,8 @@ public class OptionsDisplayItem : TemplatedControl
     public static readonly StyledProperty<string> HeaderProperty =
         AvaloniaProperty.Register<OptionsDisplayItem, string>(nameof(Header));
 
-    public static readonly StyledProperty<string> DescriptionProperty =
-        AvaloniaProperty.Register<OptionsDisplayItem, string>(nameof(Description));
+    public static readonly StyledProperty<object> DescriptionProperty =
+        AvaloniaProperty.Register<OptionsDisplayItem, object>(nameof(Description));
 
     public static readonly StyledProperty<FAIconElement> IconProperty =
         AvaloniaProperty.Register<OptionsDisplayItem, FAIconElement>(nameof(Icon));
@@ -45,7 +46,7 @@ public class OptionsDisplayItem : TemplatedControl
         set => SetValue(HeaderProperty, value);
     }
 
-    public string Description
+    public object Description
     {
         get => GetValue(DescriptionProperty);
         set => SetValue(DescriptionProperty, value);
@@ -140,7 +141,7 @@ public class OptionsDisplayItem : TemplatedControl
         _layoutRoot.PointerCaptureLost += OnLayoutRootPointerCaptureLost;
 
         _setting = this;
-        _descriptionPresenter = e.NameScope.Find<TextBlock>("DescriptionPresenter");
+        _descriptionPresenter = e.NameScope.Find<ContentPresenter>("DescriptionPresenter");
 
         Update();
     }
@@ -201,6 +202,6 @@ public class OptionsDisplayItem : TemplatedControl
     private bool _isExpanded;
     private Border _layoutRoot;
 
-    private TextBlock _descriptionPresenter;
+    private ContentPresenter _descriptionPresenter;
     private OptionsDisplayItem _setting;
 }
