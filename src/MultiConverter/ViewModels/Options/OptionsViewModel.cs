@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Reactive.Disposables;
@@ -10,6 +11,7 @@ using MultiConverter.Common;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Models.Settings.General.FileFilters;
 using MultiConverter.Services.Abstractions.Settings;
+using MultiConverter.Utils;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -75,6 +77,8 @@ public class OptionsViewModel : ViewModelBase, IActivatableViewModel
     [Reactive] public ReadOnlyObservableCollection<FileFilter> FileFilters { get; set; }
 
     [Reactive] public ReadOnlyObservableCollection<string> SupportedExtensions { get; set; }
+
+    public IEnumerable<Theme> AppThemes { get; } = EnumUtils.GetValues<Theme>();
 
     public ReactiveCommand<Unit, Unit> Save { get; set; }
 
