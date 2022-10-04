@@ -48,20 +48,25 @@
                                 <ContentPresenter Content="{TemplateBinding Icon}" />
                             </Viewbox>
 
-                            <TextBlock Text="{TemplateBinding Header}"
-                                       Classes="BaseTextBlockStyle"
-                                       VerticalAlignment="Bottom"
-                                       HorizontalAlignment="Left"
-                                       TextTrimming="CharacterEllipsis"
-                                       Grid.Column="1"/>
+                            <StackPanel
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Grid.RowSpan="2"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center">
 
-                            <TextBlock Text="{TemplateBinding Description}"
-                                       Classes="CaptionTextBlockStyle"
-                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                       VerticalAlignment="Top"
-                                       TextWrapping="Wrap"
-                                       Grid.Column="1"
-                                       Grid.Row="1" />
+                                <TextBlock Text="{TemplateBinding Header}"
+                                           Classes="BaseTextBlockStyle"
+                                           HorizontalAlignment="Left"
+                                           TextTrimming="CharacterEllipsis"/>
+
+                                <TextBlock Text="{TemplateBinding Description}"
+                                           Classes="CaptionTextBlockStyle"
+                                           Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                           TextWrapping="Wrap"
+                                           Name="DescriptionPresenter"/>
+
+                            </StackPanel>
 
                             <ContentPresenter Content="{TemplateBinding ActionButton}"
                                               Grid.Column="2"

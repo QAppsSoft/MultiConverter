@@ -138,6 +138,28 @@ public class OptionsDisplayItem : TemplatedControl
         _layoutRoot.PointerPressed += OnLayoutRootPointerPressed;
         _layoutRoot.PointerReleased += OnLayoutRootPointerReleased;
         _layoutRoot.PointerCaptureLost += OnLayoutRootPointerCaptureLost;
+
+        _setting = this;
+        _descriptionPresenter = e.NameScope.Find<TextBlock>("DescriptionPresenter");
+
+        Update();
+    }
+
+    private void Update()
+    {
+        if (_setting == null)
+        {
+            return;
+        }
+
+        if (_setting.Description == null)
+        {
+            _setting._descriptionPresenter.IsVisible = false;
+        }
+        else
+        {
+            _setting._descriptionPresenter.IsVisible = true;
+        }
     }
 
     private void OnLayoutRootPointerPressed(object sender, PointerPressedEventArgs e)
@@ -178,4 +200,7 @@ public class OptionsDisplayItem : TemplatedControl
     private bool _isPressed;
     private bool _isExpanded;
     private Border _layoutRoot;
+
+    private TextBlock _descriptionPresenter;
+    private OptionsDisplayItem _setting;
 }
