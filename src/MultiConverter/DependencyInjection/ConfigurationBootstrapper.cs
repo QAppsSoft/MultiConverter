@@ -11,6 +11,7 @@ public static class ConfigurationBootstrapper
         IConfiguration configuration = BuildConfiguration();
 
         RegisterLoggingConfiguration(services, configuration);
+        RegisterLanguagesConfiguration(services, configuration);
     }
 
     private static IConfiguration BuildConfiguration() =>
@@ -20,8 +21,16 @@ public static class ConfigurationBootstrapper
 
     private static void RegisterLoggingConfiguration(IMutableDependencyResolver services, IConfiguration configuration)
     {
-        LoggingConfiguration config = new LoggingConfiguration();
+        LoggingConfiguration config = new();
         configuration.GetSection("Logging").Bind(config);
+        services.RegisterConstant(config);
+    }
+
+    private static void RegisterLanguagesConfiguration(IMutableDependencyResolver services,
+        IConfiguration configuration)
+    {
+        var config = new LanguagesConfiguration();
+        configuration.GetSection("Languages").Bind(config);
         services.RegisterConstant(config);
     }
 }

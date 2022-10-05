@@ -26,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MultiConverter.Common\MultiConverter.Common.csproj" />
+    <ProjectReference Include="..\MultiConverter.Extensions\MultiConverter.Extensions.csproj" />
     <ProjectReference Include="..\MultiConverter.Services.Abstractions\MultiConverter.Services.Abstractions.csproj" />
     <ProjectReference Include="..\MultiConverter.Services.Settings\MultiConverter.Services.Settings.csproj" />
   </ItemGroup>
@@ -33,5 +34,8 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Converters" />
   </ItemGroup>
 </Project>

@@ -63,6 +63,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{7910A4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiConverter.ModelsFixtures", "tests\MultiConverter.ModelsFixtures\MultiConverter.ModelsFixtures.csproj", "{921CB889-4E13-4B0F-9207-37B7187D8C25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiConverter.Extensions", "src\MultiConverter.Extensions\MultiConverter.Extensions.csproj", "{4084378D-17CD-46D0-B230-2793D814049A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,7 @@ Global
 		{474F6451-33E3-4BF7-98D7-CCFD20101845} = {EA381606-4F85-4BB5-AA09-CD2AA7AA3ACD}
 		{7910A47D-D384-444F-A077-32B70FB9D30A} = {630D301C-9335-4B0C-BD2B-700312A6A3F1}
 		{921CB889-4E13-4B0F-9207-37B7187D8C25} = {7910A47D-D384-444F-A077-32B70FB9D30A}
+		{4084378D-17CD-46D0-B230-2793D814049A} = {BBB5AC8A-F501-4472-BFD3-C7C8201372F8}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2D083104-C547-4509-8A11-C6D74094BDEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -155,5 +158,9 @@ Global
 		{921CB889-4E13-4B0F-9207-37B7187D8C25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{921CB889-4E13-4B0F-9207-37B7187D8C25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{921CB889-4E13-4B0F-9207-37B7187D8C25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4084378D-17CD-46D0-B230-2793D814049A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4084378D-17CD-46D0-B230-2793D814049A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4084378D-17CD-46D0-B230-2793D814049A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4084378D-17CD-46D0-B230-2793D814049A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
