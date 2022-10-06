@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
@@ -7,7 +8,9 @@ using Moq;
 using Moq.AutoMock;
 using MultiConverter.Common;
 using MultiConverter.Common.Testing;
+using MultiConverter.Models;
 using MultiConverter.Models.Settings.General;
+using MultiConverter.Services.Abstractions;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.ViewModels.Options;
 using NUnit.Framework;
@@ -16,14 +19,30 @@ namespace MultiConverterFixtures;
 
 public class OptionsViewModelTests
 {
+    private AutoMocker GetAutoMocker(ISchedulerProvider? schedulerProvider = null)
+    {
+        schedulerProvider ??= new TestSchedulers();
+
+        AutoMocker mocker = new();
+
+        mocker.Use(schedulerProvider);
+
+        Mock<ILanguageManager> languageManager = mocker.GetMock<ILanguageManager>();
+        languageManager.SetupGet(x => x.AllLanguages).Returns(new[]
+        {
+            new LanguageModel("Spanish", "Español", "es"),
+            new LanguageModel("English", "English", "en")
+        });
+
+        return mocker;
+    }
+
     [Test]
     public void Check_viewmodel_status_before_activation()
     {
         bool? canExecute = null;
 
-        AutoMocker mocker = new();
-        TestSchedulers schedulerProvider = new();
-        mocker.Use((ISchedulerProvider)schedulerProvider);
+        AutoMocker mocker = GetAutoMocker();
 
         Mock<ISetting<GeneralOptions>> setting = mocker.GetMock<ISetting<GeneralOptions>>();
         setting.SetupGet(x => x.Value).Returns(Observable.Return(GeneralOptions.Default()));
@@ -35,7 +54,7 @@ public class OptionsViewModelTests
 
 
         fixture.SelectedTheme.Should().Be(default);
-        fixture.Language.Should().BeEmpty();
+        fixture.SelectedLanguage.Should().NotBeNull();
         fixture.AnalysisTimeout.Should().Be(0);
         fixture.LoadFilesAlreadyInQueue.Should().Be(false);
         fixture.TemporalPath.Should().BeEmpty();
@@ -48,10 +67,9 @@ public class OptionsViewModelTests
     public void Check_viewmodel_status_after_activation()
     {
         bool? canExecute = null;
-
-        AutoMocker mocker = new();
         TestSchedulers schedulerProvider = new();
-        mocker.Use((ISchedulerProvider)schedulerProvider);
+
+        AutoMocker mocker = GetAutoMocker(schedulerProvider);
 
         Mock<ISetting<GeneralOptions>> setting = mocker.GetMock<ISetting<GeneralOptions>>();
         setting.SetupGet(x => x.Value).Returns(Observable.Return(GeneralOptions.Default()));
@@ -66,7 +84,7 @@ public class OptionsViewModelTests
 
 
         fixture.SelectedTheme.Should().Be(GeneralOptions.Default().Theme);
-        fixture.Language.Should().Be(GeneralOptions.Default().Language);
+        fixture.SelectedLanguage.Code.Should().Be(GeneralOptions.Default().Language);
         fixture.AnalysisTimeout.Should().Be(GeneralOptions.Default().AnalysisTimeout);
         fixture.LoadFilesAlreadyInQueue.Should().Be(GeneralOptions.Default().LoadFilesAlreadyInQueue);
         fixture.TemporalPath.Should().Be(GeneralOptions.Default().TemporalFolder);
@@ -79,10 +97,9 @@ public class OptionsViewModelTests
     public void Check_viewmodel_status_after_activation_and_deactivation()
     {
         bool? canExecute = null;
-
-        AutoMocker mocker = new();
         TestSchedulers schedulerProvider = new();
-        mocker.Use((ISchedulerProvider)schedulerProvider);
+
+        AutoMocker mocker = GetAutoMocker(schedulerProvider);
 
         Mock<ISetting<GeneralOptions>> setting = mocker.GetMock<ISetting<GeneralOptions>>();
         setting.SetupGet(x => x.Value).Returns(Observable.Return(GeneralOptions.Default()));
@@ -98,7 +115,7 @@ public class OptionsViewModelTests
 
 
         fixture.SelectedTheme.Should().Be(GeneralOptions.Default().Theme);
-        fixture.Language.Should().Be(GeneralOptions.Default().Language);
+        fixture.SelectedLanguage.Code.Should().Be(GeneralOptions.Default().Language);
         fixture.AnalysisTimeout.Should().Be(GeneralOptions.Default().AnalysisTimeout);
         fixture.LoadFilesAlreadyInQueue.Should().Be(GeneralOptions.Default().LoadFilesAlreadyInQueue);
         fixture.TemporalPath.Should().Be(GeneralOptions.Default().TemporalFolder);
@@ -111,10 +128,9 @@ public class OptionsViewModelTests
     public async Task Check_viewmodel_saveButton_after_activation()
     {
         bool? canExecute = null;
-
-        AutoMocker mocker = new();
         TestSchedulers schedulerProvider = new();
-        mocker.Use((ISchedulerProvider)schedulerProvider);
+
+        AutoMocker mocker = GetAutoMocker(schedulerProvider);
 
         Mock<ISetting<GeneralOptions>> setting = mocker.GetMock<ISetting<GeneralOptions>>();
         setting.SetupGet(x => x.Value).Returns(Observable.Return(GeneralOptions.Default()));
@@ -140,10 +156,9 @@ public class OptionsViewModelTests
         GeneralOptions defaultWithLanguageUpdated = defaultOptions with { Language = "es" };
         GeneralOptions options = GeneralOptions.Default();
         ISubject<GeneralOptions> subject = new ReplaySubject<GeneralOptions>(1);
-
-        AutoMocker mocker = new();
         TestSchedulers schedulerProvider = new();
-        mocker.Use((ISchedulerProvider)schedulerProvider);
+
+        AutoMocker mocker = GetAutoMocker(schedulerProvider);
 
         subject.OnNext(defaultOptions);
         subject.Subscribe(x => options = x);
@@ -158,14 +173,14 @@ public class OptionsViewModelTests
         fixture.Activator.Activate();
         schedulerProvider.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
 
-        fixture.Language = "es";
+        fixture.SelectedLanguage = fixture.Languages.First(x => x.Code == "es");
 
         schedulerProvider.Dispatcher.Start();
 
         fixture.Save.Execute().Subscribe(_ => { });
 
 
-        fixture.Language.Should().Be("es");
+        fixture.SelectedLanguage.Code.Should().Be("es");
         options.Language.Should().Be("es");
         options.Should().NotBe(defaultOptions);
         options.Should().Be(defaultWithLanguageUpdated);

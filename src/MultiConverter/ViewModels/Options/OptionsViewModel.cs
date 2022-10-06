@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -8,8 +9,10 @@ using DynamicData;
 using DynamicData.Binding;
 using DynamicData.Kernel;
 using MultiConverter.Common;
+using MultiConverter.Models;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Models.Settings.General.FileFilters;
+using MultiConverter.Services.Abstractions;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.Utils;
 using ReactiveUI;
@@ -23,7 +26,7 @@ public class OptionsViewModel : ViewModelBase, IActivatableViewModel
 
     private readonly ISourceList<string> _supportedExtensions = new SourceList<string>();
 
-    public OptionsViewModel(ISchedulerProvider schedulerProvider, ISetting<GeneralOptions> setting)
+    public OptionsViewModel(ISchedulerProvider schedulerProvider, ISetting<GeneralOptions> setting, ILanguageManager languageManager)
     {
         Activator = new ViewModelActivator();
         this.WhenActivated(disposable =>
@@ -31,6 +34,9 @@ public class OptionsViewModel : ViewModelBase, IActivatableViewModel
             HandleActivation(schedulerProvider, setting, disposable);
             Disposable.Create(HandleDeactivation).DisposeWith(disposable);
         });
+
+        Languages = languageManager.AllLanguages;
+        SelectedLanguage = languageManager.AllLanguages.First();
 
         _ = _fileFilters.Connect()
             .ObserveOn(schedulerProvider.Dispatcher)
@@ -66,8 +72,6 @@ public class OptionsViewModel : ViewModelBase, IActivatableViewModel
 
     [Reactive] public Theme SelectedTheme { get; set; } = Theme.Dark;
 
-    [Reactive] public string Language { get; set; } = string.Empty;
-
     [Reactive] public int AnalysisTimeout { get; set; } = 0;
 
     [Reactive] public bool LoadFilesAlreadyInQueue { get; set; } = false;
@@ -80,6 +84,10 @@ public class OptionsViewModel : ViewModelBase, IActivatableViewModel
 
     public IEnumerable<Theme> AppThemes { get; } = EnumUtils.GetValues<Theme>();
 
+    public IEnumerable<LanguageModel> Languages { get; }
+
+    [Reactive] public LanguageModel SelectedLanguage { get; set; }
+
     public ReactiveCommand<Unit, Unit> Save { get; set; }
 
     public ViewModelActivator Activator { get; }
@@ -91,14 +99,14 @@ public class OptionsViewModel : ViewModelBase, IActivatableViewModel
 
         return Observable.CombineLatest(
             this.WhenAnyValue(x => x.SelectedTheme),
-            this.WhenAnyValue(x => x.Language),
+            this.WhenAnyValue(x => x.SelectedLanguage),
             this.WhenAnyValue(x => x.AnalysisTimeout),
             this.WhenAnyValue(x => x.LoadFilesAlreadyInQueue),
             this.WhenAnyValue(x => x.TemporalPath),
             filters,
             extensions,
             (theme, language, timeout, loadFiles, temporalPath, fileFilters, supportedExtensions) => new GeneralOptions(
-                theme, language, timeout, temporalPath, supportedExtensions.AsArray(),
+                theme, language.Code, timeout, temporalPath, supportedExtensions.AsArray(),
                 fileFilters.AsArray(), loadFiles));
     }
 
@@ -112,7 +120,7 @@ public class OptionsViewModel : ViewModelBase, IActivatableViewModel
 
         _ = setting.Value
             .ObserveOn(schedulerProvider.Dispatcher)
-            .Subscribe(options => Language = options.Language)
+            .Subscribe(options => SelectedLanguage = Languages.First(x => x.Code == options.Language))
             .DisposeWith(disposable);
 
         _ = setting.Value

@@ -65,6 +65,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiConverter.ModelsFixtur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiConverter.Extensions", "src\MultiConverter.Extensions\MultiConverter.Extensions.csproj", "{4084378D-17CD-46D0-B230-2793D814049A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiConverter.Languages", "src\MultiConverter.Languages\MultiConverter.Languages.csproj", "{01624AF4-3EED-4BFC-A725-5AC7A7CB3AB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,6 +102,7 @@ Global
 		{7910A47D-D384-444F-A077-32B70FB9D30A} = {630D301C-9335-4B0C-BD2B-700312A6A3F1}
 		{921CB889-4E13-4B0F-9207-37B7187D8C25} = {7910A47D-D384-444F-A077-32B70FB9D30A}
 		{4084378D-17CD-46D0-B230-2793D814049A} = {BBB5AC8A-F501-4472-BFD3-C7C8201372F8}
+		{01624AF4-3EED-4BFC-A725-5AC7A7CB3AB0} = {7271ED19-4A1E-4AEC-B778-4935B54876FC}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2D083104-C547-4509-8A11-C6D74094BDEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -162,5 +165,9 @@ Global
 		{4084378D-17CD-46D0-B230-2793D814049A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4084378D-17CD-46D0-B230-2793D814049A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4084378D-17CD-46D0-B230-2793D814049A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01624AF4-3EED-4BFC-A725-5AC7A7CB3AB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01624AF4-3EED-4BFC-A725-5AC7A7CB3AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01624AF4-3EED-4BFC-A725-5AC7A7CB3AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01624AF4-3EED-4BFC-A725-5AC7A7CB3AB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

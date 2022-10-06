@@ -5,8 +5,11 @@ using System.Linq;
 using System.Threading;
 using MultiConverter.Configuration;
 using MultiConverter.Extensions;
+using MultiConverter.Localization;
 using MultiConverter.Models;
+using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions;
+using MultiConverter.Services.Abstractions.Settings;
 
 namespace MultiConverter.Services.Implementations;
 
@@ -15,12 +18,14 @@ public class LanguageManager : ILanguageManager
     private readonly Lazy<Dictionary<string, LanguageModel>> _availableLanguages;
     private readonly LanguagesConfiguration _configuration;
 
-    public LanguageManager(LanguagesConfiguration configuration)
+    public LanguageManager(LanguagesConfiguration configuration, ISetting<GeneralOptions> setting)
     {
         _configuration = configuration;
         _availableLanguages = new Lazy<Dictionary<string, LanguageModel>>(GetAvailableLanguages);
 
         DefaultLanguage = CreateLanguageModel(CultureInfo.GetCultureInfo("en"));
+
+        _ = setting.Value.Subscribe(x => SetLanguage(x.Language));
     }
 
     public LanguageModel DefaultLanguage { get; }
@@ -31,12 +36,9 @@ public class LanguageManager : ILanguageManager
 
     public void SetLanguage(string languageCode)
     {
-        if (string.IsNullOrEmpty(languageCode))
-        {
-            throw new ArgumentException($"{nameof(languageCode)} can't be empty.");
-        }
+        if (string.IsNullOrEmpty(languageCode)) languageCode = "en";
 
-        Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(languageCode);
+        TranslationSource.Instance.CurrentCulture = new CultureInfo(languageCode);
     }
 
     public void SetLanguage(LanguageModel languageModel) => SetLanguage(languageModel.Code);

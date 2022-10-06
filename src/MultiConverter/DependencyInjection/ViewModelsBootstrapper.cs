@@ -1,6 +1,7 @@
 ﻿using MultiConverter.Common;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Pages;
+using MultiConverter.Services.Abstractions;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.ViewModels;
 using MultiConverter.ViewModels.Editor;
@@ -43,7 +44,8 @@ public static class ViewModelsBootstrapper
 
         services.Register(() => new OptionsViewModel(
             resolver.GetRequiredService<ISchedulerProvider>(),
-            resolver.GetRequiredService<ISetting<GeneralOptions>>()
+            resolver.GetRequiredService<ISetting<GeneralOptions>>(),
+            resolver.GetRequiredService<ILanguageManager>()
         ));
     }
 }
