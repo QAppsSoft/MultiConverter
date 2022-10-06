@@ -15,7 +15,7 @@ public static class ServicesBootstrapper
     {
         services.Register<ISchedulerProvider>(() => new SchedulerProvider());
 
-        services.Register<ILanguageManager>(() => new LanguageManager(
+        services.RegisterLazySingleton<ILanguageManager>(() => new LanguageManager(
             resolver.GetRequiredService<LanguagesConfiguration>(),
             resolver.GetRequiredService<ISetting<GeneralOptions>>()
         ));

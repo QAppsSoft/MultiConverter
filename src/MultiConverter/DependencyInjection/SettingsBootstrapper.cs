@@ -32,16 +32,16 @@ public static class SettingsBootstrapper
     private static void RegisterCommonInterfaces(IMutableDependencyResolver services,
         IReadonlyDependencyResolver resolver)
     {
-        services.Register<ISettingFactory>(() => new SettingFactory(
+        services.RegisterLazySingleton<ISettingFactory>(() => new SettingFactory(
             resolver.GetRequiredService<ILoggerFactory>(),
             resolver.GetRequiredService<ISettingsStore>()
         ));
 
-        services.Register<ISettingsStore>(() => new FileSettingsStore(
+        services.RegisterLazySingleton<ISettingsStore>(() => new FileSettingsStore(
             resolver.GetRequiredService<ILogger>()
         ));
 
-        services.Register<ISettingsRegister>(() => new SettingsRegister(
+        services.RegisterLazySingleton<ISettingsRegister>(() => new SettingsRegister(
             services,
             resolver.GetRequiredService<ISettingFactory>()
         ));
