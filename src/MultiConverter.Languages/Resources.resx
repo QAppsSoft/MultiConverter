@@ -39,4 +39,7 @@
   <data name="UI_OptionsView_LoadAlreadyInQueue" xml:space="preserve">
     <value>@UI_OptionsView_LoadAlreadyInQueue</value>
   </data>
+  <data name="UI_WipPanel_UnderConstruction" xml:space="preserve">
+    <value>@UI_WipPanel_UnderConstruction</value>
+  </data>
 </root>

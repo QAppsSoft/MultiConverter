@@ -32,4 +32,7 @@
   <data name="UI_OptionsView_LoadAlreadyInQueue" xml:space="preserve">
     <value>Load files already in conversion queue</value>
   </data>
+  <data name="UI_WipPanel_UnderConstruction" xml:space="preserve">
+    <value>Under construction</value>
+  </data>
 </root>

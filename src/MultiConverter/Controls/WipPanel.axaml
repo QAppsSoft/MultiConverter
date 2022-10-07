@@ -1,0 +1,33 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:MultiConverter.Controls"
+             xmlns:fa="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:loc="clr-namespace:MultiConverter.Localization"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MultiConverter.Controls.WipPanel">
+    <ContentControl.Styles>
+        <Style Selector="controls|WipPanel">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Grid>
+                        <ContentPresenter Content="{TemplateBinding Content}" />
+                        <Border IsVisible="True" Background="#50000000" BorderThickness="0" BorderBrush="Transparent">
+
+                            <Border BorderBrush="{DynamicResource  SystemAccentColor}" BorderThickness="1" HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" Padding="8" CornerRadius="8">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" Spacing="14">
+                                    <fa:FAIconElement>Repair</fa:FAIconElement>
+                                    <TextBlock Text="{loc:Localize UI_WipPanel_UnderConstruction}" />
+                                </StackPanel>
+                            </Border>
+
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+    </ContentControl.Styles>
+</UserControl>

@@ -121,5 +121,14 @@ namespace MultiConverter.Languages {
                 return ResourceManager.GetString("UI_OptionsView_VideoAnalysisTimeout", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @UI_WipPanel_UnderConstruction.
+        /// </summary>
+        public static string UI_WipPanel_UnderConstruction {
+            get {
+                return ResourceManager.GetString("UI_WipPanel_UnderConstruction", resourceCulture);
+            }
+        }
     }
 }

@@ -32,4 +32,7 @@
   <data name="UI_OptionsView_LoadAlreadyInQueue" xml:space="preserve">
     <value>Cargar archivos ya en cola</value>
   </data>
+  <data name="UI_WipPanel_UnderConstruction" xml:space="preserve">
+    <value>En contrucción</value>
+  </data>
 </root>
