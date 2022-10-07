@@ -48,23 +48,18 @@
                                 <ContentPresenter Content="{TemplateBinding Icon}" />
                             </Viewbox>
 
-                            <StackPanel
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                Grid.RowSpan="2"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center">
+                            <TextBlock Text="{TemplateBinding Header}"
+                                       Classes="BaseTextBlockStyle"
+                                       VerticalAlignment="Bottom"
+                                       HorizontalAlignment="Left"
+                                       TextTrimming="CharacterEllipsis"
+                                       Grid.Column="1"/>
 
-                                <TextBlock Text="{TemplateBinding Header}"
-                                           Classes="BaseTextBlockStyle"
-                                           HorizontalAlignment="Left"
-                                           TextTrimming="CharacterEllipsis"/>
-
-                                <ContentPresenter Content="{TemplateBinding Description}"
-                                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                  Name="DescriptionPresenter"/>
-
-                            </StackPanel>
+                            <ContentPresenter Content="{TemplateBinding Description}"
+                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                              VerticalAlignment="Top"
+                                              Grid.Column="1"
+                                              Grid.Row="1" />
 
                             <ContentPresenter Content="{TemplateBinding ActionButton}"
                                               Grid.Column="2"
@@ -189,5 +184,3 @@
         </Setter>
     </Style>
 </Styles>
-
-
