@@ -1,4 +1,7 @@
-﻿using MultiConverter.Common;
+﻿using Avalonia;
+using FluentAvalonia.Styling;
+using Microsoft.Extensions.Logging;
+using MultiConverter.Common;
 using MultiConverter.Configuration;
 using MultiConverter.Infrastructure;
 using MultiConverter.Models.Settings.General;
@@ -16,8 +19,15 @@ public static class ServicesBootstrapper
         services.Register<ISchedulerProvider>(() => new SchedulerProvider());
 
         services.RegisterLazySingleton<ILanguageManager>(() => new LanguageManager(
-            resolver.GetRequiredService<LanguagesConfiguration>(),
-            resolver.GetRequiredService<ISetting<GeneralOptions>>()
+            resolver.GetRequiredService<LanguagesConfiguration>()
+        ));
+
+        services.RegisterLazySingleton<ISystemSetterJob>(() => new SystemSetterJob(
+            resolver.GetRequiredService<ISchedulerProvider>(),
+            resolver.GetRequiredService<ILoggerFactory>().CreateLogger(typeof(SystemSetterJob)),
+            resolver.GetRequiredService<ISetting<GeneralOptions>>(),
+            resolver.GetRequiredService<ILanguageManager>(),
+            AvaloniaLocator.Current.GetRequiredService<FluentAvaloniaTheme>()
         ));
     }
 }

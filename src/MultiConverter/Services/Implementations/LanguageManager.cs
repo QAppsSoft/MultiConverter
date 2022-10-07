@@ -7,9 +7,7 @@ using MultiConverter.Configuration;
 using MultiConverter.Extensions;
 using MultiConverter.Localization;
 using MultiConverter.Models;
-using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions;
-using MultiConverter.Services.Abstractions.Settings;
 
 namespace MultiConverter.Services.Implementations;
 
@@ -18,14 +16,12 @@ public class LanguageManager : ILanguageManager
     private readonly Lazy<Dictionary<string, LanguageModel>> _availableLanguages;
     private readonly LanguagesConfiguration _configuration;
 
-    public LanguageManager(LanguagesConfiguration configuration, ISetting<GeneralOptions> setting)
+    public LanguageManager(LanguagesConfiguration configuration)
     {
         _configuration = configuration;
         _availableLanguages = new Lazy<Dictionary<string, LanguageModel>>(GetAvailableLanguages);
 
         DefaultLanguage = CreateLanguageModel(CultureInfo.GetCultureInfo("en"));
-
-        _ = setting.Value.Subscribe(x => SetLanguage(x.Language));
     }
 
     public LanguageModel DefaultLanguage { get; }
