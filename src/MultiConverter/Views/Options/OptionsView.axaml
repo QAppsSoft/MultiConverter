@@ -21,19 +21,21 @@
                         Margin="10 0"
                         Spacing="8">
 
-                <controls:OptionsDisplayItem Header="{loc:Localize UI_OptionsView_ApplicationTheme}"
-                                             Description="{loc:Localize UI_OptionsView_ConfigureWindowsColor}"
-                                             Icon="Scan"
-                                             Expands="True">
-                    <controls:OptionsDisplayItem.ActionButton>
-                        <ComboBox SelectedItem="{Binding SelectedTheme}"
-                                  Items="{Binding AppThemes}"
-                                  MinWidth="150" />
-                    </controls:OptionsDisplayItem.ActionButton>
-                    <controls:OptionsDisplayItem.Content>
+                <controls:WipPanel>
+                    <controls:OptionsDisplayItem Header="{loc:Localize UI_OptionsView_ApplicationTheme}"
+                                                 Description="{loc:Localize UI_OptionsView_ConfigureWindowsColor}"
+                                                 Icon="Scan"
+                                                 Expands="True">
+                        <controls:OptionsDisplayItem.ActionButton>
+                            <ComboBox SelectedItem="{Binding SelectedTheme}"
+                                      Items="{Binding AppThemes}"
+                                      MinWidth="150" />
+                        </controls:OptionsDisplayItem.ActionButton>
+                        <controls:OptionsDisplayItem.Content>
 
-                    </controls:OptionsDisplayItem.Content>
-                </controls:OptionsDisplayItem>
+                        </controls:OptionsDisplayItem.Content>
+                    </controls:OptionsDisplayItem>
+                </controls:WipPanel>
 
                 <controls:OptionsDisplayItem Header="{loc:Localize UI_OptionsView_Language}" Icon="Character">
                     <controls:OptionsDisplayItem.ActionButton>
