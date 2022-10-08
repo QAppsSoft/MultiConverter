@@ -1,15 +1,25 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text.Json.Serialization;
 using MultiConverter.Models.Settings.General.FileFilters;
 
 namespace MultiConverter.Models.Settings.General;
 
 public readonly record struct GeneralOptions([property: JsonConverter(typeof(JsonStringEnumConverter))]
-    Theme Theme, string Language, int AnalysisTimeout, string TemporalFolder, string[] SupportedFilesExtensions,
+    Theme Theme,
+    string Language, int AnalysisTimeout, string TemporalFolder, string[] SupportedFilesExtensions,
     FileFilter[] FileFilters, bool LoadFilesAlreadyInQueue)
 {
     private static readonly Lazy<GeneralOptions> s_defaultGeneralOptions = new(GenerateDefaultOption, true);
+
+    public bool Equals(GeneralOptions other) =>
+        Theme.Equals(other.Theme) &&
+        Language.Equals(other.Language) &&
+        AnalysisTimeout.Equals(other.AnalysisTimeout) &&
+        LoadFilesAlreadyInQueue.Equals(other.LoadFilesAlreadyInQueue) &&
+        SupportedFilesExtensions.OrderBy(x => x).SequenceEqual(other.SupportedFilesExtensions.OrderBy(x => x)) &&
+        FileFilters.OrderBy(x => x).SequenceEqual(other.FileFilters.OrderBy(x => x));
 
     private static GeneralOptions GenerateDefaultOption()
     {
@@ -34,4 +44,26 @@ public readonly record struct GeneralOptions([property: JsonConverter(typeof(Jso
     }
 
     public static GeneralOptions Default() => s_defaultGeneralOptions.Value;
+
+    public override int GetHashCode()
+    {
+        int hashCode = 0;
+
+        hashCode ^= Theme.GetHashCode();
+        hashCode ^= Language.GetHashCode();
+        hashCode ^= AnalysisTimeout.GetHashCode();
+        hashCode ^= LoadFilesAlreadyInQueue.GetHashCode();
+
+        foreach (string item in SupportedFilesExtensions)
+        {
+            hashCode ^= item.GetHashCode();
+        }
+
+        foreach (FileFilter item in FileFilters)
+        {
+            hashCode ^= item.GetHashCode();
+        }
+
+        return hashCode;
+    }
 }

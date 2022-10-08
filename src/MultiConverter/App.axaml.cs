@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using MultiConverter.DependencyInjection;
+using MultiConverter.Services.Abstractions;
 using MultiConverter.ViewModels;
 using MultiConverter.Views;
 using Splat;
@@ -34,8 +35,12 @@ namespace MultiConverter
                 };
             }
 
+            Init();
+
             base.OnFrameworkInitializationCompleted();
         }
+
+        private static void Init() => _ = GetRequiredService<ISystemSetterJob>();
 
         private static T GetRequiredService<T>() => Locator.Current.GetRequiredService<T>();
     }

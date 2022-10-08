@@ -1,0 +1,14 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20" Background="Black">
+            <Border Classes="OptionsExpanderSeparator" />
+        </Border>
+    </Design.PreviewWith>
+    <Style Selector="Border.OptionsExpanderSeparator">
+        <Setter Property="Background" Value="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
+        <Setter Property="Margin" Value="-64 8 -20 8" />
+        <Setter Property="Height" Value="1" />
+        <Setter Property="Opacity" Value="0.5" />
+    </Style>
+</Styles>

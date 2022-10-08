@@ -6,11 +6,6 @@ namespace MultiConverter.Services.Settings.General;
 
 public class GeneralOptionsConverter : IConverter<GeneralOptions>
 {
-    private static readonly JsonSerializerOptions s_serializerOptions;
-
-    static GeneralOptionsConverter() =>
-        s_serializerOptions = new JsonSerializerOptions { WriteIndented = true };
-
     public GeneralOptions Convert(State state)
     {
         GeneralOptions defaults = GetDefaultValue();
@@ -22,10 +17,10 @@ public class GeneralOptionsConverter : IConverter<GeneralOptions>
 
         GeneralOptions generalOptions = JsonSerializer.Deserialize<GeneralOptions>(state.Value);
 
-        if (generalOptions == default)
-        {
-            return defaults;
-        }
+        // if (generalOptions == default)
+        // {
+        //     return defaults;
+        // }
 
         return state.Version switch
         {
@@ -34,10 +29,13 @@ public class GeneralOptionsConverter : IConverter<GeneralOptions>
         };
     }
 
-    public State Convert(GeneralOptions generalOptions) =>
-        generalOptions == default
-            ? State.Empty
-            : new State(1, JsonSerializer.Serialize(generalOptions, s_serializerOptions));
+    public State Convert(GeneralOptions generalOptions)
+    {
+        //generalOptions == default
+        //? State.Empty:
+        var serializerOptions = new JsonSerializerOptions { WriteIndented = true };
+        return new State(1, JsonSerializer.Serialize(generalOptions, serializerOptions));
+    }
 
     public GeneralOptions GetDefaultValue() => GeneralOptions.Default();
 }
