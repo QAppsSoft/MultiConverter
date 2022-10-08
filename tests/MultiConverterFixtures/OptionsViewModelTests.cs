@@ -185,4 +185,19 @@ public class OptionsViewModelTests
         options.Should().NotBe(defaultOptions);
         options.Should().Be(defaultWithLanguageUpdated);
     }
+
+    [Test]
+    public void Check_viewmodel_appThemes_output()
+    {
+        AutoMocker mocker = GetAutoMocker();
+
+        Mock<ISetting<GeneralOptions>> setting = mocker.GetMock<ISetting<GeneralOptions>>();
+        setting.SetupGet(x => x.Value).Returns(Observable.Return(GeneralOptions.Default()));
+
+        OptionsViewModel fixture = mocker.CreateInstance<OptionsViewModel>();
+
+        fixture.AppThemes.Should().NotBeEmpty();
+        fixture.AppThemes.Count().Should().Be(2);
+        fixture.AppThemes.Should().BeEquivalentTo(new[] { Theme.Dark, Theme.Light });
+    }
 }
