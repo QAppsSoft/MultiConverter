@@ -1,5 +1,7 @@
 ﻿using Avalonia;
 using FluentAvalonia.Styling;
+using HanumanInstitute.MvvmDialogs;
+using HanumanInstitute.MvvmDialogs.Avalonia;
 using Microsoft.Extensions.Logging;
 using MultiConverter.Common;
 using MultiConverter.Configuration;
@@ -29,5 +31,13 @@ public static class ServicesBootstrapper
             resolver.GetRequiredService<ILanguageManager>(),
             AvaloniaLocator.Current.GetRequiredService<FluentAvaloniaTheme>()
         ));
+
+        services.RegisterLazySingleton<IDialogService>(() => new DialogService(
+            resolver.GetRequiredService<DialogManager>()
+        ));
+
+        services.RegisterLazySingleton<DialogManager>(() =>
+                new DialogManager() // TODO: Register ViewLocator() for custom dialogs use
+        );
     }
 }

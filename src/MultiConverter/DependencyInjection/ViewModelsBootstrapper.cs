@@ -1,4 +1,5 @@
-﻿using MultiConverter.Common;
+﻿using HanumanInstitute.MvvmDialogs;
+using MultiConverter.Common;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Pages;
 using MultiConverter.Services.Abstractions;
@@ -45,7 +46,8 @@ public static class ViewModelsBootstrapper
         services.Register(() => new OptionsViewModel(
             resolver.GetRequiredService<ISchedulerProvider>(),
             resolver.GetRequiredService<ISetting<GeneralOptions>>(),
-            resolver.GetRequiredService<ILanguageManager>()
+            resolver.GetRequiredService<ILanguageManager>(),
+            resolver.GetRequiredService<IDialogService>()
         ));
     }
 }

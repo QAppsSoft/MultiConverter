@@ -5,18 +5,22 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 using DynamicData;
 using DynamicData.Binding;
 using DynamicData.Kernel;
+using HanumanInstitute.MvvmDialogs;
+using HanumanInstitute.MvvmDialogs.FrameworkDialogs;
 using MultiConverter.Common;
+using MultiConverter.Localization;
 using MultiConverter.Models;
 using MultiConverter.Models.Settings.General;
-using MultiConverter.Models.Settings.General.FileFilters;
 using MultiConverter.Services.Abstractions;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.Utils;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using FileFilter = MultiConverter.Models.Settings.General.FileFilters.FileFilter;
 
 namespace MultiConverter.ViewModels.Options;
 
@@ -26,8 +30,14 @@ public class OptionsViewModel : ViewModelBase, IActivatableViewModel
 
     private readonly ISourceList<string> _supportedExtensions = new SourceList<string>();
 
-    public OptionsViewModel(ISchedulerProvider schedulerProvider, ISetting<GeneralOptions> setting, ILanguageManager languageManager)
+    public OptionsViewModel(ISchedulerProvider schedulerProvider, ISetting<GeneralOptions> setting,
+        ILanguageManager languageManager, IDialogService dialogService)
     {
+        ArgumentNullException.ThrowIfNull(schedulerProvider);
+        ArgumentNullException.ThrowIfNull(setting);
+        ArgumentNullException.ThrowIfNull(languageManager);
+        ArgumentNullException.ThrowIfNull(dialogService);
+
         Activator = new ViewModelActivator();
         this.WhenActivated(disposable =>
         {
@@ -66,8 +76,33 @@ public class OptionsViewModel : ViewModelBase, IActivatableViewModel
 
         Save = ReactiveCommand.Create(() => { }, optionsChanged);
 
+        ChangeTemporalPath = ReactiveCommand.CreateFromTask(() => UpdateTemporalFolderPath(dialogService));
+
         _ = Save.WithLatestFrom(newOptions, (_, options) => options)
             .Subscribe(setting.Write);
+    }
+
+    private async Task UpdateTemporalFolderPath(IDialogService dialogService)
+    {
+        const string localizedTitle = "UI_OptionsView_TemporalPathDialogTitle";
+
+        OpenFolderDialogSettings dialogSetting =
+            new()
+            {
+                InitialDirectory = TemporalPath,
+                Title = TranslationSource.Instance[localizedTitle]
+            };
+
+        string? newTemporalPath =
+            await dialogService.ShowOpenFolderDialogAsync(this, dialogSetting)
+                .ConfigureAwait(false);
+
+        if (newTemporalPath == null)
+        {
+            return;
+        }
+
+        TemporalPath = newTemporalPath;
     }
 
     [Reactive] public Theme SelectedTheme { get; set; } = Theme.Dark;
@@ -89,6 +124,8 @@ public class OptionsViewModel : ViewModelBase, IActivatableViewModel
     [Reactive] public LanguageModel SelectedLanguage { get; set; }
 
     public ReactiveCommand<Unit, Unit> Save { get; set; }
+
+    public ReactiveCommand<Unit, Unit> ChangeTemporalPath { get; set; }
 
     public ViewModelActivator Activator { get; }
 

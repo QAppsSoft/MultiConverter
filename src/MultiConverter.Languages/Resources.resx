@@ -31,7 +31,7 @@
     <value>@UI_OptionsView_Language</value>
   </data>
   <data name="UI_OptionsView_Video" xml:space="preserve">
-    <value>@Video</value>
+    <value>@UI_OptionsView_Video</value>
   </data>
   <data name="UI_OptionsView_VideoAnalysisTimeout" xml:space="preserve">
     <value>@UI_OptionsView_VideoAnalysisTimeout</value>
@@ -41,5 +41,11 @@
   </data>
   <data name="UI_WipPanel_UnderConstruction" xml:space="preserve">
     <value>@UI_WipPanel_UnderConstruction</value>
+  </data>
+  <data name="UI_OptionsView_TemporalPathDialogTitle" xml:space="preserve">
+    <value>@UI_OptionsView_TemporalPathDialogTitle</value>
+  </data>
+  <data name="UI_OptionsView_TemporalPath" xml:space="preserve">
+    <value>@UI_OptionsView_TemporalPath</value>
   </data>
 </root>

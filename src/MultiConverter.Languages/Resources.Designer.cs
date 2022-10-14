@@ -105,7 +105,25 @@ namespace MultiConverter.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to @Video.
+        ///   Looks up a localized string similar to @UI_OptionsView_TemporalPath.
+        /// </summary>
+        public static string UI_OptionsView_TemporalPath {
+            get {
+                return ResourceManager.GetString("UI_OptionsView_TemporalPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @UI_OptionsView_TemporalPathDialogTitle.
+        /// </summary>
+        public static string UI_OptionsView_TemporalPathDialogTitle {
+            get {
+                return ResourceManager.GetString("UI_OptionsView_TemporalPathDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @UI_OptionsView_Video.
         /// </summary>
         public static string UI_OptionsView_Video {
             get {
