@@ -56,7 +56,6 @@
                                        Grid.Column="1"/>
 
                             <ContentPresenter Content="{TemplateBinding Description}"
-                                              Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                               VerticalAlignment="Top"
                                               Grid.Column="1"
                                               Grid.Row="1" />
