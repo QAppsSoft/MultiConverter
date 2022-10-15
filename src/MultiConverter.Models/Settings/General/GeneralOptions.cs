@@ -18,6 +18,7 @@ public readonly record struct GeneralOptions([property: JsonConverter(typeof(Jso
         Language.Equals(other.Language) &&
         AnalysisTimeout.Equals(other.AnalysisTimeout) &&
         LoadFilesAlreadyInQueue.Equals(other.LoadFilesAlreadyInQueue) &&
+        TemporalFolder.Equals(other.TemporalFolder) &&
         SupportedFilesExtensions.OrderBy(x => x).SequenceEqual(other.SupportedFilesExtensions.OrderBy(x => x)) &&
         FileFilters.OrderBy(x => x).SequenceEqual(other.FileFilters.OrderBy(x => x));
 
@@ -53,6 +54,7 @@ public readonly record struct GeneralOptions([property: JsonConverter(typeof(Jso
         hashCode ^= Language.GetHashCode();
         hashCode ^= AnalysisTimeout.GetHashCode();
         hashCode ^= LoadFilesAlreadyInQueue.GetHashCode();
+        hashCode ^= TemporalFolder.GetHashCode();
 
         foreach (string item in SupportedFilesExtensions)
         {
