@@ -94,7 +94,7 @@ public class OptionsViewModel : ViewModelBase, IActivatableViewModel
             };
 
         string? newTemporalPath =
-            await dialogService.ShowOpenFolderDialogAsync(this, dialogSetting)
+            await dialogService.ShowOpenFolderDialogAsync(null, dialogSetting)
                 .ConfigureAwait(false);
 
         if (newTemporalPath == null)
