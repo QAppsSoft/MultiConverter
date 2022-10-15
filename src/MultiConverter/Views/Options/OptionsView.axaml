@@ -87,16 +87,15 @@
                     </controls:OptionsDisplayItem.Content>
                 </controls:OptionsDisplayItem>
 
-                <controls:WipPanel>
-                    <controls:OptionsDisplayItem Header="{loc:Localize UI_OptionsView_TemporalPath}">
-                        <controls:OptionsDisplayItem.Icon>
-                            <fa:FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;"/>
-                        </controls:OptionsDisplayItem.Icon>
-                        <controls:OptionsDisplayItem.ActionButton>
-                            <controls:FolderSelector />
-                        </controls:OptionsDisplayItem.ActionButton>
-                    </controls:OptionsDisplayItem>
-                </controls:WipPanel>
+                <controls:OptionsDisplayItem Header="{loc:Localize UI_OptionsView_TemporalPath}">
+                    <controls:OptionsDisplayItem.Icon>
+                        <fa:FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" />
+                    </controls:OptionsDisplayItem.Icon>
+                    <controls:OptionsDisplayItem.ActionButton>
+                        <controls:FolderSelector MinWidth="150"/>
+                    </controls:OptionsDisplayItem.ActionButton>
+                </controls:OptionsDisplayItem>
+
 
             </StackPanel>
         </ScrollViewer>
