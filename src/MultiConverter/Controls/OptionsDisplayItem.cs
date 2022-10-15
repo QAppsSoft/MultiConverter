@@ -5,7 +5,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using FluentAvalonia.UI.Controls;
+using IconElement = FluentAvalonia.UI.Controls.IconElement;
 
 namespace MultiConverter.Controls;
 
@@ -17,8 +17,8 @@ public class OptionsDisplayItem : TemplatedControl
     public static readonly StyledProperty<object> DescriptionProperty =
         AvaloniaProperty.Register<OptionsDisplayItem, object>(nameof(Description));
 
-    public static readonly StyledProperty<FAIconElement> IconProperty =
-        AvaloniaProperty.Register<OptionsDisplayItem, FAIconElement>(nameof(Icon));
+    public static readonly StyledProperty<IconElement> IconProperty =
+        AvaloniaProperty.Register<OptionsDisplayItem, IconElement>(nameof(Icon));
 
     public static readonly StyledProperty<bool> NavigatesProperty =
         AvaloniaProperty.Register<OptionsDisplayItem, bool>(nameof(Navigates));
@@ -51,7 +51,7 @@ public class OptionsDisplayItem : TemplatedControl
         set => SetValue(DescriptionProperty, value);
     }
 
-    public FAIconElement Icon
+    public IconElement Icon
     {
         get => GetValue(IconProperty);
         set => SetValue(IconProperty, value);
@@ -102,7 +102,7 @@ public class OptionsDisplayItem : TemplatedControl
         remove => RemoveHandler(NavigationRequestedEvent, value);
     }
 
-    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
     {
         base.OnPropertyChanged(change);
 
@@ -111,22 +111,22 @@ public class OptionsDisplayItem : TemplatedControl
             if (Expands)
                 throw new InvalidOperationException("Control cannot both Navigate and Expand");
 
-            PseudoClasses.Set(":navigates", change.GetNewValue<bool>());
+            PseudoClasses.Set(":navigates", change.NewValue.GetValueOrDefault<bool>());
         }
         else if (change.Property == ExpandsProperty)
         {
             if (Navigates)
                 throw new InvalidOperationException("Control cannot both Navigate and Expand");
 
-            PseudoClasses.Set(":expands", change.GetNewValue<bool>());
+            PseudoClasses.Set(":expands", change.NewValue.GetValueOrDefault<bool>());
         }
         else if (change.Property == IsExpandedProperty)
         {
-            PseudoClasses.Set(":expanded", change.GetNewValue<bool>());
+            PseudoClasses.Set(":expanded", change.NewValue.GetValueOrDefault<bool>());
         }
         else if (change.Property == IconProperty)
         {
-            PseudoClasses.Set(":icon", change.NewValue != null);
+            PseudoClasses.Set(":icon", change.NewValue.GetValueOrDefault() != null);
         }
     }
 
