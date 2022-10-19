@@ -1,9 +1,12 @@
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using FluentAssertions;
+using HanumanInstitute.MvvmDialogs;
+using HanumanInstitute.MvvmDialogs.FrameworkDialogs;
 using Moq;
 using Moq.AutoMock;
 using MultiConverter.Common;
@@ -199,5 +202,63 @@ public class OptionsViewModelTests
         fixture.AppThemes.Should().NotBeEmpty();
         fixture.AppThemes.Count().Should().Be(2);
         fixture.AppThemes.Should().BeEquivalentTo(new[] { Theme.Dark, Theme.Light });
+    }
+
+    [Test]
+    public void Check_temporalPath_command_execution()
+    {
+        using TemporalDirectory temporalPath = TemporalDirectory.Create("command_execution");
+        TestSchedulers schedulerProvider = new();
+
+        AutoMocker mocker = GetAutoMocker(schedulerProvider);
+
+        Mock<ISetting<GeneralOptions>> setting = mocker.GetMock<ISetting<GeneralOptions>>();
+        setting.SetupGet(x => x.Value).Returns(Observable.Return(GeneralOptions.Default()));
+
+        Mock<IDialogService> dialogService = mocker.GetMock<IDialogService>();
+        dialogService.Setup(x => x.DialogManager.ShowFrameworkDialogAsync(
+                It.IsAny<INotifyPropertyChanged?>(),
+                It.IsAny<OpenFolderDialogSettings>(),
+                It.IsAny<AppDialogSettingsBase>(),
+                It.IsAny<Func<object?, string>?>()))
+            .ReturnsAsync((string) temporalPath);
+
+        OptionsViewModel fixture = mocker.CreateInstance<OptionsViewModel>();
+
+        fixture.Activator.Activate();
+        schedulerProvider.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
+
+        fixture.ChangeTemporalPath.Execute();
+
+        fixture.TemporalPath.Should().Be(temporalPath);
+    }
+
+    [Test]
+    public void Check_if_new_temporalPath_isNull_TemporalPath_should_not_change()
+    {
+        string? temporalPath = null;
+        TestSchedulers schedulerProvider = new();
+
+        AutoMocker mocker = GetAutoMocker(schedulerProvider);
+
+        Mock<ISetting<GeneralOptions>> setting = mocker.GetMock<ISetting<GeneralOptions>>();
+        setting.SetupGet(x => x.Value).Returns(Observable.Return(GeneralOptions.Default()));
+
+        Mock<IDialogService> dialogService = mocker.GetMock<IDialogService>();
+        dialogService.Setup(x => x.DialogManager.ShowFrameworkDialogAsync(
+                It.IsAny<INotifyPropertyChanged?>(),
+                It.IsAny<OpenFolderDialogSettings>(),
+                It.IsAny<AppDialogSettingsBase>(),
+                It.IsAny<Func<object?, string>?>()))
+            .ReturnsAsync(temporalPath);
+
+        OptionsViewModel fixture = mocker.CreateInstance<OptionsViewModel>();
+
+        fixture.Activator.Activate();
+        schedulerProvider.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
+
+        fixture.ChangeTemporalPath.Execute();
+
+        fixture.TemporalPath.Should().Be(GeneralOptions.Default().TemporalFolder);
     }
 }
