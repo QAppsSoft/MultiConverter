@@ -14,6 +14,7 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)" />
 <!--    <PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />-->
     <PackageReference Include="FluentAvaloniaUI" Version="1.4.4" />
+    <PackageReference Include="HanumanInstitute.MvvmDialogs.Avalonia" Version="1.4.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />

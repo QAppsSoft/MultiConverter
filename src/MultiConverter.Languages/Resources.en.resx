@@ -35,4 +35,10 @@
   <data name="UI_WipPanel_UnderConstruction" xml:space="preserve">
     <value>Under construction</value>
   </data>
+  <data name="UI_OptionsView_TemporalPathDialogTitle" xml:space="preserve">
+    <value>Get temporal path folder</value>
+  </data>
+  <data name="UI_OptionsView_TemporalPath" xml:space="preserve">
+    <value>Temporal path</value>
+  </data>
 </root>
