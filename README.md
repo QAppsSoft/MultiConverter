@@ -90,6 +90,6 @@ MultiConverter aims to be a full replacement for a closed source video converter
 - [ ] App Settings
   - [ ] Dark/Light mode
   - [X] App language selection
-  - [ ] Temporal conversion folder selection
+  - [X] Temporal conversion folder selection
   - [ ] Supported video files
   - [ ] File loading filter
