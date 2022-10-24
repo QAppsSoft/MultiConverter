@@ -8,6 +8,7 @@ using MultiConverter.ViewModels;
 using MultiConverter.ViewModels.Editor;
 using MultiConverter.ViewModels.Interfaces;
 using MultiConverter.ViewModels.Options;
+using MultiConverter.ViewModels.Options.Interfaces;
 using Splat;
 
 namespace MultiConverter.DependencyInjection;
@@ -43,11 +44,42 @@ public static class ViewModelsBootstrapper
             resolver.GetRequiredService<ISchedulerProvider>())
         );
 
+        services.Register<IOptionItem>(() => new ThemeOptionItem(
+            resolver.GetRequiredService<ISchedulerProvider>(),
+            resolver.GetRequiredService<ISetting<GeneralOptions>>()
+        ));
+
+        services.Register<IOptionItem>(() => new LanguageOptionItem(
+            resolver.GetRequiredService<ISchedulerProvider>(),
+            resolver.GetRequiredService<ISetting<GeneralOptions>>(),
+            resolver.GetRequiredService<ILanguageManager>()
+        ));
+
+        services.Register<IOptionItem>(() => new VideoOptionItem(
+            resolver.GetRequiredService<ISchedulerProvider>(),
+            resolver.GetRequiredService<ISetting<GeneralOptions>>()
+        ));
+
+        services.Register<IOptionItem>(() => new TemporalPathOptionItem(
+            resolver.GetRequiredService<ISchedulerProvider>(),
+            resolver.GetRequiredService<ISetting<GeneralOptions>>(),
+            resolver.GetRequiredService<IDialogService>()
+        ));
+
+        services.Register<IOptionItem>(() => new SupportedFileExtensionOptionItem(
+            resolver.GetRequiredService<ISchedulerProvider>(),
+            resolver.GetRequiredService<ISetting<GeneralOptions>>()
+        ));
+
+        services.Register<IOptionItem>(() => new FileFiltersOptionItem(
+            resolver.GetRequiredService<ISchedulerProvider>(),
+            resolver.GetRequiredService<ISetting<GeneralOptions>>()
+        ));
+
         services.Register(() => new OptionsViewModel(
             resolver.GetRequiredService<ISchedulerProvider>(),
             resolver.GetRequiredService<ISetting<GeneralOptions>>(),
-            resolver.GetRequiredService<ILanguageManager>(),
-            resolver.GetRequiredService<IDialogService>()
+            resolver.GetServices<IOptionItem>()
         ));
     }
 }
