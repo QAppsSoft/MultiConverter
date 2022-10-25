@@ -45,8 +45,8 @@ public sealed class OptionsViewModel : ViewModelBase, IActivatableViewModel
 
             IObservable<bool> hasOptionsChanged = _fileFilters.Connect()
                 .FilterOnObservable(x => x.HasChanged)
-                .Count()
-                .Select(x => x > 0);
+                .IsNotEmpty()
+                .StartWith(false);
 
             Save = ReactiveCommand.Create(() => { }, hasOptionsChanged);
 
