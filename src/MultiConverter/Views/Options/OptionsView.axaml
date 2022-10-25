@@ -2,97 +2,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls="clr-namespace:MultiConverter.Controls"
              xmlns:options="clr-namespace:MultiConverter.ViewModels.Options"
              xmlns:loc="clr-namespace:MultiConverter.Localization"
+             xmlns:views="clr-namespace:MultiConverter.Views.Options"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.Options.OptionsView"
              x:CompileBindings="True" x:DataType="options:OptionsViewModel">
-    <DockPanel LastChildFill="True" Margin="18">
+    <DockPanel LastChildFill="True" >
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right"
                     VerticalAlignment="Stretch" Margin="10 0" Spacing="8">
             <Button HorizontalAlignment="Stretch" Command="{Binding Save}"
                     Content="{loc:Localize UI_OptionsView_Save}" />
+            <Button HorizontalAlignment="Stretch" Command="{Binding Reset}"
+                    Content="Reset" />
         </StackPanel>
 
-        <ScrollViewer VerticalAlignment="Stretch" HorizontalAlignment="Stretch" DockPanel.Dock="Top">
-            <StackPanel Orientation="Vertical"
-                        VerticalAlignment="Stretch"
-                        Margin="10 0"
-                        Spacing="8">
-
-                <controls:WipPanel>
-                    <controls:OptionsDisplayItem Header="{loc:Localize UI_OptionsView_ApplicationTheme}"
-                                                 Description="{loc:Localize UI_OptionsView_ConfigureWindowsColor}"
-                                                 Icon="Scan"
-                                                 Expands="True">
-                        <controls:OptionsDisplayItem.ActionButton>
-                            <ComboBox SelectedItem="{Binding SelectedTheme}"
-                                      Items="{Binding AppThemes}"
-                                      MinWidth="150" />
-                        </controls:OptionsDisplayItem.ActionButton>
-                        <controls:OptionsDisplayItem.Content>
-
-                        </controls:OptionsDisplayItem.Content>
-                    </controls:OptionsDisplayItem>
-                </controls:WipPanel>
-
-                <controls:OptionsDisplayItem Header="{loc:Localize UI_OptionsView_Language}" Icon="Character">
-                    <controls:OptionsDisplayItem.ActionButton>
-                        <ComboBox SelectedItem="{Binding SelectedLanguage}"
-                                  Items="{Binding Languages}"
-                                  MinWidth="150">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock>
-                                        <TextBlock.Text>
-                                            <MultiBinding StringFormat="{}{0} - {1}">
-                                                <Binding Path="Code" />
-                                                <Binding Path="NativeName" />
-                                            </MultiBinding>
-                                        </TextBlock.Text>
-                                    </TextBlock>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </controls:OptionsDisplayItem.ActionButton>
-                </controls:OptionsDisplayItem>
-
-                <controls:OptionsDisplayItem Header="{loc:Localize UI_OptionsView_Video}" Icon="Video" Expands="True" IsExpanded="True">
-                    <controls:OptionsDisplayItem.Content>
-                        <StackPanel Orientation="Vertical">
-
-                            <controls:OptionsExpanderDisplayItem Header="{loc:Localize UI_OptionsView_VideoAnalysisTimeout}">
-                                <controls:OptionsExpanderDisplayItem.ActionButton>
-                                    <NumericUpDown Minimum="10" Maximum="180" AllowSpin="True" Grid.Column="1"
-                                                   Grid.Row="0"
-                                                   Value="{Binding AnalysisTimeout}" FormatString="{}{0:#,0}"
-                                                   ShowButtonSpinner="False" VerticalAlignment="Center" MinWidth="150" />
-                                </controls:OptionsExpanderDisplayItem.ActionButton>
-                            </controls:OptionsExpanderDisplayItem>
-
-                            <Border Classes="OptionsExpanderSeparator" />
-
-                            <controls:OptionsExpanderDisplayItem Header="{loc:Localize UI_OptionsView_LoadAlreadyInQueue}">
-                                <controls:OptionsExpanderDisplayItem.ActionButton>
-                                    <CheckBox Grid.Column="1" Grid.Row="2"
-                                              IsChecked="{Binding LoadFilesAlreadyInQueue}"
-                                              MinWidth="150"
-                                              VerticalAlignment="Center" />
-                                </controls:OptionsExpanderDisplayItem.ActionButton>
-                            </controls:OptionsExpanderDisplayItem>
-
-                        </StackPanel>
-                    </controls:OptionsDisplayItem.Content>
-                </controls:OptionsDisplayItem>
-
-                <controls:OptionsDisplayItem Header="{loc:Localize UI_OptionsView_TemporalPath}" Icon="MapDrive">
-                    <controls:OptionsDisplayItem.ActionButton>
-                        <controls:FolderSelector MinWidth="150"/>
-                    </controls:OptionsDisplayItem.ActionButton>
-                </controls:OptionsDisplayItem>
-
-            </StackPanel>
+        <ScrollViewer Padding="18" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+            <ItemsControl Items="{Binding Options}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ItemsControl.DataTemplates>
+                    <DataTemplate DataType="options:ThemeOptionItem">
+                        <views:ThemeOptionView />
+                    </DataTemplate>
+                    <DataTemplate DataType="options:LanguageOptionItem">
+                        <views:LanguageOptionView />
+                    </DataTemplate>
+                    <DataTemplate DataType="options:ThemeOptionItem">
+                        <views:ThemeOptionView />
+                    </DataTemplate>
+                    <DataTemplate DataType="options:VideoOptionItem">
+                        <views:VideoOptionView />
+                    </DataTemplate>
+                    <DataTemplate DataType="options:TemporalPathOptionItem">
+                        <views:TemporalPathOptionView />
+                    </DataTemplate>
+                </ItemsControl.DataTemplates>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ContentPresenter Margin="0 0 0 4" Content="{Binding}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </ScrollViewer>
+
     </DockPanel>
 </UserControl>
