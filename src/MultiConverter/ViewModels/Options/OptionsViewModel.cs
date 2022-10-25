@@ -32,7 +32,7 @@ public sealed class OptionsViewModel : ViewModelBase, IActivatableViewModel
         {
             HandleActivation();
 
-            Disposable.Create(this.HandleDeactivation).DisposeWith(disposable);
+            Disposable.Create(HandleDeactivation).DisposeWith(disposable);
 
             _ = _fileFilters.Connect()
                 .DisposeMany()
