@@ -39,7 +39,6 @@ public sealed class SupportedFileExtensionOptionItem : ViewModelBase, IOptionIte
         var supportedExtensionsObservable = _supportedExtensions.Connect()
             .Sort(SortExpressionComparer<string>.Ascending(x => x))
             .Transform(x => new ExtensionProxy(x))
-            .AutoRefreshOnObservable(x => x.HasChanged)
             .Publish();
 
         var bindExtensions = supportedExtensionsObservable
