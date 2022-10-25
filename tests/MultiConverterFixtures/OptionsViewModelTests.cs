@@ -20,7 +20,7 @@ public class OptionsViewModelTests
 {
     private static AutoMocker GetAutoMocker(ISchedulerProvider? schedulerProvider = null)
     {
-        schedulerProvider ??= new TestSchedulers();
+        schedulerProvider ??= new ImmediateSchedulers();
 
         AutoMocker mocker = new();
 
@@ -63,8 +63,7 @@ public class OptionsViewModelTests
     [Test]
     public void Check_viewmodel_status_before_activation()
     {
-        TestSchedulers scheduler = new();
-        AutoMocker mocker = GetAutoMocker(scheduler);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         OptionsViewModel fixture = mocker.CreateInstance<OptionsViewModel>();
 
@@ -76,8 +75,7 @@ public class OptionsViewModelTests
     [Test]
     public void Check_viewmodel_status_after_activation()
     {
-        TestSchedulers scheduler = new();
-        AutoMocker mocker = GetAutoMocker(scheduler);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         SetupOptionItems(mocker);
         bool? canExecute = null;
@@ -85,7 +83,6 @@ public class OptionsViewModelTests
 
         fixture.Activator.Activate();
         _ = fixture.Save?.CanExecute.Subscribe(value => canExecute = value);
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
 
         canExecute.Should().BeFalse();
         fixture.Options.Should().NotBeEmpty();
@@ -96,8 +93,7 @@ public class OptionsViewModelTests
     {
         Subject<bool> hasChangedSubject = new();
         var optionItem = new FakeOptionItem(hasChangedSubject);
-        TestSchedulers scheduler = new();
-        AutoMocker mocker = GetAutoMocker(scheduler);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         SetupOptionItems(mocker, new[] { optionItem });
         bool? canExecute = null;
@@ -105,9 +101,7 @@ public class OptionsViewModelTests
 
         fixture.Activator.Activate();
         _ = fixture.Save?.CanExecute.Subscribe(value => canExecute = value);
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
         hasChangedSubject.OnNext(true);
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
 
         canExecute.Should().BeTrue();
         fixture.Options.Should().NotBeEmpty();
@@ -116,8 +110,7 @@ public class OptionsViewModelTests
     [Test]
     public async Task Calling_reset_should_write_GeneralOptions_default()
     {
-        TestSchedulers scheduler = new();
-        AutoMocker mocker = GetAutoMocker(scheduler);
+        AutoMocker mocker = GetAutoMocker();
         var modifiedGeneralOption = GeneralOptions.Default() with { AnalysisTimeout = 120 };
         SetupGeneralOptions(mocker, modifiedGeneralOption);
         SetupOptionItems(mocker);

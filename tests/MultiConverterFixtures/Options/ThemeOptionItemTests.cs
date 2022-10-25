@@ -18,7 +18,7 @@ public class ThemeOptionItemTests
 {
     private static AutoMocker GetAutoMocker(ISchedulerProvider? schedulerProvider = null)
     {
-        schedulerProvider ??= new TestSchedulers();
+        schedulerProvider ??= new ImmediateSchedulers();
 
         AutoMocker mocker = new();
 
@@ -44,13 +44,10 @@ public class ThemeOptionItemTests
     [Test]
     public async Task ThemeOptionItem_after_initialization()
     {
-        TestSchedulers scheduler = new();
-        AutoMocker mocker = GetAutoMocker(scheduler);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using ThemeOptionItem fixture = mocker.CreateInstance<ThemeOptionItem>();
 
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
-        scheduler.Dispatcher.Start();
         bool hasChanged = await fixture.HasChanged.Take(1);
 
         fixture.Themes.Count().Should().Be(2);
@@ -61,15 +58,11 @@ public class ThemeOptionItemTests
     [Test]
     public async Task ThemeOptionItem_when_changed_HasChanged_should_be_true()
     {
-        TestSchedulers scheduler = new();
-        AutoMocker mocker = GetAutoMocker(scheduler);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using ThemeOptionItem fixture = mocker.CreateInstance<ThemeOptionItem>();
 
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
         fixture.SelectedTheme = Theme.Light;
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
-        scheduler.Dispatcher.Start();
         bool hasChanged = await fixture.HasChanged.Take(1);
 
         fixture.SelectedTheme.Should().Be(Theme.Light);
@@ -79,15 +72,11 @@ public class ThemeOptionItemTests
     [Test]
     public async Task ThemeOptionItem_when_changed_UpdateOption_should_change_theme()
     {
-        TestSchedulers scheduler = new();
-        AutoMocker mocker = GetAutoMocker(scheduler);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using ThemeOptionItem fixture = mocker.CreateInstance<ThemeOptionItem>();
 
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
         fixture.SelectedTheme = Theme.Light;
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
-        scheduler.Dispatcher.Start();
         bool hasChanged = await fixture.HasChanged.Take(1);
         GeneralOptions option = fixture.UpdateOption(GeneralOptions.Default());
 

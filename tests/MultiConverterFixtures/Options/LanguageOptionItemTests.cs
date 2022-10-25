@@ -20,7 +20,7 @@ public class LanguageOptionItemTests
 {
     private static AutoMocker GetAutoMocker(ISchedulerProvider? schedulerProvider = null)
     {
-        schedulerProvider ??= new TestSchedulers();
+        schedulerProvider ??= new ImmediateSchedulers();
 
         AutoMocker mocker = new();
 
@@ -53,13 +53,11 @@ public class LanguageOptionItemTests
     [Test]
     public async Task LanguageOptionItem_after_initialization()
     {
-        TestSchedulers scheduler = new();
+        ImmediateSchedulers scheduler = new();
         AutoMocker mocker = GetAutoMocker(scheduler);
         SetupGeneralOptions(mocker);
         using LanguageOptionItem fixture = mocker.CreateInstance<LanguageOptionItem>();
 
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
-        scheduler.Dispatcher.Start();
         bool hasChanged = await fixture.HasChanged.Take(1);
 
         fixture.Languages.Count().Should().Be(2);
@@ -71,15 +69,11 @@ public class LanguageOptionItemTests
     [Test]
     public async Task LanguageOptionItem_when_changed_HasChanged_should_be_true()
     {
-        TestSchedulers scheduler = new();
-        AutoMocker mocker = GetAutoMocker(scheduler);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using LanguageOptionItem fixture = mocker.CreateInstance<LanguageOptionItem>();
 
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
         fixture.SelectedLanguage = fixture.Languages.First(x => x.Code == "es");
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
-        scheduler.Dispatcher.Start();
         bool hasChanged = await fixture.HasChanged.Take(1);
 
         fixture.SelectedLanguage.Code.Should().Be("es");
@@ -89,15 +83,11 @@ public class LanguageOptionItemTests
     [Test]
     public async Task LanguageOptionItem_when_changed_UpdateOption_should_change_language()
     {
-        TestSchedulers scheduler = new();
-        AutoMocker mocker = GetAutoMocker(scheduler);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using LanguageOptionItem fixture = mocker.CreateInstance<LanguageOptionItem>();
 
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
         fixture.SelectedLanguage = fixture.Languages.First(x => x.Code == "es");
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
-        scheduler.Dispatcher.Start();
         bool hasChanged = await fixture.HasChanged.Take(1);
         GeneralOptions option = fixture.UpdateOption(GeneralOptions.Default());
 

@@ -21,7 +21,7 @@ public class TemporalPathOptionItemTests
 {
     private static AutoMocker GetAutoMocker(ISchedulerProvider? schedulerProvider = null)
     {
-        schedulerProvider ??= new TestSchedulers();
+        schedulerProvider ??= new ImmediateSchedulers();
 
         AutoMocker mocker = new();
 
@@ -48,13 +48,10 @@ public class TemporalPathOptionItemTests
     public async Task TemporalPathOptionItem_after_initialization()
     {
         string expectedValue = Path.GetTempPath();
-        TestSchedulers scheduler = new();
-        AutoMocker mocker = GetAutoMocker(scheduler);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using TemporalPathOptionItem fixture = mocker.CreateInstance<TemporalPathOptionItem>();
 
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
-        scheduler.Dispatcher.Start();
         bool hasChanged = await fixture.HasChanged.Take(1);
 
         fixture.TemporalPath.Should().Be(expectedValue);
@@ -65,15 +62,11 @@ public class TemporalPathOptionItemTests
     public async Task TemporalPathOptionItem_when_changed_HasChanged_should_be_true()
     {
         using TemporalDirectory expectedPath = TemporalDirectory.Create("has_changed");
-        TestSchedulers scheduler = new();
-        AutoMocker mocker = GetAutoMocker(scheduler);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using TemporalPathOptionItem fixture = mocker.CreateInstance<TemporalPathOptionItem>();
 
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
         fixture.TemporalPath = expectedPath;
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
-        scheduler.Dispatcher.Start();
         bool hasChanged = await fixture.HasChanged.Take(1);
 
         fixture.TemporalPath.Should().Be(expectedPath);
@@ -84,8 +77,7 @@ public class TemporalPathOptionItemTests
     public void Check_temporalPath_command_execution()
     {
         using TemporalDirectory expectedPath = TemporalDirectory.Create("command_execution");
-        TestSchedulers schedulerProvider = new();
-        AutoMocker mocker = GetAutoMocker(schedulerProvider);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         Mock<ISetting<GeneralOptions>> setting = mocker.GetMock<ISetting<GeneralOptions>>();
         setting.SetupGet(x => x.Value).Returns(Observable.Return(GeneralOptions.Default()));
@@ -103,7 +95,6 @@ public class TemporalPathOptionItemTests
 
 
 
-        schedulerProvider.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
         fixture.ChangeTemporalPath.Execute();
 
 
@@ -117,8 +108,7 @@ public class TemporalPathOptionItemTests
     {
         string? selectedPath = null;
         string expectedPath = GeneralOptions.Default().TemporalFolder;
-        TestSchedulers schedulerProvider = new();
-        AutoMocker mocker = GetAutoMocker(schedulerProvider);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         Mock<ISetting<GeneralOptions>> setting = mocker.GetMock<ISetting<GeneralOptions>>();
         setting.SetupGet(x => x.Value).Returns(Observable.Return(GeneralOptions.Default()));
@@ -136,7 +126,6 @@ public class TemporalPathOptionItemTests
 
 
 
-        schedulerProvider.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
         fixture.ChangeTemporalPath.Execute();
 
 
@@ -149,8 +138,7 @@ public class TemporalPathOptionItemTests
     public async Task When_changed_UpdateOption_should_change_temporalPath()
     {
         using TemporalDirectory expectedPath = TemporalDirectory.Create("command_execution");
-        TestSchedulers schedulerProvider = new();
-        AutoMocker mocker = GetAutoMocker(schedulerProvider);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         Mock<ISetting<GeneralOptions>> setting = mocker.GetMock<ISetting<GeneralOptions>>();
         setting.SetupGet(x => x.Value).Returns(Observable.Return(GeneralOptions.Default()));
@@ -168,7 +156,6 @@ public class TemporalPathOptionItemTests
 
 
 
-        schedulerProvider.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
         fixture.ChangeTemporalPath.Execute();
         GeneralOptions expectedResult = fixture.UpdateOption(GeneralOptions.Default());
 

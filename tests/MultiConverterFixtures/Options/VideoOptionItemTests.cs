@@ -18,7 +18,7 @@ public class VideoOptionItemTests
 {
     private static AutoMocker GetAutoMocker(ISchedulerProvider? schedulerProvider = null)
     {
-        schedulerProvider ??= new TestSchedulers();
+        schedulerProvider ??= new ImmediateSchedulers();
 
         AutoMocker mocker = new();
 
@@ -44,13 +44,10 @@ public class VideoOptionItemTests
     [Test]
     public async Task VideoOptionItem_after_initialization()
     {
-        TestSchedulers scheduler = new();
-        AutoMocker mocker = GetAutoMocker(scheduler);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using VideoOptionItem fixture = mocker.CreateInstance<VideoOptionItem>();
 
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
-        scheduler.Dispatcher.Start();
         bool hasChanged = await fixture.HasChanged.Take(1);
 
         fixture.AnalysisTimeout.Should().Be(60);
@@ -62,15 +59,11 @@ public class VideoOptionItemTests
     public async Task VideoOptionItem_when_changed_AnalysisTimeout_HasChanged_should_be_true()
     {
         const int expectedTimeout = 125;
-        TestSchedulers scheduler = new();
-        AutoMocker mocker = GetAutoMocker(scheduler);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using VideoOptionItem fixture = mocker.CreateInstance<VideoOptionItem>();
 
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
         fixture.AnalysisTimeout = expectedTimeout;
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
-        scheduler.Dispatcher.Start();
         bool hasChanged = await fixture.HasChanged.Take(1);
 
         fixture.AnalysisTimeout.Should().Be(expectedTimeout);
@@ -81,15 +74,11 @@ public class VideoOptionItemTests
     public async Task VideoOptionItem_when_changed_LoadFilesAlreadyInQueue_HasChanged_should_be_true()
     {
         const bool expectedValue = true;
-        TestSchedulers scheduler = new();
-        AutoMocker mocker = GetAutoMocker(scheduler);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using VideoOptionItem fixture = mocker.CreateInstance<VideoOptionItem>();
 
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
         fixture.LoadFilesAlreadyInQueue = expectedValue;
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
-        scheduler.Dispatcher.Start();
         bool hasChanged = await fixture.HasChanged.Take(1);
 
         fixture.LoadFilesAlreadyInQueue.Should().Be(expectedValue);
@@ -100,17 +89,12 @@ public class VideoOptionItemTests
     public async Task VideoOptionItem_after_restoring_value_HasChanged_should_be_false()
     {
         bool originalValue = GeneralOptions.Default().LoadFilesAlreadyInQueue;
-        TestSchedulers scheduler = new();
-        AutoMocker mocker = GetAutoMocker(scheduler);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using VideoOptionItem fixture = mocker.CreateInstance<VideoOptionItem>();
 
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
         fixture.LoadFilesAlreadyInQueue = !originalValue;
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
         fixture.LoadFilesAlreadyInQueue = originalValue;
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
-        scheduler.Dispatcher.Start();
         bool hasChanged = await fixture.HasChanged.Take(1);
 
         fixture.LoadFilesAlreadyInQueue.Should().Be(originalValue);
@@ -122,16 +106,12 @@ public class VideoOptionItemTests
     {
         const int expectedTimeout = 132;
         const bool expectedInQueue = true;
-        TestSchedulers scheduler = new();
-        AutoMocker mocker = GetAutoMocker(scheduler);
+        AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using VideoOptionItem fixture = mocker.CreateInstance<VideoOptionItem>();
 
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
         fixture.AnalysisTimeout = expectedTimeout;
         fixture.LoadFilesAlreadyInQueue = expectedInQueue;
-        scheduler.Dispatcher.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
-        scheduler.Dispatcher.Start();
         bool hasChanged = await fixture.HasChanged.Take(1);
         GeneralOptions option = fixture.UpdateOption(GeneralOptions.Default());
 
