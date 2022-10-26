@@ -68,8 +68,7 @@ public sealed class FileFiltersOptionItem : ViewModelBase, IOptionItem, IDisposa
         }));
 
         var canAdd = fileFiltersObservable.Filter(x => x == FileFilter.Default)
-            .Count()
-            .Select(x => x == 0);
+            .IsEmpty();
 
         Add = ReactiveCommand.Create(() => _filters.Add(FileFilter.Default), canAdd);
 
