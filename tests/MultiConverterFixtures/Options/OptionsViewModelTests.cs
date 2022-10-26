@@ -103,6 +103,20 @@ public class OptionsViewModelTests : OptionsTestBase
 
         result.Should().Be(newTimeout);
     }
+
+    [Test]
+    public void Deactivation_should_set_null_ReactiveCommand()
+    {
+        AutoMocker mocker = GetAutoMocker();
+        SetupGeneralOptions(mocker);
+        OptionsViewModel fixture = mocker.CreateInstance<OptionsViewModel>();
+
+        fixture.Activator.Activate();
+        fixture.Activator.Deactivate();
+
+        fixture.Save.Should().BeNull();
+        fixture.Reset.Should().BeNull();
+    }
 }
 
 public class FakeOptionItem : ReactiveObject, IOptionItem

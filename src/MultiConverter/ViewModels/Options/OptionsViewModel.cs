@@ -71,7 +71,9 @@ public sealed class OptionsViewModel : ViewModelBase, IActivatableViewModel
     private void HandleDeactivation()
     {
         Save?.Dispose();
+        Save = null;
         Reset?.Dispose();
+        Reset = null;
     }
 
     private void HandleActivation()
