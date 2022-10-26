@@ -95,4 +95,37 @@ public class FileFilterProxyTests
         afterToggleEditing.Should().BeTrue();
         afterSecondToggleEditing.Should().BeFalse();
     }
+
+    [Test]
+    public void IEnumerable_properties_should_be_filled()
+    {
+        using FileFilterProxy fixture = new();
+
+        fixture.Positions.Should().BeEquivalentTo(new[]
+        {
+            FileFilterPosition.Contains,
+            FileFilterPosition.Ends,
+            FileFilterPosition.Start
+        });
+
+        fixture.ApplyOnParts.Should().BeEquivalentTo(new[]
+        {
+            FileFilterApplyOn.Extension,
+            FileFilterApplyOn.File,
+            FileFilterApplyOn.FileAndExtension
+        });
+    }
+
+    [Test]
+    public void Check_implicit_conversion_to_FileFilter()
+    {
+        FileFilterProxy initial = new();
+
+        FileFilter fixture = initial;
+
+        fixture.Filter.Should().Be(initial.Filter);
+        fixture.Position.Should().Be(initial.Position);
+        fixture.ApplyOn.Should().Be(initial.ApplyOn);
+    }
+
 }
