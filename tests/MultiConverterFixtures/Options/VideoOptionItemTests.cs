@@ -1,43 +1,13 @@
-﻿using System.Reactive.Linq;
-using FluentAssertions;
-using Moq;
+﻿using FluentAssertions;
 using Moq.AutoMock;
-using MultiConverter.Common;
-using MultiConverter.Common.Testing;
 using MultiConverter.Models.Settings.General;
-using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.ViewModels.Options;
 using NUnit.Framework;
 
 namespace MultiConverterFixtures.Options;
 
-public class VideoOptionItemTests
+public class VideoOptionItemTests : OptionsTestBase
 {
-    private static AutoMocker GetAutoMocker(ISchedulerProvider? schedulerProvider = null)
-    {
-        schedulerProvider ??= new ImmediateSchedulers();
-
-        AutoMocker mocker = new();
-
-        mocker.Use(schedulerProvider);
-
-        return mocker;
-    }
-
-    private static void SetupGeneralOptions(AutoMocker mocker, GeneralOptions? generalOptions = null)
-    {
-        Mock<ISetting<GeneralOptions>> setting = mocker.GetMock<ISetting<GeneralOptions>>();
-
-        if (generalOptions.HasValue)
-        {
-            setting.SetupGet(x => x.Value).Returns(Observable.Return(generalOptions.Value));
-        }
-        else
-        {
-            setting.SetupGet(x => x.Value).Returns(Observable.Return(GeneralOptions.Default()));
-        }
-    }
-
     [Test]
     public void VideoOptionItem_after_initialization()
     {

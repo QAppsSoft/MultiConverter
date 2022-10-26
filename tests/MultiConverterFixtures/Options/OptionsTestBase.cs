@@ -13,7 +13,7 @@ namespace MultiConverterFixtures.Options;
 
 public abstract class OptionsTestBase
 {
-    public static AutoMocker GetAutoMocker(ISchedulerProvider? schedulerProvider = null)
+    public virtual AutoMocker GetAutoMocker(ISchedulerProvider? schedulerProvider = null)
     {
         schedulerProvider ??= new ImmediateSchedulers();
 
@@ -24,7 +24,7 @@ public abstract class OptionsTestBase
         return mocker;
     }
 
-    public static void SetupGeneralOptions(AutoMocker mocker, GeneralOptions? generalOptions = null)
+    public void SetupGeneralOptions(AutoMocker mocker, GeneralOptions? generalOptions = null)
     {
         Mock<ISetting<GeneralOptions>> setting = mocker.GetMock<ISetting<GeneralOptions>>();
         ReplaySubject<GeneralOptions> generalOptionsSubject = new(1);
@@ -39,7 +39,7 @@ public abstract class OptionsTestBase
         mocker.Use(setting);
     }
 
-    public static void SetupOptionItems(AutoMocker mocker, IEnumerable<IOptionItem>? optionItems = null)
+    public void SetupOptionItems(AutoMocker mocker, IEnumerable<IOptionItem>? optionItems = null)
     {
         if (optionItems == null)
         {
