@@ -17,7 +17,7 @@ namespace MultiConverter.ViewModels.Options;
 
 public sealed class OptionsViewModel : ViewModelBase, IActivatableViewModel
 {
-    private readonly SourceList<IOptionItem> _fileFilters = new();
+    private readonly SourceList<IOptionItem> _optionsSourceList = new();
 
     public OptionsViewModel(ISchedulerProvider schedulerProvider,
         ISetting<GeneralOptions> setting, IEnumerable<IOptionItem> optionItems)
@@ -26,7 +26,7 @@ public sealed class OptionsViewModel : ViewModelBase, IActivatableViewModel
         ArgumentNullException.ThrowIfNull(optionItems);
         ArgumentNullException.ThrowIfNull(setting);
 
-        _fileFilters.AddRange(optionItems);
+        _optionsSourceList.AddRange(optionItems);
 
         this.WhenActivated(disposable =>
         {
@@ -34,8 +34,7 @@ public sealed class OptionsViewModel : ViewModelBase, IActivatableViewModel
 
             Disposable.Create(HandleDeactivation).DisposeWith(disposable);
 
-            _ = _fileFilters.Connect()
-                .DisposeMany()
+            _ = _optionsSourceList.Connect()
                 .ObserveOn(schedulerProvider.Dispatcher)
                 .Bind(out ReadOnlyObservableCollection<IOptionItem> options)
                 .Subscribe()
@@ -43,7 +42,7 @@ public sealed class OptionsViewModel : ViewModelBase, IActivatableViewModel
 
             Options = options;
 
-            IObservable<bool> hasOptionsChanged = _fileFilters.Connect()
+            IObservable<bool> hasOptionsChanged = _optionsSourceList.Connect()
                 .AutoRefresh(x => x.HasChanged)
                 .Filter(x => x.HasChanged)
                 .IsNotEmpty()
@@ -51,7 +50,7 @@ public sealed class OptionsViewModel : ViewModelBase, IActivatableViewModel
 
             Save = ReactiveCommand.Create(() => { }, hasOptionsChanged);
 
-            IObservable<IReadOnlyCollection<IOptionItem>> changedOptions = _fileFilters.Connect()
+            IObservable<IReadOnlyCollection<IOptionItem>> changedOptions = _optionsSourceList.Connect()
                 .AutoRefresh(x => x.HasChanged)
                 .Filter(x => x.HasChanged)
                 .ToCollection()
