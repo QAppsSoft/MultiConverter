@@ -52,6 +52,7 @@ public sealed class OptionsViewModel : ViewModelBase, IActivatableViewModel
             Save = ReactiveCommand.Create(() => { }, hasOptionsChanged);
 
             IObservable<IReadOnlyCollection<IOptionItem>> changedOptions = _fileFilters.Connect()
+                .AutoRefresh(x => x.HasChanged)
                 .Filter(x => x.HasChanged)
                 .ToCollection()
                 .StartWithEmpty();

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
-using System.Threading.Tasks;
 using FluentAssertions;
 using MultiConverter.ViewModels.Options;
 using NUnit.Framework;
@@ -11,45 +8,37 @@ namespace MultiConverterFixtures.Options;
 public class ExtensionProxyTests
 {
     [Test]
-    public async Task New_ExtensionProxy_should_HasChanged_true()
+    public void New_ExtensionProxy_should_HasChanged_true()
     {
         ExtensionProxy fixture = new();
 
-        bool result = await fixture.HasChanged.Take(1).ToTask();
-
-        result.Should().BeTrue();
+        fixture.HasChanged.Should().BeTrue();
     }
 
     [Test]
-    public async Task ExtensionProxy_with_empty_extension_should_HasChanged_true()
+    public void ExtensionProxy_with_empty_extension_should_HasChanged_true()
     {
         ExtensionProxy fixture = new(string.Empty);
 
-        bool result = await fixture.HasChanged.Take(1).ToTask();
-
-        result.Should().BeTrue();
+        fixture.HasChanged.Should().BeTrue();
     }
 
     [Test]
-    public async Task ExtensionProxy_with_non_empty_extension_should_HasChanged_false()
+    public void ExtensionProxy_with_non_empty_extension_should_HasChanged_false()
     {
         ExtensionProxy fixture = new(".avi");
 
-        bool result = await fixture.HasChanged.Take(1).ToTask();
-
-        result.Should().BeFalse();
+        fixture.HasChanged.Should().BeFalse();
     }
 
     [Test]
-    public async Task Changing_ExtensionProxy_Extension_should_HasChanged_true()
+    public void Changing_ExtensionProxy_Extension_should_HasChanged_true()
     {
         ExtensionProxy fixture = new(".avi");
 
         fixture.Extension = ".mkv";
 
-        bool result = await fixture.HasChanged.Take(1).ToTask();
-
-        result.Should().BeTrue();
+        fixture.HasChanged.Should().BeTrue();
     }
 
     [Test]

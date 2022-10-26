@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Threading.Tasks;
+﻿using System.Reactive.Linq;
 using FluentAssertions;
 using Moq;
 using Moq.AutoMock;
@@ -42,21 +39,19 @@ public class VideoOptionItemTests
     }
 
     [Test]
-    public async Task VideoOptionItem_after_initialization()
+    public void VideoOptionItem_after_initialization()
     {
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using VideoOptionItem fixture = mocker.CreateInstance<VideoOptionItem>();
 
-        bool hasChanged = await fixture.HasChanged.Take(1);
-
         fixture.AnalysisTimeout.Should().Be(60);
         fixture.LoadFilesAlreadyInQueue.Should().BeFalse();
-        hasChanged.Should().BeFalse();
+        fixture.HasChanged.Should().BeFalse();
     }
 
     [Test]
-    public async Task VideoOptionItem_when_changed_AnalysisTimeout_HasChanged_should_be_true()
+    public void VideoOptionItem_when_changed_AnalysisTimeout_HasChanged_should_be_true()
     {
         const int expectedTimeout = 125;
         AutoMocker mocker = GetAutoMocker();
@@ -64,14 +59,13 @@ public class VideoOptionItemTests
         using VideoOptionItem fixture = mocker.CreateInstance<VideoOptionItem>();
 
         fixture.AnalysisTimeout = expectedTimeout;
-        bool hasChanged = await fixture.HasChanged.Take(1);
 
         fixture.AnalysisTimeout.Should().Be(expectedTimeout);
-        hasChanged.Should().BeTrue();
+        fixture.HasChanged.Should().BeTrue();
     }
 
     [Test]
-    public async Task VideoOptionItem_when_changed_LoadFilesAlreadyInQueue_HasChanged_should_be_true()
+    public void VideoOptionItem_when_changed_LoadFilesAlreadyInQueue_HasChanged_should_be_true()
     {
         const bool expectedValue = true;
         AutoMocker mocker = GetAutoMocker();
@@ -79,14 +73,13 @@ public class VideoOptionItemTests
         using VideoOptionItem fixture = mocker.CreateInstance<VideoOptionItem>();
 
         fixture.LoadFilesAlreadyInQueue = expectedValue;
-        bool hasChanged = await fixture.HasChanged.Take(1);
 
         fixture.LoadFilesAlreadyInQueue.Should().Be(expectedValue);
-        hasChanged.Should().BeTrue();
+        fixture.HasChanged.Should().BeTrue();
     }
 
     [Test]
-    public async Task VideoOptionItem_after_restoring_value_HasChanged_should_be_false()
+    public void VideoOptionItem_after_restoring_value_HasChanged_should_be_false()
     {
         bool originalValue = GeneralOptions.Default().LoadFilesAlreadyInQueue;
         AutoMocker mocker = GetAutoMocker();
@@ -95,14 +88,13 @@ public class VideoOptionItemTests
 
         fixture.LoadFilesAlreadyInQueue = !originalValue;
         fixture.LoadFilesAlreadyInQueue = originalValue;
-        bool hasChanged = await fixture.HasChanged.Take(1);
 
         fixture.LoadFilesAlreadyInQueue.Should().Be(originalValue);
-        hasChanged.Should().BeFalse();
+        fixture.HasChanged.Should().BeFalse();
     }
 
     [Test]
-    public async Task VideoOptionItem_when_changed_UpdateOption_should_change_language()
+    public void VideoOptionItem_when_changed_UpdateOption_should_change_language()
     {
         const int expectedTimeout = 132;
         const bool expectedInQueue = true;
@@ -112,12 +104,11 @@ public class VideoOptionItemTests
 
         fixture.AnalysisTimeout = expectedTimeout;
         fixture.LoadFilesAlreadyInQueue = expectedInQueue;
-        bool hasChanged = await fixture.HasChanged.Take(1);
         GeneralOptions option = fixture.UpdateOption(GeneralOptions.Default());
 
         fixture.AnalysisTimeout.Should().Be(expectedTimeout);
         fixture.LoadFilesAlreadyInQueue.Should().Be(expectedInQueue);
-        hasChanged.Should().BeTrue();
+        fixture.HasChanged.Should().BeTrue();
         option.AnalysisTimeout.Should().Be(expectedTimeout);
         option.LoadFilesAlreadyInQueue.Should().Be(expectedInQueue);
     }

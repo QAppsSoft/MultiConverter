@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
-using System.Threading.Tasks;
 using FluentAssertions;
 using MultiConverter.Models.Settings.General.FileFilters;
 using MultiConverter.ViewModels.Options;
@@ -12,69 +9,57 @@ namespace MultiConverterFixtures.Options;
 public class FileFilterProxyTests
 {
     [Test]
-    public async Task New_FileFilterProxy_should_HasChanged_true()
+    public void New_FileFilterProxy_should_HasChanged_true()
     {
         using FileFilterProxy fixture = new();
 
-        bool result = await fixture.HasChanged.Take(1).ToTask();
-
-        result.Should().BeTrue();
+        fixture.HasChanged.Should().BeTrue();
     }
 
     [Test]
-    public async Task FileFilterProxy_with_default_FileFilter_should_HasChanged_true()
+    public void FileFilterProxy_with_default_FileFilter_should_HasChanged_true()
     {
         using FileFilterProxy fixture = new(FileFilter.Default);
 
-        bool result = await fixture.HasChanged.Take(1).ToTask();
-
-        result.Should().BeTrue();
+        fixture.HasChanged.Should().BeTrue();
     }
 
     [Test]
-    public async Task FileFilterProxy_with_non_default_FileFilter_should_HasChanged_false()
+    public void FileFilterProxy_with_non_default_FileFilter_should_HasChanged_false()
     {
         using FileFilterProxy fixture = new(FileFilter.Default with { Filter = "*.mkv" });
 
-        bool result = await fixture.HasChanged.Take(1).ToTask();
-
-        result.Should().BeFalse();
+        fixture.HasChanged.Should().BeFalse();
     }
 
     [Test]
-    public async Task Changing_FileFilterProxy_Filter_should_HasChanged_true()
+    public void Changing_FileFilterProxy_Filter_should_HasChanged_true()
     {
         using FileFilterProxy fixture = new(FileFilter.Default with { Filter = "*.mkv" });
 
         fixture.Filter = "*.*";
 
-        bool result = await fixture.HasChanged.Take(1).ToTask();
-
-        result.Should().BeTrue();
+        fixture.HasChanged.Should().BeTrue();
     }
 
     [Test]
-    public async Task Changing_FileFilterProxy_Position_should_HasChanged_true()
+    public void Changing_FileFilterProxy_Position_should_HasChanged_true()
     {
         using FileFilterProxy fixture = new(FileFilter.Default with { Filter = "*.mkv" });
 
         fixture.Position = FileFilterPosition.Ends;
 
-        bool result = await fixture.HasChanged.Take(1).ToTask();
-
-        result.Should().BeTrue();
+        fixture.HasChanged.Should().BeTrue();
     }
 
     [Test]
-    public async Task Changing_FileFilterProxy_ApplyOn_should_HasChanged_true()
+    public void Changing_FileFilterProxy_ApplyOn_should_HasChanged_true()
     {
         using FileFilterProxy fixture = new(FileFilter.Default with { Filter = "*.mkv" });
 
         fixture.ApplyOn = FileFilterApplyOn.Extension;
 
-        bool result = await fixture.HasChanged.Take(1).ToTask();
-
-        result.Should().BeTrue();
+        fixture.HasChanged.Should().BeTrue();
     }
 
     [Test]

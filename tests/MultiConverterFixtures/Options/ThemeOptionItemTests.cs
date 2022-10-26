@@ -42,46 +42,42 @@ public class ThemeOptionItemTests
     }
 
     [Test]
-    public async Task ThemeOptionItem_after_initialization()
+    public void ThemeOptionItem_after_initialization()
     {
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using ThemeOptionItem fixture = mocker.CreateInstance<ThemeOptionItem>();
-
-        bool hasChanged = await fixture.HasChanged.Take(1);
 
         fixture.Themes.Count().Should().Be(2);
         fixture.SelectedTheme.Should().Be(Theme.Dark);
-        hasChanged.Should().BeFalse();
+        fixture.HasChanged.Should().BeFalse();
     }
 
     [Test]
-    public async Task ThemeOptionItem_when_changed_HasChanged_should_be_true()
+    public void ThemeOptionItem_when_changed_HasChanged_should_be_true()
     {
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using ThemeOptionItem fixture = mocker.CreateInstance<ThemeOptionItem>();
 
         fixture.SelectedTheme = Theme.Light;
-        bool hasChanged = await fixture.HasChanged.Take(1);
 
         fixture.SelectedTheme.Should().Be(Theme.Light);
-        hasChanged.Should().BeTrue();
+        fixture.HasChanged.Should().BeTrue();
     }
 
     [Test]
-    public async Task ThemeOptionItem_when_changed_UpdateOption_should_change_theme()
+    public void ThemeOptionItem_when_changed_UpdateOption_should_change_theme()
     {
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using ThemeOptionItem fixture = mocker.CreateInstance<ThemeOptionItem>();
 
         fixture.SelectedTheme = Theme.Light;
-        bool hasChanged = await fixture.HasChanged.Take(1);
         GeneralOptions option = fixture.UpdateOption(GeneralOptions.Default());
 
         fixture.SelectedTheme.Should().Be(Theme.Light);
-        hasChanged.Should().BeTrue();
+        fixture.HasChanged.Should().BeTrue();
         option.Theme.Should().Be(Theme.Light);
     }
 }

@@ -45,21 +45,19 @@ public class TemporalPathOptionItemTests
     }
 
     [Test]
-    public async Task TemporalPathOptionItem_after_initialization()
+    public void TemporalPathOptionItem_after_initialization()
     {
         string expectedValue = Path.GetTempPath();
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using TemporalPathOptionItem fixture = mocker.CreateInstance<TemporalPathOptionItem>();
 
-        bool hasChanged = await fixture.HasChanged.Take(1);
-
         fixture.TemporalPath.Should().Be(expectedValue);
-        hasChanged.Should().BeFalse();
+        fixture.HasChanged.Should().BeFalse();
     }
 
     [Test]
-    public async Task TemporalPathOptionItem_when_changed_HasChanged_should_be_true()
+    public void TemporalPathOptionItem_when_changed_HasChanged_should_be_true()
     {
         using TemporalDirectory expectedPath = TemporalDirectory.Create("has_changed");
         AutoMocker mocker = GetAutoMocker();
@@ -67,10 +65,9 @@ public class TemporalPathOptionItemTests
         using TemporalPathOptionItem fixture = mocker.CreateInstance<TemporalPathOptionItem>();
 
         fixture.TemporalPath = expectedPath;
-        bool hasChanged = await fixture.HasChanged.Take(1);
 
         fixture.TemporalPath.Should().Be(expectedPath);
-        hasChanged.Should().BeTrue();
+        fixture.HasChanged.Should().BeTrue();
     }
 
     [Test]
@@ -88,16 +85,12 @@ public class TemporalPathOptionItemTests
                 It.IsAny<OpenFolderDialogSettings>(),
                 It.IsAny<AppDialogSettingsBase>(),
                 It.IsAny<Func<object?, string>?>()))
-            .ReturnsAsync((string) expectedPath);
+            .ReturnsAsync((string)expectedPath);
 
         TemporalPathOptionItem fixture = mocker.CreateInstance<TemporalPathOptionItem>();
 
 
-
-
         fixture.ChangeTemporalPath.Execute();
-
-
 
 
         fixture.TemporalPath.Should().Be(expectedPath);
@@ -124,11 +117,7 @@ public class TemporalPathOptionItemTests
         TemporalPathOptionItem fixture = mocker.CreateInstance<TemporalPathOptionItem>();
 
 
-
-
         fixture.ChangeTemporalPath.Execute();
-
-
 
 
         fixture.TemporalPath.Should().Be(expectedPath);
@@ -149,16 +138,13 @@ public class TemporalPathOptionItemTests
                 It.IsAny<OpenFolderDialogSettings>(),
                 It.IsAny<AppDialogSettingsBase>(),
                 It.IsAny<Func<object?, string>?>()))
-            .ReturnsAsync((string) expectedPath);
+            .ReturnsAsync((string)expectedPath);
 
         TemporalPathOptionItem fixture = mocker.CreateInstance<TemporalPathOptionItem>();
 
 
-
-
         fixture.ChangeTemporalPath.Execute();
         GeneralOptions expectedResult = fixture.UpdateOption(GeneralOptions.Default());
-
 
 
         fixture.TemporalPath.Should().Be(expectedPath);

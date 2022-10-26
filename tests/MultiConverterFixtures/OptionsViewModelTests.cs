@@ -1,65 +1,23 @@
 using System;
-using System.Collections.Generic;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Moq;
 using Moq.AutoMock;
-using MultiConverter.Common;
-using MultiConverter.Common.Testing;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.ViewModels.Options;
 using MultiConverter.ViewModels.Options.Interfaces;
+using MultiConverterFixtures.Options;
 using NUnit.Framework;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace MultiConverterFixtures;
 
-public class OptionsViewModelTests
+public class OptionsViewModelTests : OptionsTestBase
 {
-    private static AutoMocker GetAutoMocker(ISchedulerProvider? schedulerProvider = null)
-    {
-        schedulerProvider ??= new ImmediateSchedulers();
-
-        AutoMocker mocker = new();
-
-        mocker.Use(schedulerProvider);
-
-        return mocker;
-    }
-
-    private static void SetupGeneralOptions(AutoMocker mocker, GeneralOptions? generalOptions = null)
-    {
-        Mock<ISetting<GeneralOptions>> setting = mocker.GetMock<ISetting<GeneralOptions>>();
-        ReplaySubject<GeneralOptions> generalOptionsSubject = new(1);
-
-        setting.Setup(x => x.Write(It.IsAny<GeneralOptions>()))
-            .Callback<GeneralOptions>(item => generalOptionsSubject.OnNext(item));
-
-        if (generalOptions.HasValue)
-        {
-            generalOptionsSubject.OnNext(generalOptions.Value);
-        }
-
-        setting.SetupGet(x => x.Value).Returns(generalOptionsSubject.AsObservable);
-
-        mocker.Use(setting);
-    }
-
-    private static void SetupOptionItems(AutoMocker mocker, IEnumerable<IOptionItem>? optionItems = null)
-    {
-        if (optionItems == null)
-        {
-            List<IOptionItem> items = new() { new FakeOptionItem() };
-            mocker.Use<IEnumerable<IOptionItem>>(items);
-        }
-        else
-        {
-            mocker.Use(optionItems);
-        }
-    }
-
     [Test]
     public void Check_viewmodel_status_before_activation()
     {
@@ -91,8 +49,8 @@ public class OptionsViewModelTests
     [Test]
     public void Check_viewmodel_can_execute_saveButton_after_activation_and_optionItem_changed()
     {
-        Subject<bool> hasChangedSubject = new();
-        var optionItem = new FakeOptionItem(hasChangedSubject);
+        Subject<bool> hasChanged = new();
+        var optionItem = new FakeOptionItem(hasChanged);
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         SetupOptionItems(mocker, new[] { optionItem });
@@ -101,7 +59,7 @@ public class OptionsViewModelTests
 
         fixture.Activator.Activate();
         _ = fixture.Save?.CanExecute.Subscribe(value => canExecute = value);
-        hasChangedSubject.OnNext(true);
+        hasChanged.OnNext(true);
 
         canExecute.Should().BeTrue();
         fixture.Options.Should().NotBeEmpty();
@@ -127,30 +85,35 @@ public class OptionsViewModelTests
     }
 
     [Test]
-    public async Task Save_calls_UpdateOption()
+    public void Save_calls_UpdateOption()
     {
+        int? result = null;
         var newTimeout = 123;
         AutoMocker mocker = GetAutoMocker();
-        Subject<bool> hasChangedSubject = new();
-        var optionItem = new FakeOptionItem(hasChangedSubject, options => options with { AnalysisTimeout = newTimeout });
+        Subject<bool> hasChanged = new();
+        var optionItem = new FakeOptionItem(hasChanged, options => options with { AnalysisTimeout = newTimeout });
         SetupGeneralOptions(mocker, GeneralOptions.Default());
         SetupOptionItems(mocker, new[] { optionItem });
         var setting = mocker.GetMock<ISetting<GeneralOptions>>().Object;
         OptionsViewModel fixture = mocker.CreateInstance<OptionsViewModel>();
 
         fixture.Activator.Activate();
+        hasChanged.OnNext(true);
+        setting.Value.Subscribe(x => result = x.AnalysisTimeout);
         fixture.Save?.Execute().Subscribe();
-        var result = await setting.Value.Take(1);
 
-        result.AnalysisTimeout.Should().Be(newTimeout);
+        result.Should().Be(newTimeout);
     }
 }
 
-public class FakeOptionItem : IOptionItem
+public class FakeOptionItem : ReactiveObject, IOptionItem
 {
     public FakeOptionItem(IObservable<bool>? hasChanged = null, Func<GeneralOptions, GeneralOptions>? updateOption = null)
     {
-        HasChanged = hasChanged ?? Observable.Return(false);
+        IObservable<bool> changed = hasChanged ?? Observable.Return(false);
+
+        changed.ToPropertyEx(this, vm => vm.HasChanged, scheduler: ImmediateScheduler.Instance);
+
         UpdateOption = BuildUpdateOptionFunc(updateOption);
     }
 
@@ -177,6 +140,6 @@ public class FakeOptionItem : IOptionItem
 
     public void ResetUpdateStatus() => UpdateCalled = false;
 
-    public IObservable<bool> HasChanged { get; }
+    [ObservableAsProperty] public bool HasChanged { get; }
     public Func<GeneralOptions, GeneralOptions> UpdateOption { get; }
 }
