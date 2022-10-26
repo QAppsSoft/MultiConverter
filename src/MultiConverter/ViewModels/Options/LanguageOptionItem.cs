@@ -30,10 +30,12 @@ public sealed class LanguageOptionItem : ViewModelBase, IOptionItem, IDisposable
 
         IObservable<LanguageModel> newSelectedLanguage = this.WhenAnyValue(x => x.SelectedLanguage);
 
-        HasChanged = setting.Value
+        IObservable<bool> hasChanged = setting.Value
             .Select(x => x.Language)
             .CombineLatest(newSelectedLanguage,
                 (savedLanguage, selectedLanguage) => savedLanguage != selectedLanguage.Code);
+
+        hasChanged.ToPropertyEx(this, vm => vm.HasChanged);
 
         UpdateOption = option => option with { Language = SelectedLanguage.Code };
 
@@ -47,6 +49,6 @@ public sealed class LanguageOptionItem : ViewModelBase, IOptionItem, IDisposable
 
     public void Dispose() => _cleanup.Dispose();
 
-    public IObservable<bool> HasChanged { get; }
+    [ObservableAsProperty] public bool HasChanged { get; }
     public Func<GeneralOptions, GeneralOptions> UpdateOption { get; }
 }

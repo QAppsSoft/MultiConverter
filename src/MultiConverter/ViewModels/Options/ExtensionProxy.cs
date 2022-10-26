@@ -7,7 +7,7 @@ using ReactiveUI.Fody.Helpers;
 
 namespace MultiConverter.ViewModels.Options;
 
-public sealed class ExtensionProxy
+public sealed class ExtensionProxy : ReactiveObject
 {
     public ExtensionProxy() : this(string.Empty)
     {
@@ -25,15 +25,17 @@ public sealed class ExtensionProxy
         var extensionChanged = this.WhenAnyValue(x => x.Extension)
             .Select(ext => ext != extension);
 
-        HasChanged = Observable.CombineLatest(extensionChanged, isNewObservable)
+        IObservable<bool> hasChanged = Observable.CombineLatest(extensionChanged, isNewObservable)
             .Select(values => values.Any(x => x));
+
+        hasChanged.ToPropertyEx(this, vm => vm.HasChanged);
 
         ToggleEditing = ReactiveCommand.Create(() => { Editing = !Editing; });
     }
 
     [Reactive] public string Extension { get; set; }
 
-    public IObservable<bool> HasChanged { get; }
+    [ObservableAsProperty] public bool HasChanged { get; }
 
     [Reactive] public bool Editing { get; private set; }
 

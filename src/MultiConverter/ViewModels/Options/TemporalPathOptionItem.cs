@@ -28,9 +28,11 @@ public sealed class TemporalPathOptionItem : ViewModelBase, IOptionItem, IDispos
 
         IObservable<string> newTemporalPath = this.WhenAnyValue(x => x.TemporalPath);
 
-        HasChanged = setting.Value
+        var hasChanged = setting.Value
             .Select(x => x.TemporalFolder)
             .CombineLatest(newTemporalPath, (savedPath, newPath) => savedPath != newPath);
+
+        hasChanged.ToPropertyEx(this, vm => vm.HasChanged);
 
         UpdateOption = option => option with { TemporalFolder = TemporalPath };
 
@@ -66,7 +68,7 @@ public sealed class TemporalPathOptionItem : ViewModelBase, IOptionItem, IDispos
 
     public ReactiveCommand<Unit, Unit> ChangeTemporalPath { get; }
 
-    public IObservable<bool> HasChanged { get; }
+    [ObservableAsProperty] public bool HasChanged { get; }
     public Func<GeneralOptions, GeneralOptions> UpdateOption { get; }
 
     public void Dispose()

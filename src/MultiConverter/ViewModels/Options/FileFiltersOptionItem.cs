@@ -13,6 +13,7 @@ using MultiConverter.Models.Settings.General.FileFilters;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.ViewModels.Options.Interfaces;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace MultiConverter.ViewModels.Options;
 
@@ -38,7 +39,7 @@ public sealed class FileFiltersOptionItem : ViewModelBase, IOptionItem, IDisposa
         var fileFiltersObservable = _filters.Connect()
             .Transform(x => new FileFilterProxy(x))
             .DisposeMany()
-            .AutoRefreshOnObservable(x => x.HasChanged)
+            .AutoRefresh(x => x.HasChanged)
             .Publish();
 
         var bindFilters = fileFiltersObservable
@@ -48,9 +49,11 @@ public sealed class FileFiltersOptionItem : ViewModelBase, IOptionItem, IDisposa
 
         FileFilters = fileFilters;
 
-        HasChanged = fileFiltersObservable
-            .FilterOnObservable(x => x.HasChanged)
+        IObservable<bool> hasChanged = fileFiltersObservable
+            .Filter(x => x.HasChanged)
             .IsNotEmpty();
+
+        hasChanged.ToPropertyEx(this, vm => vm.HasChanged);
 
         UpdateOption = option => option with { FileFilters = FileFilters.Select(x => (FileFilter)x).AsArray() };
 
@@ -81,7 +84,7 @@ public sealed class FileFiltersOptionItem : ViewModelBase, IOptionItem, IDisposa
 
     public ReactiveCommand<Unit, Unit> Reset { get; }
 
-    public IObservable<bool> HasChanged { get; }
+    [ObservableAsProperty] public bool HasChanged { get; }
 
     public Func<GeneralOptions, GeneralOptions> UpdateOption { get; }
 

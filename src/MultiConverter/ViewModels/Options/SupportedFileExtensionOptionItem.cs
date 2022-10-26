@@ -14,6 +14,7 @@ using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.ViewModels.Options.Interfaces;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace MultiConverter.ViewModels.Options;
 
@@ -39,6 +40,7 @@ public sealed class SupportedFileExtensionOptionItem : ViewModelBase, IOptionIte
         var supportedExtensionsObservable = _supportedExtensions.Connect()
             .Sort(SortExpressionComparer<string>.Ascending(x => x))
             .Transform(x => new ExtensionProxy(x))
+            .AutoRefresh(x => x.HasChanged)
             .Publish();
 
         var bindExtensions = supportedExtensionsObservable
@@ -48,9 +50,11 @@ public sealed class SupportedFileExtensionOptionItem : ViewModelBase, IOptionIte
 
         SupportedExtensions = supportedExtensions;
 
-        HasChanged = supportedExtensionsObservable
-            .FilterOnObservable(x => x.HasChanged)
+        var hasChanged = supportedExtensionsObservable
+            .Filter(x => x.HasChanged)
             .IsNotEmpty();
+
+        hasChanged.ToPropertyEx(this, vm => vm.HasChanged);
 
         UpdateOption = option =>
             option with { SupportedFilesExtensions = SupportedExtensions.Select(x => (string)x).AsArray() };
@@ -65,9 +69,7 @@ public sealed class SupportedFileExtensionOptionItem : ViewModelBase, IOptionIte
             cache.AddRange(GeneralOptions.Default().SupportedFilesExtensions);
         }));
 
-        var canAdd = supportedExtensionsObservable.Filter(x => x == string.Empty)
-            .Count()
-            .Select(x => x == 0);
+        var canAdd = supportedExtensionsObservable.Filter(x => x == string.Empty).IsEmpty();
 
         Add = ReactiveCommand.Create(() => _supportedExtensions.Add(string.Empty), canAdd);
 
@@ -82,9 +84,8 @@ public sealed class SupportedFileExtensionOptionItem : ViewModelBase, IOptionIte
 
     public ReactiveCommand<Unit, Unit> Reset { get; }
 
-    public IObservable<bool> HasChanged { get; }
+    [ObservableAsProperty] public bool HasChanged { get; }
     public Func<GeneralOptions, GeneralOptions> UpdateOption { get; }
-
 
     public void Dispose()
     {

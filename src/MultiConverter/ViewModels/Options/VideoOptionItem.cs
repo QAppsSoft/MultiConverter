@@ -38,7 +38,9 @@ public sealed class VideoOptionItem : ViewModelBase, IOptionItem, IDisposable
             .Select(x => x.LoadFilesAlreadyInQueue)
             .CombineLatest(newInQueue, (savedInQueue, newInQueue) => savedInQueue != newInQueue);
 
-        HasChanged = hasChangedTimeout.CombineLatest(hasChangedInQueue, (timeout, inQueue) => timeout || inQueue);
+        var hasChanged = hasChangedTimeout.CombineLatest(hasChangedInQueue, (timeout, inQueue) => timeout || inQueue);
+
+        hasChanged.ToPropertyEx(this, vm => vm.HasChanged);
 
         UpdateOption = option => option with
         {
@@ -53,7 +55,7 @@ public sealed class VideoOptionItem : ViewModelBase, IOptionItem, IDisposable
 
     [Reactive] public bool LoadFilesAlreadyInQueue { get; set; }
 
-    public IObservable<bool> HasChanged { get; }
+    [ObservableAsProperty] public bool HasChanged { get; }
     public Func<GeneralOptions, GeneralOptions> UpdateOption { get; }
 
     public void Dispose() => _cleanup.Dispose();

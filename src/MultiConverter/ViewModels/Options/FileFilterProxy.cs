@@ -10,7 +10,7 @@ using ReactiveUI.Fody.Helpers;
 
 namespace MultiConverter.ViewModels.Options;
 
-public sealed class FileFilterProxy : IDisposable
+public sealed class FileFilterProxy : ReactiveObject, IDisposable
 {
     public FileFilterProxy() : this(FileFilter.Default)
     {
@@ -31,8 +31,10 @@ public sealed class FileFilterProxy : IDisposable
         var positionChanged = this.WhenAnyValue(x => x.Position).Select(position => position != fileFilter.Position);
         var applyOnChanged = this.WhenAnyValue(x => x.ApplyOn).Select(applyOn => applyOn != fileFilter.ApplyOn);
 
-        HasChanged = Observable.CombineLatest(filterChanged, positionChanged, applyOnChanged, isNewObservable)
+        IObservable<bool> hasChanged = Observable.CombineLatest(filterChanged, positionChanged, applyOnChanged, isNewObservable)
             .Select(values => values.Any(x => x));
+
+        hasChanged.ToPropertyEx(this, vm => vm.HasChanged);
 
         ToggleEditing = ReactiveCommand.Create(() => { Editing = !Editing; });
     }
@@ -47,7 +49,7 @@ public sealed class FileFilterProxy : IDisposable
 
     public IEnumerable<FileFilterApplyOn> ApplyOnParts { get; } = EnumUtils.GetValues<FileFilterApplyOn>();
 
-    public IObservable<bool> HasChanged { get; }
+    [ObservableAsProperty] public bool HasChanged { get; }
 
     [Reactive] public bool Editing { get; private set; }
 

@@ -24,10 +24,12 @@ public sealed class ThemeOptionItem : ViewModelBase, IOptionItem, IDisposable
 
         IObservable<Theme> newSelectedTheme = this.WhenAnyValue(x => x.SelectedTheme);
 
-        HasChanged = setting.Value
+        var hasChanged = setting.Value
             .Select(x => x.Theme)
             .CombineLatest(newSelectedTheme)
             .Select(tuple => tuple.First != tuple.Second);
+
+        hasChanged.ToPropertyEx(this, vm => vm.HasChanged);
 
         UpdateOption = option => option with { Theme = SelectedTheme };
 
@@ -40,7 +42,7 @@ public sealed class ThemeOptionItem : ViewModelBase, IOptionItem, IDisposable
 
     public void Dispose() => _cleanup.Dispose();
 
-    public IObservable<bool> HasChanged { get; }
+    [ObservableAsProperty] public bool HasChanged { get; }
 
     public Func<GeneralOptions, GeneralOptions> UpdateOption { get; }
 }

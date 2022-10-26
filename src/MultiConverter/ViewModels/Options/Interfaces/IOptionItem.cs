@@ -1,11 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using MultiConverter.Models.Settings.General;
 
 namespace MultiConverter.ViewModels.Options.Interfaces;
 
-public interface IOptionItem
+public interface IOptionItem : INotifyPropertyChanged
 {
-    IObservable<bool> HasChanged { get; }
+    bool HasChanged { get; }
 
     Func<GeneralOptions, GeneralOptions> UpdateOption { get; }
 }
