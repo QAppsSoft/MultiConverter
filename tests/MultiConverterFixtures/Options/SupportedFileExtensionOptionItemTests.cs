@@ -16,7 +16,7 @@ public class SupportedFileExtensionOptionItemTests : OptionsTestBase
         bool? canAdd = null;
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
+        using var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
 
         fixture.Delete.CanExecute.Subscribe(x => canDelete = x);
         fixture.Add.CanExecute.Subscribe(x => canAdd = x);
@@ -35,7 +35,7 @@ public class SupportedFileExtensionOptionItemTests : OptionsTestBase
         bool? canAdd = null;
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
+        using var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
 
         fixture.Add.Execute().Subscribe();
         fixture.Delete.CanExecute.Subscribe(x => canDelete = x);
@@ -53,10 +53,52 @@ public class SupportedFileExtensionOptionItemTests : OptionsTestBase
         bool? canDelete = null;
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker, GeneralOptions.Default() with { SupportedFilesExtensions = Array.Empty<string>() });
-        var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
+        using var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
 
         fixture.Delete.CanExecute.Subscribe(x => canDelete = x);
 
         canDelete.Should().BeFalse();
+    }
+
+    [Test]
+    public void Reset_should_apply_default_options()
+    {
+        var mocker = GetAutoMocker();
+        SetupGeneralOptions(mocker, GeneralOptions.Default() with { SupportedFilesExtensions = Array.Empty<string>() });
+        using var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
+
+        fixture.Reset.Execute().Subscribe();
+
+        fixture.SupportedExtensions.Select<ExtensionProxy, string>(x => x).Should()
+            .BeEquivalentTo(GeneralOptions.Default().SupportedFilesExtensions);
+    }
+
+    [Test]
+    public void Delete_one_item()
+    {
+        int expected = GeneralOptions.Default().SupportedFilesExtensions.Length - 1;
+        var mocker = GetAutoMocker();
+        SetupGeneralOptions(mocker);
+        using var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
+
+        var toDelete = fixture.SupportedExtensions.Last();
+        fixture.Delete.Execute(toDelete).Subscribe();
+
+        fixture.SupportedExtensions.Count.Should().Be(expected);
+    }
+
+    [Test]
+    public void UpdateOption_should_update_provided_GeneralOptions()
+    {
+        int expected = GeneralOptions.Default().SupportedFilesExtensions.Length - 1;
+        var mocker = GetAutoMocker();
+        SetupGeneralOptions(mocker);
+        using var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
+
+        var toDelete = fixture.SupportedExtensions.Last();
+        fixture.Delete.Execute(toDelete).Subscribe();
+        var result = fixture.UpdateOption.Invoke(GeneralOptions.Default());
+
+        result.SupportedFilesExtensions.Length.Should().Be(expected);
     }
 }
