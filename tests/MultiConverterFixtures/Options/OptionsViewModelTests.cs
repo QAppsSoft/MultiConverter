@@ -9,12 +9,11 @@ using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.ViewModels.Options;
 using MultiConverter.ViewModels.Options.Interfaces;
-using MultiConverterFixtures.Options;
 using NUnit.Framework;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace MultiConverterFixtures;
+namespace MultiConverterFixtures.Options;
 
 public class OptionsViewModelTests : OptionsTestBase
 {
