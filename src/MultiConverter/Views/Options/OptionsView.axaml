@@ -35,6 +35,9 @@
                     <DataTemplate DataType="options:TemporalPathOptionItem">
                         <views:TemporalPathOptionView />
                     </DataTemplate>
+                    <DataTemplate DataType="options:SupportedFileExtensionOptionItem">
+                        <views:SupportedFileExtensionOptionView />
+                    </DataTemplate>
                 </ItemsControl.DataTemplates>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>

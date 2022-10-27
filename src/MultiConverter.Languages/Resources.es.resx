@@ -41,4 +41,7 @@
   <data name="UI_OptionsView_TemporalPath" xml:space="preserve">
     <value>Carpeta temporal</value>
   </data>
+  <data name="UI_OptionsView_SupportedFileExtension" xml:space="preserve">
+    <value>Extensiones de video soportadas</value>
+  </data>
 </root>

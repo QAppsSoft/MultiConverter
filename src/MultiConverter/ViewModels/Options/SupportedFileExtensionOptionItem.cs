@@ -60,7 +60,7 @@ public sealed class SupportedFileExtensionOptionItem : ViewModelBase, IOptionIte
 
         var anyExtension = _supportedExtensions.Connect().IsNotEmpty();
 
-        Delete = ReactiveCommand.Create<string>(extension => _supportedExtensions.Remove(extension), anyExtension);
+        Delete = ReactiveCommand.Create<ExtensionProxy>(extension => _supportedExtensions.Remove(extension), anyExtension);
 
         Reset = ReactiveCommand.Create(() => _supportedExtensions.Edit(cache =>
         {
@@ -77,7 +77,7 @@ public sealed class SupportedFileExtensionOptionItem : ViewModelBase, IOptionIte
 
     public ReadOnlyObservableCollection<ExtensionProxy> SupportedExtensions { get; }
 
-    public ReactiveCommand<string, Unit> Delete { get; }
+    public ReactiveCommand<ExtensionProxy, Unit> Delete { get; }
 
     public ReactiveCommand<Unit, Unit> Add { get; }
 
