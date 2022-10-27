@@ -49,9 +49,7 @@ public sealed class SupportedFileExtensionOptionItem : ViewModelBase, IOptionIte
 
         SupportedExtensions = supportedExtensions;
 
-        var hasChanged = supportedExtensionsObservable
-            .Filter(x => x.HasChanged)
-            .IsNotEmpty();
+        var hasChanged = LocalListIsChanged(setting, supportedExtensionsObservable);
 
         hasChanged.ToPropertyEx(this, vm => vm.HasChanged);
 
@@ -73,6 +71,38 @@ public sealed class SupportedFileExtensionOptionItem : ViewModelBase, IOptionIte
         Add = ReactiveCommand.Create(() => _supportedExtensions.Add(string.Empty), canAdd);
 
         _cleanup = new CompositeDisposable(updateExtensions, bindExtensions, supportedExtensionsObservable.Connect());
+    }
+
+    private IObservable<bool> LocalListIsChanged(ISetting<GeneralOptions> setting, IObservable<IChangeSet<ExtensionProxy>> supportedExtensionsObservable)
+    {
+        var extensionsCountChanged = ExtensionsCountChangedObservable(setting, _supportedExtensions);
+
+        var anyExtensionEdited = IsAnyExtensionEdited(supportedExtensionsObservable);
+
+        var hasChanged = extensionsCountChanged.CombineLatest(anyExtensionEdited, (first, second) => first || second);
+
+        return hasChanged;
+    }
+
+    private static IObservable<bool> IsAnyExtensionEdited(IObservable<IChangeSet<ExtensionProxy>> supportedExtensionsObservable) =>
+        supportedExtensionsObservable
+            .Filter(x => x.HasChanged)
+            .IsNotEmpty();
+
+    private static IObservable<bool> ExtensionsCountChangedObservable(ISetting<GeneralOptions> setting, IObservableList<string> supportedExtensions)
+    {
+        IObservable<int> settingCount = setting.Value
+            .Select(x => x.SupportedFilesExtensions)
+            .Select(x => x.Length).StartWith(0);
+
+        IObservable<int> localCount = supportedExtensions.Connect()
+            .Count()
+            .StartWith(0);
+
+        IObservable<bool> extensionsCountChanged = settingCount
+            .CombineLatest(localCount, (first, second) => first != second);
+
+        return extensionsCountChanged;
     }
 
     public ReadOnlyObservableCollection<ExtensionProxy> SupportedExtensions { get; }

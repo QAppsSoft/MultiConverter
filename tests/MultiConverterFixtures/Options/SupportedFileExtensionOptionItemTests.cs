@@ -101,4 +101,17 @@ public class SupportedFileExtensionOptionItemTests : OptionsTestBase
 
         result.SupportedFilesExtensions.Length.Should().Be(expected);
     }
+
+    [Test]
+    public void After_deleting_item_hasChanged_should_be_true()
+    {
+        var mocker = GetAutoMocker();
+        SetupGeneralOptions(mocker);
+        using var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
+
+        ExtensionProxy toDelete = fixture.SupportedExtensions.First();
+        fixture.Delete.Execute(toDelete).Subscribe();
+
+        fixture.HasChanged.Should().BeTrue();
+    }
 }
