@@ -17,9 +17,9 @@
                                  Icon="Add" Expands="True">
         <controls:OptionsDisplayItem.Content>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Stretch" MaxHeight="300">
-                <ItemsRepeater Items="{Binding SupportedExtensions}">
+                <ItemsControl Items="{Binding SupportedExtensions}">
 
-                    <ItemsRepeater.ItemTemplate>
+                    <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="options:ExtensionProxy">
                             <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
                                     BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
@@ -52,9 +52,9 @@
 
                             </Border>
                         </DataTemplate>
-                    </ItemsRepeater.ItemTemplate>
+                    </ItemsControl.ItemTemplate>
 
-                </ItemsRepeater>
+                </ItemsControl>
             </ScrollViewer>
         </controls:OptionsDisplayItem.Content>
     </controls:OptionsDisplayItem>
