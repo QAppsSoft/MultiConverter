@@ -91,5 +91,5 @@ MultiConverter aims to be a full replacement for a closed source video converter
   - [ ] Dark/Light mode
   - [X] App language selection
   - [X] Temporal conversion folder selection
-  - [ ] Supported video files
+  - [X] Supported video files
   - [ ] File loading filter
