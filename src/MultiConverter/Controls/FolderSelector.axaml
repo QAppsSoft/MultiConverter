@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:options="clr-namespace:MultiConverter.ViewModels.Options"
              mc:Ignorable="d" d:DesignWidth="150" d:DesignHeight="60"
-             x:CompileBindings="True" x:DataType="options:OptionsViewModel"
+             x:CompileBindings="True" x:DataType="options:TemporalPathOptionItem"
              x:Class="MultiConverter.Controls.FolderSelector">
     <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding TemporalPath}">
         <TextBox.InnerRightContent>

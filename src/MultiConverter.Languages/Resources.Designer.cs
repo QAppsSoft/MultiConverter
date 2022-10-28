@@ -105,6 +105,15 @@ namespace MultiConverter.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to @UI_OptionsView_SupportedFileExtension.
+        /// </summary>
+        public static string UI_OptionsView_SupportedFileExtension {
+            get {
+                return ResourceManager.GetString("UI_OptionsView_SupportedFileExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to @UI_OptionsView_TemporalPath.
         /// </summary>
         public static string UI_OptionsView_TemporalPath {

@@ -41,4 +41,7 @@
   <data name="UI_OptionsView_TemporalPath" xml:space="preserve">
     <value>Temporal path</value>
   </data>
+  <data name="UI_OptionsView_SupportedFileExtension" xml:space="preserve">
+    <value>Supported video extensions</value>
+  </data>
 </root>

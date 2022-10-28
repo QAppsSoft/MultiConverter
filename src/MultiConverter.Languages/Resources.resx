@@ -48,4 +48,7 @@
   <data name="UI_OptionsView_TemporalPath" xml:space="preserve">
     <value>@UI_OptionsView_TemporalPath</value>
   </data>
+  <data name="UI_OptionsView_SupportedFileExtension" xml:space="preserve">
+    <value>@UI_OptionsView_SupportedFileExtension</value>
+  </data>
 </root>
