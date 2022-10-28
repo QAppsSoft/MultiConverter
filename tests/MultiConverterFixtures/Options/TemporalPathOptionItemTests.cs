@@ -1,16 +1,11 @@
-﻿using System;
-using System.ComponentModel;
-using System.IO;
-using System.Reactive.Linq;
+﻿using System.IO;
 using System.Threading.Tasks;
 using FluentAssertions;
-using HanumanInstitute.MvvmDialogs;
-using HanumanInstitute.MvvmDialogs.FrameworkDialogs;
 using Moq;
 using Moq.AutoMock;
 using MultiConverter.Common.Testing;
 using MultiConverter.Models.Settings.General;
-using MultiConverter.Services.Abstractions.Settings;
+using MultiConverter.Services;
 using MultiConverter.ViewModels.Options;
 using NUnit.Framework;
 
@@ -18,6 +13,13 @@ namespace MultiConverterFixtures.Options;
 
 public class TemporalPathOptionItemTests : OptionsTestBase
 {
+    private static void SetupDialogService(AutoMocker mocker, string? selectedPath)
+    {
+        Mock<IDialogService> dialogService = mocker.GetMock<IDialogService>();
+        dialogService.Setup(x => x.ShowFolderSelectorAsync(It.IsAny<FolderDialogSettings?>()))
+            .ReturnsAsync(selectedPath);
+    }
+
     [Test]
     public void TemporalPathOptionItem_after_initialization()
     {
@@ -50,22 +52,10 @@ public class TemporalPathOptionItemTests : OptionsTestBase
         using TemporalDirectory expectedPath = TemporalDirectory.Create("command_execution");
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        Mock<ISetting<GeneralOptions>> setting = mocker.GetMock<ISetting<GeneralOptions>>();
-        setting.SetupGet(x => x.Value).Returns(Observable.Return(GeneralOptions.Default()));
-
-        Mock<IDialogService> dialogService = mocker.GetMock<IDialogService>();
-        dialogService.Setup(x => x.DialogManager.ShowFrameworkDialogAsync(
-                It.IsAny<INotifyPropertyChanged?>(),
-                It.IsAny<OpenFolderDialogSettings>(),
-                It.IsAny<AppDialogSettingsBase>(),
-                It.IsAny<Func<object?, string>?>()))
-            .ReturnsAsync((string)expectedPath);
-
+        SetupDialogService(mocker,expectedPath);
         TemporalPathOptionItem fixture = mocker.CreateInstance<TemporalPathOptionItem>();
 
-
         fixture.ChangeTemporalPath.Execute();
-
 
         fixture.TemporalPath.Should().Be(expectedPath);
     }
@@ -77,22 +67,10 @@ public class TemporalPathOptionItemTests : OptionsTestBase
         string expectedPath = GeneralOptions.Default().TemporalFolder;
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        Mock<ISetting<GeneralOptions>> setting = mocker.GetMock<ISetting<GeneralOptions>>();
-        setting.SetupGet(x => x.Value).Returns(Observable.Return(GeneralOptions.Default()));
-
-        Mock<IDialogService> dialogService = mocker.GetMock<IDialogService>();
-        dialogService.Setup(x => x.DialogManager.ShowFrameworkDialogAsync(
-                It.IsAny<INotifyPropertyChanged?>(),
-                It.IsAny<OpenFolderDialogSettings>(),
-                It.IsAny<AppDialogSettingsBase>(),
-                It.IsAny<Func<object?, string>?>()))
-            .ReturnsAsync(selectedPath);
-
+        SetupDialogService(mocker, selectedPath);
         TemporalPathOptionItem fixture = mocker.CreateInstance<TemporalPathOptionItem>();
 
-
         fixture.ChangeTemporalPath.Execute();
-
 
         fixture.TemporalPath.Should().Be(expectedPath);
     }
@@ -103,23 +81,11 @@ public class TemporalPathOptionItemTests : OptionsTestBase
         using TemporalDirectory expectedPath = TemporalDirectory.Create("command_execution");
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        Mock<ISetting<GeneralOptions>> setting = mocker.GetMock<ISetting<GeneralOptions>>();
-        setting.SetupGet(x => x.Value).Returns(Observable.Return(GeneralOptions.Default()));
-
-        Mock<IDialogService> dialogService = mocker.GetMock<IDialogService>();
-        dialogService.Setup(x => x.DialogManager.ShowFrameworkDialogAsync(
-                It.IsAny<INotifyPropertyChanged?>(),
-                It.IsAny<OpenFolderDialogSettings>(),
-                It.IsAny<AppDialogSettingsBase>(),
-                It.IsAny<Func<object?, string>?>()))
-            .ReturnsAsync((string)expectedPath);
-
+        SetupDialogService(mocker, expectedPath);
         TemporalPathOptionItem fixture = mocker.CreateInstance<TemporalPathOptionItem>();
-
 
         fixture.ChangeTemporalPath.Execute();
         GeneralOptions expectedResult = fixture.UpdateOption(GeneralOptions.Default());
-
 
         fixture.TemporalPath.Should().Be(expectedPath);
         expectedResult.Should().Be(GeneralOptions.Default() with { TemporalFolder = expectedPath });
