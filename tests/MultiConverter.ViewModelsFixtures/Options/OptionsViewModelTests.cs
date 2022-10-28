@@ -1,19 +1,16 @@
-using System;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Moq.AutoMock;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.ViewModels.Options;
 using MultiConverter.ViewModels.Options.Interfaces;
-using NUnit.Framework;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace MultiConverterFixtures.Options;
+namespace MultiConverter.ViewModelsFixtures.Options;
 
 public class OptionsViewModelTests : OptionsTestBase
 {

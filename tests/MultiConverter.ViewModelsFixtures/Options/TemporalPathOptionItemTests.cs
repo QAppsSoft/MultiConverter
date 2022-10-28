@@ -1,15 +1,12 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using Moq.AutoMock;
 using MultiConverter.Common.Testing;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services;
 using MultiConverter.ViewModels.Options;
-using NUnit.Framework;
 
-namespace MultiConverterFixtures.Options;
+namespace MultiConverter.ViewModelsFixtures.Options;
 
 public class TemporalPathOptionItemTests : OptionsTestBase
 {

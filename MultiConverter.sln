@@ -67,6 +67,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiConverter.Extensions",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiConverter.Languages", "src\MultiConverter.Languages\MultiConverter.Languages.csproj", "{01624AF4-3EED-4BFC-A725-5AC7A7CB3AB0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiConverter.ViewModels", "src\MultiConverter.ViewModels\MultiConverter.ViewModels.csproj", "{F945F99B-B16D-4F2A-B0DC-85DC5489046C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiConverter.ViewModelsFixtures", "tests\MultiConverter.ViewModelsFixtures\MultiConverter.ViewModelsFixtures.csproj", "{26DE6861-509E-45EA-9660-C446CDCC2792}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiConverter.CommonFixtures", "tests\MultiConverter.CommonFixtures\MultiConverter.CommonFixtures.csproj", "{3D5A0E42-6008-49BE-A62A-381B702E4F2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiConverter.Localization", "src\MultiConverter.Localization\MultiConverter.Localization.csproj", "{4512B959-E40E-432C-8A1D-880F47AC8640}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +111,10 @@ Global
 		{921CB889-4E13-4B0F-9207-37B7187D8C25} = {7910A47D-D384-444F-A077-32B70FB9D30A}
 		{4084378D-17CD-46D0-B230-2793D814049A} = {BBB5AC8A-F501-4472-BFD3-C7C8201372F8}
 		{01624AF4-3EED-4BFC-A725-5AC7A7CB3AB0} = {7271ED19-4A1E-4AEC-B778-4935B54876FC}
+		{F945F99B-B16D-4F2A-B0DC-85DC5489046C} = {7271ED19-4A1E-4AEC-B778-4935B54876FC}
+		{26DE6861-509E-45EA-9660-C446CDCC2792} = {EA381606-4F85-4BB5-AA09-CD2AA7AA3ACD}
+		{3D5A0E42-6008-49BE-A62A-381B702E4F2B} = {F58AF130-9760-4BB1-B710-BD7F4FC10B58}
+		{4512B959-E40E-432C-8A1D-880F47AC8640} = {7271ED19-4A1E-4AEC-B778-4935B54876FC}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2D083104-C547-4509-8A11-C6D74094BDEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -169,5 +181,21 @@ Global
 		{01624AF4-3EED-4BFC-A725-5AC7A7CB3AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01624AF4-3EED-4BFC-A725-5AC7A7CB3AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01624AF4-3EED-4BFC-A725-5AC7A7CB3AB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F945F99B-B16D-4F2A-B0DC-85DC5489046C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F945F99B-B16D-4F2A-B0DC-85DC5489046C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F945F99B-B16D-4F2A-B0DC-85DC5489046C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F945F99B-B16D-4F2A-B0DC-85DC5489046C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26DE6861-509E-45EA-9660-C446CDCC2792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26DE6861-509E-45EA-9660-C446CDCC2792}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26DE6861-509E-45EA-9660-C446CDCC2792}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26DE6861-509E-45EA-9660-C446CDCC2792}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D5A0E42-6008-49BE-A62A-381B702E4F2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D5A0E42-6008-49BE-A62A-381B702E4F2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D5A0E42-6008-49BE-A62A-381B702E4F2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D5A0E42-6008-49BE-A62A-381B702E4F2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4512B959-E40E-432C-8A1D-880F47AC8640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4512B959-E40E-432C-8A1D-880F47AC8640}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4512B959-E40E-432C-8A1D-880F47AC8640}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4512B959-E40E-432C-8A1D-880F47AC8640}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

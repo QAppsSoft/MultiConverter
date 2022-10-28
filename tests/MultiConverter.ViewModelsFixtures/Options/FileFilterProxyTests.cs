@@ -1,10 +1,8 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using MultiConverter.Models.Settings.General.FileFilters;
 using MultiConverter.ViewModels.Options;
-using NUnit.Framework;
 
-namespace MultiConverterFixtures.Options;
+namespace MultiConverter.ViewModelsFixtures.Options;
 
 public class FileFilterProxyTests
 {

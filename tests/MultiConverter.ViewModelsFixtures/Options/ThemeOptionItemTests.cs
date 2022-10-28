@@ -1,11 +1,9 @@
-﻿using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq.AutoMock;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.ViewModels.Options;
-using NUnit.Framework;
 
-namespace MultiConverterFixtures.Options;
+namespace MultiConverter.ViewModelsFixtures.Options;
 
 public class ThemeOptionItemTests : OptionsTestBase
 {

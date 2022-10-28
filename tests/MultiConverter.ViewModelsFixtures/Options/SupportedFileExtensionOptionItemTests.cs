@@ -1,11 +1,8 @@
-﻿using MultiConverter.Models.Settings.General;
+﻿using FluentAssertions;
+using MultiConverter.Models.Settings.General;
 using MultiConverter.ViewModels.Options;
-using NUnit.Framework;
-using System;
-using System.Linq;
-using FluentAssertions;
 
-namespace MultiConverterFixtures.Options;
+namespace MultiConverter.ViewModelsFixtures.Options;
 
 public class SupportedFileExtensionOptionItemTests : OptionsTestBase
 {

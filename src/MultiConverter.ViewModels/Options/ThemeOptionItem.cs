@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using MultiConverter.Common;
+using MultiConverter.Common.Utils;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions.Settings;
-using MultiConverter.Utils;
 using MultiConverter.ViewModels.Options.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
