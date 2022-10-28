@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="ReactiveUI" Version="18.3.1" />
+      <PackageReference Include="ReactiveUI.Fody" Version="18.3.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MultiConverter.Common\MultiConverter.Common.csproj" />
+      <ProjectReference Include="..\MultiConverter.Localization\MultiConverter.Localization.csproj" />
+      <ProjectReference Include="..\MultiConverter.Models\MultiConverter.Models.csproj" />
+      <ProjectReference Include="..\MultiConverter.Services.Abstractions\MultiConverter.Services.Abstractions.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,10 +1,8 @@
-﻿using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
+using MultiConverter.Common.Utils;
 using MultiConverter.Models.Settings.General;
-using MultiConverter.Utils;
-using NUnit.Framework;
 
-namespace MultiConverterFixtures;
+namespace MultiConverter.CommonFixtures;
 
 public class EnumUtilsTests
 {

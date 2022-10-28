@@ -3,8 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
-             xmlns:vmi="clr-namespace:MultiConverter.ViewModels.Interfaces"
-             xmlns:viewModels="clr-namespace:MultiConverter.ViewModels"
+             xmlns:viewModels="clr-namespace:MultiConverter.ViewModels;assembly=MultiConverter.ViewModels"
+             xmlns:interfaces="clr-namespace:MultiConverter.ViewModels.Interfaces;assembly=MultiConverter.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.MainView"
              Foreground="White"
@@ -28,7 +28,7 @@
         Name="NavView"
         IsSettingsVisible="False">
         <controls:NavigationView.MenuItemTemplate>
-            <DataTemplate DataType="{x:Type vmi:IPageViewModel}">
+            <DataTemplate DataType="{x:Type interfaces:IPageViewModel}">
                 <controls:NavigationViewItem Icon="{Binding Icon}" Content="{Binding Name}" />
             </DataTemplate>
         </controls:NavigationView.MenuItemTemplate>

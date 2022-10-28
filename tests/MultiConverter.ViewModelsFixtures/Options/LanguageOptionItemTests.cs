@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using Moq.AutoMock;
 using MultiConverter.Common;
@@ -8,9 +7,8 @@ using MultiConverter.Models;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions;
 using MultiConverter.ViewModels.Options;
-using NUnit.Framework;
 
-namespace MultiConverterFixtures.Options;
+namespace MultiConverter.ViewModelsFixtures.Options;
 
 public class LanguageOptionItemTests : OptionsTestBase
 {

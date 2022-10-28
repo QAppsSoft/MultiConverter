@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Reactive.Linq;
+﻿using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Moq;
 using Moq.AutoMock;
@@ -9,7 +8,7 @@ using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.ViewModels.Options.Interfaces;
 
-namespace MultiConverterFixtures.Options;
+namespace MultiConverter.ViewModelsFixtures.Options;
 
 public abstract class OptionsTestBase
 {

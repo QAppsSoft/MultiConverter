@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using MultiConverter.Common.Utils;
 using MultiConverter.Models.Settings.General.FileFilters;
-using MultiConverter.Utils;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 

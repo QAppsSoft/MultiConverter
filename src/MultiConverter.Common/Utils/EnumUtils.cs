@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MultiConverter.Utils;
+namespace MultiConverter.Common.Utils;
 
 public static class EnumUtils
 {
