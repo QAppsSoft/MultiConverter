@@ -22,10 +22,14 @@ namespace MultiConverter
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow
+                var mainWindow = new MainWindow
                 {
                     DataContext = mainViewModel
                 };
+
+                desktop.MainWindow = mainWindow;
+
+                MainWindow = mainWindow;
             }
             else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
             {
@@ -39,6 +43,8 @@ namespace MultiConverter
 
             base.OnFrameworkInitializationCompleted();
         }
+
+        public static MainWindow MainWindow { get; private set; }
 
         private static void Init() => _ = GetRequiredService<ISystemSetterJob>();
 

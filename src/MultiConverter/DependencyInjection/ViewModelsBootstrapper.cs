@@ -1,7 +1,7 @@
-﻿using HanumanInstitute.MvvmDialogs;
-using MultiConverter.Common;
+﻿using MultiConverter.Common;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Pages;
+using MultiConverter.Services;
 using MultiConverter.Services.Abstractions;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.ViewModels;

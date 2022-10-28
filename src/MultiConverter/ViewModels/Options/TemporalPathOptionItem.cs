@@ -2,11 +2,10 @@
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using HanumanInstitute.MvvmDialogs;
-using HanumanInstitute.MvvmDialogs.FrameworkDialogs;
 using MultiConverter.Common;
 using MultiConverter.Localization;
 using MultiConverter.Models.Settings.General;
+using MultiConverter.Services;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.ViewModels.Options.Interfaces;
 using ReactiveUI;
@@ -45,16 +44,9 @@ public sealed class TemporalPathOptionItem : ViewModelBase, IOptionItem, IDispos
     {
         const string localizedTitle = "UI_OptionsView_TemporalPathDialogTitle";
 
-        OpenFolderDialogSettings dialogSetting =
-            new()
-            {
-                InitialDirectory = TemporalPath,
-                Title = TranslationSource.Instance[localizedTitle]
-            };
+        FolderDialogSettings dialogSetting = new(TranslationSource.Instance[localizedTitle], TemporalPath);
 
-        string? newTemporalPath =
-            await dialogService.ShowOpenFolderDialogAsync(null, dialogSetting)
-                .ConfigureAwait(false);
+        string? newTemporalPath = await dialogService.ShowFolderSelectorAsync(dialogSetting);
 
         if (newTemporalPath == null)
         {
