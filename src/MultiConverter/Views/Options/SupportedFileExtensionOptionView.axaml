@@ -16,7 +16,7 @@
     <controls:OptionsDisplayItem Header="{localization:Localize UI_OptionsView_SupportedFileExtension}"
                                  Icon="Add" Expands="True">
         <controls:OptionsDisplayItem.Content>
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Stretch" MaxHeight="300">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Stretch" MaxHeight="300" Padding="8">
                 <ItemsControl Items="{Binding SupportedExtensions}">
 
                     <ItemsControl.ItemTemplate>
