@@ -22,7 +22,7 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
     <PackageReference Include="Splat.Microsoft.Extensions.Logging" Version="14.5.1" />
-	<PackageReference Include="XamlNameReferenceGenerator" Version="1.4.2" />
+	<PackageReference Include="XamlNameReferenceGenerator" Version="1.5.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MultiConverter.Common\MultiConverter.Common.csproj" />
