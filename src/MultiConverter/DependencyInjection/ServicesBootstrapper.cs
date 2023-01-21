@@ -1,6 +1,4 @@
-﻿using Avalonia;
-using FluentAvalonia.Styling;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using MultiConverter.Common;
 using MultiConverter.Configuration;
 using MultiConverter.Infrastructure;
@@ -27,8 +25,7 @@ public static class ServicesBootstrapper
             resolver.GetRequiredService<ISchedulerProvider>(),
             resolver.GetRequiredService<ILoggerFactory>().CreateLogger(typeof(SystemSetterJob)),
             resolver.GetRequiredService<ISetting<GeneralOptions>>(),
-            resolver.GetRequiredService<ILanguageManager>(),
-            AvaloniaLocator.Current.GetRequiredService<FluentAvaloniaTheme>()
+            resolver.GetRequiredService<ILanguageManager>()
         ));
 
         services.RegisterLazySingleton<IDialogService>(() => new DialogService());

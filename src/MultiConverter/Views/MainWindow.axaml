@@ -8,23 +8,5 @@
         x:Class="MultiConverter.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="MultiConverter">
-    <DockPanel>
-            <Grid Background="Transparent"
-                  Height="32"
-                  Name="TitleBarHost"
-                  ColumnDefinitions="Auto,*"
-                  DockPanel.Dock="Top">
-                <Image Margin="12 4"
-                       IsHitTestVisible="False"
-                       Source="/Assets/avalonia-logo.ico"
-                       Width="24" Height="24"
-                       Name="WindowIcon" />
-                <TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                           FontSize="12"
-                           IsHitTestVisible="False"
-                           VerticalAlignment="Center"
-                           Grid.Column="1"/>
-            </Grid>
-            <views:MainView />
-        </DockPanel>
+    <views:MainView />
 </Window>

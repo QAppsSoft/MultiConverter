@@ -5,11 +5,11 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace MultiConverter.Views.Options;
+namespace MultiConverter.Views.Editor;
 
-public partial class OptionsView : UserControl
+public partial class EditorView : UserControl
 {
-    public OptionsView()
+    public EditorView()
     {
         InitializeComponent();
     }
