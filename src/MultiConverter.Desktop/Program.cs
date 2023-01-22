@@ -59,13 +59,13 @@ internal static class Program
         Locator.CurrentMutable.InitializeReactiveUI();
         Locator.CurrentMutable.InitializeAvalonia();
 
-        RegisterDependencies();
+        RegisterDependencies(builder);
 
         var container = builder.Build();
         resolver.SetLifetimeScope(container);
     }
 
-    private static void RegisterDependencies() => Bootstrapper.Register(Locator.CurrentMutable, Locator.Current);
+    private static void RegisterDependencies(ContainerBuilder builder) => Bootstrapper.Register(builder);
 
     private static void RunBackgroundTasks() => BackgroundTasksRunner.Start(Locator.Current);
 

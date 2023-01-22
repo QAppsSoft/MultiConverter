@@ -8,9 +8,9 @@ namespace MultiConverter.Services.Settings;
 
 public sealed class FileSettingsStore : ISettingsStore
 {
-    private readonly ILogger _logger;
+    private readonly ILogger<FileSettingsStore> _logger;
 
-    public FileSettingsStore(ILogger logger, string? path = null)
+    public FileSettingsStore(ILogger<FileSettingsStore> logger, string? path = null)
     {
         _logger = logger;
         Location = path ?? Path.Combine(

@@ -18,7 +18,7 @@ public class SettingsStoreFixture
 
         using TemporalFilePath settingFilePath = TemporalFilePath.Create($"{key}.setting");
         var state = new State(1, testJsonValue);
-        var store = new FileSettingsStore(NullLogger.Instance, settingFilePath);
+        var store = new FileSettingsStore(NullLogger<FileSettingsStore>.Instance, settingFilePath);
 
         store.Save(key, state);
         var restored = store.Load(key);
@@ -36,7 +36,7 @@ public class SettingsStoreFixture
         var state = new State(1, jsonValue);
 
         using TemporalFilePath settingFilePath = TemporalFilePath.Create($"{key}.setting");
-        var store = new FileSettingsStore(NullLogger.Instance, settingFilePath);
+        var store = new FileSettingsStore(NullLogger<FileSettingsStore>.Instance, settingFilePath);
 
         store.Save(key, state);
         var restored = store.Load(key);

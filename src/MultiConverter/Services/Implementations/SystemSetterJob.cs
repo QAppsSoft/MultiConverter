@@ -13,7 +13,7 @@ public class SystemSetterJob : ISystemSetterJob
 {
     private readonly ILanguageManager _languageManager;
 
-    public SystemSetterJob(ISchedulerProvider schedulerProvider, ILogger logger, ISetting<GeneralOptions> setting,
+    public SystemSetterJob(ISchedulerProvider schedulerProvider, ILogger<SystemSetterJob> logger, ISetting<GeneralOptions> setting,
         ILanguageManager languageManager)
     {
         _languageManager = languageManager;
