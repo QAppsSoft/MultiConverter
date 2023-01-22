@@ -8,22 +8,17 @@ namespace MultiConverter.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
-    public MainViewModel(IEnumerable<IGeneralPageViewModel> pages, IEnumerable<IFooterPageViewModel> footerPages)
+    public MainViewModel(IEnumerable<IPageViewModel> pages)
     {
         ArgumentNullException.ThrowIfNull(pages);
-        ArgumentNullException.ThrowIfNull(footerPages);
 
         Pages = pages;
 
-        FooterPages = footerPages;
-
-        CurrentPage = Pages.First();
+        SelectedPage = Pages.First();
     }
 
     public IEnumerable<IPageViewModel> Pages { get; }
 
-    public IEnumerable<IPageViewModel> FooterPages { get; }
-
     [Reactive]
-    public IPageViewModel CurrentPage { get; set; }
+    public IPageViewModel SelectedPage { get; set; }
 }

@@ -23,11 +23,11 @@ public static class ViewModelsBootstrapper
 
     private static void RegisterPages(IMutableDependencyResolver services, IReadonlyDependencyResolver resolver)
     {
-        services.Register<IGeneralPageViewModel>(() => new EditorPage(
+        services.Register<IPageViewModel>(() => new EditorPage(
             resolver.GetRequiredService<EditorViewModel>)
         );
 
-        services.Register<IFooterPageViewModel>(() => new OptionsPage(
+        services.Register<IPageViewModel>(() => new OptionsPage(
             resolver.GetRequiredService<OptionsViewModel>)
         );
     }
@@ -36,9 +36,8 @@ public static class ViewModelsBootstrapper
         IReadonlyDependencyResolver resolver)
     {
         services.Register(() => new MainViewModel(
-            resolver.GetServices<IGeneralPageViewModel>(),
-            resolver.GetServices<IFooterPageViewModel>())
-        );
+            resolver.GetServices<IPageViewModel>()
+        ));
 
         services.Register(() => new EditorViewModel(
             resolver.GetRequiredService<ISchedulerProvider>())

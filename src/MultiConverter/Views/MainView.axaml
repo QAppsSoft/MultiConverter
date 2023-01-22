@@ -3,42 +3,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:MultiConverter.ViewModels;assembly=MultiConverter.ViewModels"
-             xmlns:editorVm="clr-namespace:MultiConverter.ViewModels.Editor;assembly=MultiConverter.ViewModels"
-             xmlns:editorView="clr-namespace:MultiConverter.Views.Editor"
-             xmlns:optionsVm="clr-namespace:MultiConverter.ViewModels.Options;assembly=MultiConverter.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.MainView" x:DataType="viewModels:MainViewModel"
              Foreground="White"
              Background="#171C2C">
 
-    <UserControl.DataTemplates>
-        <DataTemplate DataType="{x:Type editorVm:EditorViewModel}">
-            <editorView:EditorView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type optionsVm:OptionsViewModel}">
-            <editorView:EditorView />
-        </DataTemplate>
-    </UserControl.DataTemplates>
-
     <Grid ColumnDefinitions="100 *" VerticalAlignment="Stretch">
-        <DockPanel VerticalAlignment="Stretch">
-            <ListBox DockPanel.Dock="Top" Items="{CompiledBinding Pages}" SelectedItem="{CompiledBinding CurrentPage}">
-                <ListBox.DataTemplates>
-                    <DataTemplate>
-                        <TextBlock Text="{CompiledBinding Name}" />
-                    </DataTemplate>
-                </ListBox.DataTemplates>
-            </ListBox>
-            <ListBox DockPanel.Dock="Bottom" Items="{CompiledBinding FooterPages}"
-                     SelectedItem="{CompiledBinding CurrentPage}" VerticalAlignment="Bottom">
-                <ListBox.DataTemplates>
-                    <DataTemplate>
-                        <TextBlock Text="{CompiledBinding Name}" />
-                    </DataTemplate>
-                </ListBox.DataTemplates>
-            </ListBox>
-        </DockPanel>
 
-        <ContentPresenter Grid.Column="1" Content="{Binding CurrentPage.ContentViewModel}" />
+        <ListBox Grid.Column="0" Items="{CompiledBinding Pages}" SelectedItem="{CompiledBinding SelectedPage}">
+            <ListBox.DataTemplates>
+                <DataTemplate>
+                    <TextBlock Text="{CompiledBinding Name}" />
+                </DataTemplate>
+            </ListBox.DataTemplates>
+        </ListBox>
+
+        <ContentControl Grid.Column="1" Content="{CompiledBinding SelectedPage.ContentViewModel, Mode=OneWay}" />
     </Grid>
 </UserControl>
