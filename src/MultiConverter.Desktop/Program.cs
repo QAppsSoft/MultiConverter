@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading;
+using Autofac;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.ReactiveUI;
 using MultiConverter.DependencyInjection;
+using MultiConverter.Extension;
+using ReactiveUI;
 using Splat;
+using Splat.Autofac;
 
 namespace MultiConverter.Desktop;
 
@@ -36,6 +40,31 @@ internal static class Program
         }
     }
 
+    private static void InitializeAutofac()
+    {
+        // Build a new Autofac container.
+        var builder = new ContainerBuilder();
+        builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
+
+        // Use Autofac for ReactiveUI dependency resolution.
+        // After we call the method below, Locator.Current and
+        // Locator.CurrentMutable start using Autofac locator.
+        AutofacDependencyResolver resolver = new(builder);
+        Locator.SetLocator(resolver);
+
+        // These .InitializeX() methods will add ReactiveUI platform
+        // registrations to your container. They MUST be present if
+        // you *override* the default Locator.
+        Locator.CurrentMutable.InitializeSplat();
+        Locator.CurrentMutable.InitializeReactiveUI();
+        Locator.CurrentMutable.InitializeAvalonia();
+
+        RegisterDependencies();
+
+        var container = builder.Build();
+        resolver.SetLifetimeScope(container);
+    }
+
     private static void RegisterDependencies() => Bootstrapper.Register(Locator.CurrentMutable, Locator.Current);
 
     private static void RunBackgroundTasks() => BackgroundTasksRunner.Start(Locator.Current);
@@ -43,12 +72,11 @@ internal static class Program
     // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp()
     {
-        RegisterDependencies();
+        InitializeAutofac();
         RunBackgroundTasks();
 
         return AppBuilder.Configure<App>()
             .UsePlatformDetect()
-            .UseReactiveUI()
             .LogToTrace();
     }
 }

@@ -9,6 +9,7 @@
   </ItemGroup>
   <ItemGroup>
 <!--    <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />-->
+    <PackageReference Include="Autofac" Version="6.5.0" />
     <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.18" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.18" />
@@ -39,5 +40,8 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DependencyInjection\Modules" />
   </ItemGroup>
 </Project>
