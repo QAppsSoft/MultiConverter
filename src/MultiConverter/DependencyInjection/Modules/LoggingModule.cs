@@ -29,7 +29,10 @@ public class LoggingModule : Module
                     .MinimumLevel.Override("Default", config.DefaultLogLevel)
                     .MinimumLevel.Override("Microsoft", config.MicrosoftLogLevel)
                     .WriteTo.Console()
-                    .WriteTo.RollingFile(logFilePath, fileSizeLimitBytes: config.LimitBytes)
+                    .WriteTo.File(
+                        logFilePath,
+                        fileSizeLimitBytes: config.LimitBytes,
+                        rollingInterval: RollingInterval.Day)
                     .CreateLogger();
 
                 SerilogLoggerFactory factory = new(logger);
