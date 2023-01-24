@@ -26,11 +26,11 @@ public class ViewModelsModule : Module
         builder.RegisterType<EditorViewModel>().ExternallyOwned();
         builder.RegisterType<SettingsViewModel>().ExternallyOwned();
 
-        builder.RegisterType<ThemeSettingItem>().ExternallyOwned();
-        builder.RegisterType<LanguageSettingItem>().ExternallyOwned();
-        builder.RegisterType<VideoSettingItem>().ExternallyOwned();
-        builder.RegisterType<TemporalPathSettingItem>().ExternallyOwned();
-        builder.RegisterType<SupportedFileExtensionSettingItem>().ExternallyOwned();
-        builder.RegisterType<FileFiltersSettingItem>().ExternallyOwned();
+        builder.RegisterType<ThemeSettingItem>().AsImplementedInterfaces().ExternallyOwned();
+        builder.RegisterType<LanguageSettingItem>().AsImplementedInterfaces().ExternallyOwned();
+        builder.RegisterType<VideoSettingItem>().AsImplementedInterfaces().ExternallyOwned();
+        builder.RegisterType<TemporalPathSettingItem>().AsImplementedInterfaces().ExternallyOwned();
+        builder.RegisterType<SupportedFileExtensionSettingItem>().AsImplementedInterfaces().ExternallyOwned();
+        builder.RegisterType<FileFiltersSettingItem>().AsImplementedInterfaces().ExternallyOwned();
     }
 }
