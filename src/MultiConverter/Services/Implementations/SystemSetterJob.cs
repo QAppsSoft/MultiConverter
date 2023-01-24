@@ -14,11 +14,13 @@ namespace MultiConverter.Services.Implementations;
 
 public class SystemSetterJob : ISystemSetterJob
 {
-    private readonly ILanguageManager _languageManager;
-    private static readonly MaterialTheme MaterialThemeStyles =
+    private static readonly MaterialTheme s_materialThemeStyles =
         Application.Current!.LocateMaterialTheme<MaterialTheme>();
 
-    public SystemSetterJob(ISchedulerProvider schedulerProvider, ILogger<SystemSetterJob> logger, ISetting<GeneralOptions> setting,
+    private readonly ILanguageManager _languageManager;
+
+    public SystemSetterJob(ISchedulerProvider schedulerProvider, ILogger<SystemSetterJob> logger,
+        ISetting<GeneralOptions> setting,
         ILanguageManager languageManager)
     {
         _languageManager = languageManager;
@@ -33,10 +35,8 @@ public class SystemSetterJob : ISystemSetterJob
             .Subscribe(SetTheme);
     }
 
-    private static void SetTheme(Theme theme)
-    {
-        MaterialThemeStyles.BaseTheme = theme == Theme.Dark ? BaseThemeMode.Dark : BaseThemeMode.Light;
-    }
+    private static void SetTheme(Theme theme) => s_materialThemeStyles.BaseTheme =
+        theme == Theme.Dark ? BaseThemeMode.Dark : BaseThemeMode.Light;
 
     private void SetLanguage(string language) => _languageManager.SetLanguage(language);
 }
