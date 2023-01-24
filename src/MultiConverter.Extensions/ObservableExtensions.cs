@@ -13,4 +13,18 @@ public static class ObservableExtensions
     /// <typeparam name="T">observable values type</typeparam>
     /// <returns><see cref="Unit" /> value</returns>
     public static IObservable<Unit> ToUnit<T>(this IObservable<T> observable) => observable.Select(_ => Unit.Default);
+
+    /// <summary>
+    ///     Filter any value received from the observable allowing only true values
+    /// </summary>
+    /// <param name="observable">The observable to filter</param>
+    /// <returns><see cref="bool" /> value</returns>
+    public static IObservable<bool> WhereTrue(this IObservable<bool> observable) => observable.Where(x => x);
+
+    /// <summary>
+    ///     Filter any value received from the observable allowing only false values
+    /// </summary>
+    /// <param name="observable">The observable to filter</param>
+    /// <returns><see cref="bool" /> value</returns>
+    public static IObservable<bool> WhereFalse(this IObservable<bool> observable) => observable.Where(x => !x);
 }
