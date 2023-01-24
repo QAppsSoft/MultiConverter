@@ -5,8 +5,8 @@ using FluentAssertions;
 using Moq.AutoMock;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions.Settings;
-using MultiConverter.ViewModels.Options;
-using MultiConverter.ViewModels.Options.Interfaces;
+using MultiConverter.ViewModels.Settings;
+using MultiConverter.ViewModels.Settings.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -19,7 +19,7 @@ public class OptionsViewModelTests : OptionsTestBase
     {
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        OptionsViewModel fixture = mocker.CreateInstance<OptionsViewModel>();
+        SettingsViewModel fixture = mocker.CreateInstance<SettingsViewModel>();
 
         fixture.Save.Should().BeNull();
         fixture.Options.Should().BeNull();
@@ -33,7 +33,7 @@ public class OptionsViewModelTests : OptionsTestBase
         SetupGeneralOptions(mocker);
         SetupOptionItems(mocker);
         bool? canExecute = null;
-        OptionsViewModel fixture = mocker.CreateInstance<OptionsViewModel>();
+        SettingsViewModel fixture = mocker.CreateInstance<SettingsViewModel>();
 
         fixture.Activator.Activate();
         _ = fixture.Save?.CanExecute.Subscribe(value => canExecute = value);
@@ -46,12 +46,12 @@ public class OptionsViewModelTests : OptionsTestBase
     public void Check_viewmodel_can_execute_saveButton_after_activation_and_optionItem_changed()
     {
         Subject<bool> hasChanged = new();
-        var optionItem = new FakeOptionItem(hasChanged);
+        var optionItem = new FakeSettingItem(hasChanged);
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         SetupOptionItems(mocker, new[] { optionItem });
         bool? canExecute = null;
-        OptionsViewModel fixture = mocker.CreateInstance<OptionsViewModel>();
+        SettingsViewModel fixture = mocker.CreateInstance<SettingsViewModel>();
 
         fixture.Activator.Activate();
         _ = fixture.Save?.CanExecute.Subscribe(value => canExecute = value);
@@ -68,7 +68,7 @@ public class OptionsViewModelTests : OptionsTestBase
         var modifiedGeneralOption = GeneralOptions.Default() with { AnalysisTimeout = 120 };
         SetupGeneralOptions(mocker, modifiedGeneralOption);
         SetupOptionItems(mocker);
-        OptionsViewModel fixture = mocker.CreateInstance<OptionsViewModel>();
+        SettingsViewModel fixture = mocker.CreateInstance<SettingsViewModel>();
         ISetting<GeneralOptions> setting = mocker.GetMock<ISetting<GeneralOptions>>().Object;
 
         fixture.Activator.Activate();
@@ -87,11 +87,11 @@ public class OptionsViewModelTests : OptionsTestBase
         var newTimeout = 123;
         AutoMocker mocker = GetAutoMocker();
         Subject<bool> hasChanged = new();
-        var optionItem = new FakeOptionItem(hasChanged, options => options with { AnalysisTimeout = newTimeout });
+        var optionItem = new FakeSettingItem(hasChanged, options => options with { AnalysisTimeout = newTimeout });
         SetupGeneralOptions(mocker, GeneralOptions.Default());
         SetupOptionItems(mocker, new[] { optionItem });
         var setting = mocker.GetMock<ISetting<GeneralOptions>>().Object;
-        OptionsViewModel fixture = mocker.CreateInstance<OptionsViewModel>();
+        SettingsViewModel fixture = mocker.CreateInstance<SettingsViewModel>();
 
         fixture.Activator.Activate();
         hasChanged.OnNext(true);
@@ -106,7 +106,7 @@ public class OptionsViewModelTests : OptionsTestBase
     {
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        OptionsViewModel fixture = mocker.CreateInstance<OptionsViewModel>();
+        SettingsViewModel fixture = mocker.CreateInstance<SettingsViewModel>();
 
         fixture.Activator.Activate();
         fixture.Activator.Deactivate();
@@ -116,9 +116,9 @@ public class OptionsViewModelTests : OptionsTestBase
     }
 }
 
-public class FakeOptionItem : ReactiveObject, IOptionItem
+public class FakeSettingItem : ReactiveObject, ISettingItem
 {
-    public FakeOptionItem(IObservable<bool>? hasChanged = null, Func<GeneralOptions, GeneralOptions>? updateOption = null)
+    public FakeSettingItem(IObservable<bool>? hasChanged = null, Func<GeneralOptions, GeneralOptions>? updateOption = null)
     {
         IObservable<bool> changed = hasChanged ?? Observable.Return(false);
 

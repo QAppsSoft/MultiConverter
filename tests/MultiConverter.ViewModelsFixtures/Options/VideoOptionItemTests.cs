@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Moq.AutoMock;
 using MultiConverter.Models.Settings.General;
-using MultiConverter.ViewModels.Options;
+using MultiConverter.ViewModels.Settings;
 
 namespace MultiConverter.ViewModelsFixtures.Options;
 
@@ -12,7 +12,7 @@ public class VideoOptionItemTests : OptionsTestBase
     {
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using VideoOptionItem fixture = mocker.CreateInstance<VideoOptionItem>();
+        using VideoSettingItem fixture = mocker.CreateInstance<VideoSettingItem>();
 
         fixture.AnalysisTimeout.Should().Be(60);
         fixture.LoadFilesAlreadyInQueue.Should().BeFalse();
@@ -25,7 +25,7 @@ public class VideoOptionItemTests : OptionsTestBase
         const int expectedTimeout = 125;
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using VideoOptionItem fixture = mocker.CreateInstance<VideoOptionItem>();
+        using VideoSettingItem fixture = mocker.CreateInstance<VideoSettingItem>();
 
         fixture.AnalysisTimeout = expectedTimeout;
 
@@ -39,7 +39,7 @@ public class VideoOptionItemTests : OptionsTestBase
         const bool expectedValue = true;
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using VideoOptionItem fixture = mocker.CreateInstance<VideoOptionItem>();
+        using VideoSettingItem fixture = mocker.CreateInstance<VideoSettingItem>();
 
         fixture.LoadFilesAlreadyInQueue = expectedValue;
 
@@ -53,7 +53,7 @@ public class VideoOptionItemTests : OptionsTestBase
         bool originalValue = GeneralOptions.Default().LoadFilesAlreadyInQueue;
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using VideoOptionItem fixture = mocker.CreateInstance<VideoOptionItem>();
+        using VideoSettingItem fixture = mocker.CreateInstance<VideoSettingItem>();
 
         fixture.LoadFilesAlreadyInQueue = !originalValue;
         fixture.LoadFilesAlreadyInQueue = originalValue;
@@ -69,7 +69,7 @@ public class VideoOptionItemTests : OptionsTestBase
         const bool expectedInQueue = true;
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using VideoOptionItem fixture = mocker.CreateInstance<VideoOptionItem>();
+        using VideoSettingItem fixture = mocker.CreateInstance<VideoSettingItem>();
 
         fixture.AnalysisTimeout = expectedTimeout;
         fixture.LoadFilesAlreadyInQueue = expectedInQueue;

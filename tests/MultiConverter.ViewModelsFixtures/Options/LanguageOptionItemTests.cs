@@ -6,7 +6,7 @@ using MultiConverter.Common.Testing;
 using MultiConverter.Models;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions;
-using MultiConverter.ViewModels.Options;
+using MultiConverter.ViewModels.Settings;
 
 namespace MultiConverter.ViewModelsFixtures.Options;
 
@@ -31,7 +31,7 @@ public class LanguageOptionItemTests : OptionsTestBase
         ImmediateSchedulers scheduler = new();
         AutoMocker mocker = GetAutoMocker(scheduler);
         SetupGeneralOptions(mocker);
-        using LanguageOptionItem fixture = mocker.CreateInstance<LanguageOptionItem>();
+        using LanguageSettingItem fixture = mocker.CreateInstance<LanguageSettingItem>();
 
         fixture.Languages.Count().Should().Be(2);
         fixture.Languages.Select(x => x.Code).Should().BeEquivalentTo("en", "es");
@@ -44,7 +44,7 @@ public class LanguageOptionItemTests : OptionsTestBase
     {
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using LanguageOptionItem fixture = mocker.CreateInstance<LanguageOptionItem>();
+        using LanguageSettingItem fixture = mocker.CreateInstance<LanguageSettingItem>();
 
         fixture.SelectedLanguage = fixture.Languages.First(x => x.Code == "es");
 
@@ -57,7 +57,7 @@ public class LanguageOptionItemTests : OptionsTestBase
     {
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using LanguageOptionItem fixture = mocker.CreateInstance<LanguageOptionItem>();
+        using LanguageSettingItem fixture = mocker.CreateInstance<LanguageSettingItem>();
 
         fixture.SelectedLanguage = fixture.Languages.First(x => x.Code == "es");
         GeneralOptions option = fixture.UpdateOption(GeneralOptions.Default());

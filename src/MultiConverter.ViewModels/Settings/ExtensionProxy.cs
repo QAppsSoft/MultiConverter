@@ -5,7 +5,7 @@ using System.Reactive.Linq;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace MultiConverter.ViewModels.Options;
+namespace MultiConverter.ViewModels.Settings;
 
 public sealed class ExtensionProxy : ReactiveObject
 {

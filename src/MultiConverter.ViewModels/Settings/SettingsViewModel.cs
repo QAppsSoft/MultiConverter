@@ -9,18 +9,18 @@ using DynamicData.Aggregation;
 using MultiConverter.Common;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions.Settings;
-using MultiConverter.ViewModels.Options.Interfaces;
+using MultiConverter.ViewModels.Settings.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace MultiConverter.ViewModels.Options;
+namespace MultiConverter.ViewModels.Settings;
 
-public sealed class OptionsViewModel : ViewModelBase, IActivatableViewModel
+public sealed class SettingsViewModel : ViewModelBase, IActivatableViewModel
 {
-    private readonly SourceList<IOptionItem> _optionsSourceList = new();
+    private readonly SourceList<ISettingItem> _optionsSourceList = new();
 
-    public OptionsViewModel(ISchedulerProvider schedulerProvider,
-        ISetting<GeneralOptions> setting, IEnumerable<IOptionItem> optionItems)
+    public SettingsViewModel(ISchedulerProvider schedulerProvider,
+        ISetting<GeneralOptions> setting, IEnumerable<ISettingItem> optionItems)
     {
         ArgumentNullException.ThrowIfNull(schedulerProvider);
         ArgumentNullException.ThrowIfNull(optionItems);
@@ -36,7 +36,7 @@ public sealed class OptionsViewModel : ViewModelBase, IActivatableViewModel
 
             _ = _optionsSourceList.Connect()
                 .ObserveOn(schedulerProvider.Dispatcher)
-                .Bind(out ReadOnlyObservableCollection<IOptionItem> options)
+                .Bind(out ReadOnlyObservableCollection<ISettingItem> options)
                 .Subscribe()
                 .DisposeWith(disposable);
 
@@ -50,13 +50,13 @@ public sealed class OptionsViewModel : ViewModelBase, IActivatableViewModel
 
             Save = ReactiveCommand.Create(() => { }, hasOptionsChanged);
 
-            IObservable<IReadOnlyCollection<IOptionItem>> changedOptions = _optionsSourceList.Connect()
+            IObservable<IReadOnlyCollection<ISettingItem>> changedOptions = _optionsSourceList.Connect()
                 .AutoRefresh(x => x.HasChanged)
                 .Filter(x => x.HasChanged)
                 .ToCollection()
                 .StartWithEmpty();
 
-            IObservable<(GeneralOptions First, IReadOnlyCollection<IOptionItem> Second)> optionsTuple =
+            IObservable<(GeneralOptions First, IReadOnlyCollection<ISettingItem> Second)> optionsTuple =
                 setting.Value.CombineLatest(changedOptions);
 
             _ = Save.WithLatestFrom(optionsTuple).Select(x => x.Second)
@@ -81,7 +81,7 @@ public sealed class OptionsViewModel : ViewModelBase, IActivatableViewModel
         // Empty
     }
 
-    [Reactive] public ReadOnlyObservableCollection<IOptionItem>? Options { get; set; }
+    [Reactive] public ReadOnlyObservableCollection<ISettingItem>? Options { get; set; }
 
     [Reactive] public ReactiveCommand<Unit, Unit>? Save { get; set; }
 
@@ -90,11 +90,11 @@ public sealed class OptionsViewModel : ViewModelBase, IActivatableViewModel
     public ViewModelActivator Activator { get; } = new();
 
     private static GeneralOptions NewGeneralOptions(
-        (GeneralOptions GeneralOptions, IReadOnlyCollection<IOptionItem> ChangedOptions) tuple)
+        (GeneralOptions GeneralOptions, IReadOnlyCollection<ISettingItem> ChangedOptions) tuple)
     {
-        (GeneralOptions generalOptions, IReadOnlyCollection<IOptionItem> readOnlyCollection) = tuple;
+        (GeneralOptions generalOptions, IReadOnlyCollection<ISettingItem> readOnlyCollection) = tuple;
 
-        foreach (IOptionItem optionItem in readOnlyCollection)
+        foreach (ISettingItem optionItem in readOnlyCollection)
         {
             generalOptions = optionItem.UpdateOption(generalOptions);
         }

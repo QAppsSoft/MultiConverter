@@ -3,7 +3,7 @@ using MultiConverter.ViewModels;
 using MultiConverter.ViewModels.Editor;
 using MultiConverter.ViewModels.Interfaces;
 
-namespace MultiConverter.Pages;
+namespace MultiConverter.Settings;
 
 public class EditorPage : PageViewModelBase<EditorViewModel>, IGeneralPageViewModel
 {

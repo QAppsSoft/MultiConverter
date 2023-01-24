@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Moq.AutoMock;
 using MultiConverter.Models.Settings.General;
-using MultiConverter.ViewModels.Options;
+using MultiConverter.ViewModels.Settings;
 
 namespace MultiConverter.ViewModelsFixtures.Options;
 
@@ -12,7 +12,7 @@ public class ThemeOptionItemTests : OptionsTestBase
     {
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using ThemeOptionItem fixture = mocker.CreateInstance<ThemeOptionItem>();
+        using ThemeSettingItem fixture = mocker.CreateInstance<ThemeSettingItem>();
 
         fixture.Themes.Count().Should().Be(2);
         fixture.SelectedTheme.Should().Be(Theme.Dark);
@@ -24,7 +24,7 @@ public class ThemeOptionItemTests : OptionsTestBase
     {
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using ThemeOptionItem fixture = mocker.CreateInstance<ThemeOptionItem>();
+        using ThemeSettingItem fixture = mocker.CreateInstance<ThemeSettingItem>();
 
         fixture.SelectedTheme = Theme.Light;
 
@@ -37,7 +37,7 @@ public class ThemeOptionItemTests : OptionsTestBase
     {
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using ThemeOptionItem fixture = mocker.CreateInstance<ThemeOptionItem>();
+        using ThemeSettingItem fixture = mocker.CreateInstance<ThemeSettingItem>();
 
         fixture.SelectedTheme = Theme.Light;
         GeneralOptions option = fixture.UpdateOption(GeneralOptions.Default());

@@ -5,17 +5,17 @@ using MultiConverter.Common;
 using MultiConverter.Common.Utils;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions.Settings;
-using MultiConverter.ViewModels.Options.Interfaces;
+using MultiConverter.ViewModels.Settings.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace MultiConverter.ViewModels.Options;
+namespace MultiConverter.ViewModels.Settings;
 
-public sealed class ThemeOptionItem : ViewModelBase, IOptionItem, IDisposable
+public sealed class ThemeSettingItem : ViewModelBase, ISettingItem, IDisposable
 {
     private readonly IDisposable _cleanup;
 
-    public ThemeOptionItem(ISchedulerProvider schedulerProvider, ISetting<GeneralOptions> setting)
+    public ThemeSettingItem(ISchedulerProvider schedulerProvider, ISetting<GeneralOptions> setting)
     {
         IDisposable updateSavedTheme = setting.Value
             .Select(x => x.Theme)

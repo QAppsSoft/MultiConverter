@@ -8,7 +8,7 @@ using MultiConverter.Models.Settings.General.FileFilters;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace MultiConverter.ViewModels.Options;
+namespace MultiConverter.ViewModels.Settings;
 
 public sealed class FileFilterProxy : ReactiveObject, IDisposable
 {

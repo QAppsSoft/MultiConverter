@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using MultiConverter.Models.Settings.General;
-using MultiConverter.ViewModels.Options;
+using MultiConverter.ViewModels.Settings;
 
 namespace MultiConverter.ViewModelsFixtures.Options;
 
@@ -13,7 +13,7 @@ public class SupportedFileExtensionOptionItemTests : OptionsTestBase
         bool? canAdd = null;
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
+        using var fixture = mocker.CreateInstance<SupportedFileExtensionSettingItem>();
 
         fixture.Delete.CanExecute.Subscribe(x => canDelete = x);
         fixture.Add.CanExecute.Subscribe(x => canAdd = x);
@@ -32,7 +32,7 @@ public class SupportedFileExtensionOptionItemTests : OptionsTestBase
         bool? canAdd = null;
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
+        using var fixture = mocker.CreateInstance<SupportedFileExtensionSettingItem>();
 
         fixture.Add.Execute().Subscribe();
         fixture.Delete.CanExecute.Subscribe(x => canDelete = x);
@@ -50,7 +50,7 @@ public class SupportedFileExtensionOptionItemTests : OptionsTestBase
         bool? canDelete = null;
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker, GeneralOptions.Default() with { SupportedFilesExtensions = Array.Empty<string>() });
-        using var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
+        using var fixture = mocker.CreateInstance<SupportedFileExtensionSettingItem>();
 
         fixture.Delete.CanExecute.Subscribe(x => canDelete = x);
 
@@ -62,7 +62,7 @@ public class SupportedFileExtensionOptionItemTests : OptionsTestBase
     {
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker, GeneralOptions.Default() with { SupportedFilesExtensions = Array.Empty<string>() });
-        using var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
+        using var fixture = mocker.CreateInstance<SupportedFileExtensionSettingItem>();
 
         fixture.Reset.Execute().Subscribe();
 
@@ -76,7 +76,7 @@ public class SupportedFileExtensionOptionItemTests : OptionsTestBase
         int expected = GeneralOptions.Default().SupportedFilesExtensions.Length - 1;
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
+        using var fixture = mocker.CreateInstance<SupportedFileExtensionSettingItem>();
 
         var toDelete = fixture.SupportedExtensions.Last();
         fixture.Delete.Execute(toDelete).Subscribe();
@@ -90,7 +90,7 @@ public class SupportedFileExtensionOptionItemTests : OptionsTestBase
         int expected = GeneralOptions.Default().SupportedFilesExtensions.Length - 1;
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
+        using var fixture = mocker.CreateInstance<SupportedFileExtensionSettingItem>();
 
         var toDelete = fixture.SupportedExtensions.Last();
         fixture.Delete.Execute(toDelete).Subscribe();
@@ -104,7 +104,7 @@ public class SupportedFileExtensionOptionItemTests : OptionsTestBase
     {
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using var fixture = mocker.CreateInstance<SupportedFileExtensionOptionItem>();
+        using var fixture = mocker.CreateInstance<SupportedFileExtensionSettingItem>();
 
         ExtensionProxy toDelete = fixture.SupportedExtensions.First();
         fixture.Delete.Execute(toDelete).Subscribe();

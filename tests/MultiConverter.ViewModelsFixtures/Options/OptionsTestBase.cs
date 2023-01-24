@@ -6,7 +6,7 @@ using MultiConverter.Common;
 using MultiConverter.Common.Testing;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions.Settings;
-using MultiConverter.ViewModels.Options.Interfaces;
+using MultiConverter.ViewModels.Settings.Interfaces;
 
 namespace MultiConverter.ViewModelsFixtures.Options;
 
@@ -38,12 +38,12 @@ public abstract class OptionsTestBase
         mocker.Use(setting);
     }
 
-    public void SetupOptionItems(AutoMocker mocker, IEnumerable<IOptionItem>? optionItems = null)
+    public void SetupOptionItems(AutoMocker mocker, IEnumerable<ISettingItem>? optionItems = null)
     {
         if (optionItems == null)
         {
-            List<IOptionItem> items = new() { new FakeOptionItem() };
-            mocker.Use<IEnumerable<IOptionItem>>(items);
+            List<ISettingItem> items = new() { new FakeSettingItem() };
+            mocker.Use<IEnumerable<ISettingItem>>(items);
         }
         else
         {

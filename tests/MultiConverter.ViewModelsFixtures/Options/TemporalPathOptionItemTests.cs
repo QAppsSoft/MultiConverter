@@ -4,7 +4,7 @@ using Moq.AutoMock;
 using MultiConverter.Common.Testing;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services;
-using MultiConverter.ViewModels.Options;
+using MultiConverter.ViewModels.Settings;
 
 namespace MultiConverter.ViewModelsFixtures.Options;
 
@@ -23,7 +23,7 @@ public class TemporalPathOptionItemTests : OptionsTestBase
         string expectedValue = Path.GetTempPath();
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using TemporalPathOptionItem fixture = mocker.CreateInstance<TemporalPathOptionItem>();
+        using TemporalPathSettingItem fixture = mocker.CreateInstance<TemporalPathSettingItem>();
 
         fixture.TemporalPath.Should().Be(expectedValue);
         fixture.HasChanged.Should().BeFalse();
@@ -35,7 +35,7 @@ public class TemporalPathOptionItemTests : OptionsTestBase
         using TemporalDirectory expectedPath = TemporalDirectory.Create("has_changed");
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using TemporalPathOptionItem fixture = mocker.CreateInstance<TemporalPathOptionItem>();
+        using TemporalPathSettingItem fixture = mocker.CreateInstance<TemporalPathSettingItem>();
 
         fixture.TemporalPath = expectedPath;
 
@@ -50,7 +50,7 @@ public class TemporalPathOptionItemTests : OptionsTestBase
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         SetupDialogService(mocker,expectedPath);
-        TemporalPathOptionItem fixture = mocker.CreateInstance<TemporalPathOptionItem>();
+        TemporalPathSettingItem fixture = mocker.CreateInstance<TemporalPathSettingItem>();
 
         fixture.ChangeTemporalPath.Execute();
 
@@ -65,7 +65,7 @@ public class TemporalPathOptionItemTests : OptionsTestBase
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         SetupDialogService(mocker, selectedPath);
-        TemporalPathOptionItem fixture = mocker.CreateInstance<TemporalPathOptionItem>();
+        TemporalPathSettingItem fixture = mocker.CreateInstance<TemporalPathSettingItem>();
 
         fixture.ChangeTemporalPath.Execute();
 
@@ -79,7 +79,7 @@ public class TemporalPathOptionItemTests : OptionsTestBase
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         SetupDialogService(mocker, expectedPath);
-        TemporalPathOptionItem fixture = mocker.CreateInstance<TemporalPathOptionItem>();
+        TemporalPathSettingItem fixture = mocker.CreateInstance<TemporalPathSettingItem>();
 
         fixture.ChangeTemporalPath.Execute();
         GeneralOptions expectedResult = fixture.UpdateOption(GeneralOptions.Default());

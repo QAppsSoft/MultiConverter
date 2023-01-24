@@ -11,19 +11,19 @@ using MultiConverter.Common;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Models.Settings.General.FileFilters;
 using MultiConverter.Services.Abstractions.Settings;
-using MultiConverter.ViewModels.Options.Interfaces;
+using MultiConverter.ViewModels.Settings.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace MultiConverter.ViewModels.Options;
+namespace MultiConverter.ViewModels.Settings;
 
-public sealed class FileFiltersOptionItem : ViewModelBase, IOptionItem, IDisposable
+public sealed class FileFiltersSettingItem : ViewModelBase, ISettingItem, IDisposable
 {
     private readonly IDisposable _cleanup;
 
     private readonly ISourceList<FileFilter> _filters = new SourceList<FileFilter>();
 
-    public FileFiltersOptionItem(ISchedulerProvider schedulerProvider, ISetting<GeneralOptions> setting)
+    public FileFiltersSettingItem(ISchedulerProvider schedulerProvider, ISetting<GeneralOptions> setting)
     {
         var updateFilters = setting.Value
             .Select(x => x.FileFilters)

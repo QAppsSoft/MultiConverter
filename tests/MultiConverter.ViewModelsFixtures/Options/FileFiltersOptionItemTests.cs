@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Models.Settings.General.FileFilters;
-using MultiConverter.ViewModels.Options;
+using MultiConverter.ViewModels.Settings;
 
 namespace MultiConverter.ViewModelsFixtures.Options;
 
@@ -14,7 +14,7 @@ public class FileFiltersOptionItemTests : OptionsTestBase
         bool? canAdd = null;
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using var fixture = mocker.CreateInstance<FileFiltersOptionItem>();
+        using var fixture = mocker.CreateInstance<FileFiltersSettingItem>();
 
         fixture.Delete.CanExecute.Subscribe(x => canDelete = x);
         fixture.Add.CanExecute.Subscribe(x => canAdd = x);
@@ -34,7 +34,7 @@ public class FileFiltersOptionItemTests : OptionsTestBase
         bool? canAdd = null;
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker, GeneralOptions.Default() with { FileFilters = expected });
-        using var fixture = mocker.CreateInstance<FileFiltersOptionItem>();
+        using var fixture = mocker.CreateInstance<FileFiltersSettingItem>();
 
         fixture.Delete.CanExecute.Subscribe(x => canDelete = x);
         fixture.Add.CanExecute.Subscribe(x => canAdd = x);
@@ -51,7 +51,7 @@ public class FileFiltersOptionItemTests : OptionsTestBase
         var fileFilters = new[] { new FileFilter("avi", FileFilterPosition.Contains, FileFilterApplyOn.Extension) };
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker, GeneralOptions.Default() with { FileFilters = fileFilters });
-        using var fixture = mocker.CreateInstance<FileFiltersOptionItem>();
+        using var fixture = mocker.CreateInstance<FileFiltersSettingItem>();
 
         var fileFilterItem = fixture.FileFilters.First();
         fileFilterItem.Position = FileFilterPosition.Ends;
@@ -65,7 +65,7 @@ public class FileFiltersOptionItemTests : OptionsTestBase
         bool? canDelete = null;
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using var fixture = mocker.CreateInstance<FileFiltersOptionItem>();
+        using var fixture = mocker.CreateInstance<FileFiltersSettingItem>();
 
         fixture.Delete.CanExecute.Subscribe(x => canDelete = x);
 
@@ -81,7 +81,7 @@ public class FileFiltersOptionItemTests : OptionsTestBase
         bool? canDelete = null;
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker, GeneralOptions.Default() with { FileFilters = fileFilters });
-        using var fixture = mocker.CreateInstance<FileFiltersOptionItem>();
+        using var fixture = mocker.CreateInstance<FileFiltersSettingItem>();
 
         fixture.Delete.CanExecute.Subscribe(x => canDelete = x);
 
@@ -100,7 +100,7 @@ public class FileFiltersOptionItemTests : OptionsTestBase
         };
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker, GeneralOptions.Default() with { FileFilters = fileFilters });
-        using var fixture = mocker.CreateInstance<FileFiltersOptionItem>();
+        using var fixture = mocker.CreateInstance<FileFiltersSettingItem>();
 
         FileFilterProxy toDeleteFilterProxy = fixture.FileFilters[1];
         fixture.Delete.Execute(toDeleteFilterProxy).Subscribe();
@@ -121,7 +121,7 @@ public class FileFiltersOptionItemTests : OptionsTestBase
         };
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker, GeneralOptions.Default() with { FileFilters = fileFilters });
-        using var fixture = mocker.CreateInstance<FileFiltersOptionItem>();
+        using var fixture = mocker.CreateInstance<FileFiltersSettingItem>();
 
         fixture.Reset.Execute().Subscribe();
 
@@ -135,7 +135,7 @@ public class FileFiltersOptionItemTests : OptionsTestBase
         FileFilter expected = FileFilter.Default;
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker, GeneralOptions.Default() with { FileFilters = Array.Empty<FileFilter>() });
-        using var fixture = mocker.CreateInstance<FileFiltersOptionItem>();
+        using var fixture = mocker.CreateInstance<FileFiltersSettingItem>();
 
         fixture.Add.Execute().Subscribe();
 
@@ -151,7 +151,7 @@ public class FileFiltersOptionItemTests : OptionsTestBase
         bool? canAdd = null;
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker, GeneralOptions.Default() with { FileFilters = new[] { defaultFileFilter } });
-        using var fixture = mocker.CreateInstance<FileFiltersOptionItem>();
+        using var fixture = mocker.CreateInstance<FileFiltersSettingItem>();
 
         fixture.Add.CanExecute.Subscribe(x => canAdd = x);
 
@@ -165,7 +165,7 @@ public class FileFiltersOptionItemTests : OptionsTestBase
         GeneralOptions expected = GeneralOptions.Default() with { FileFilters = new[] { fileFilter } };
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using var fixture = mocker.CreateInstance<FileFiltersOptionItem>();
+        using var fixture = mocker.CreateInstance<FileFiltersSettingItem>();
 
         fixture.Add.Execute().Subscribe();
         fixture.FileFilters.First().Filter = "avi";
@@ -178,7 +178,7 @@ public class FileFiltersOptionItemTests : OptionsTestBase
     {
         var mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        using var fixture = mocker.CreateInstance<FileFiltersOptionItem>();
+        using var fixture = mocker.CreateInstance<FileFiltersSettingItem>();
 
         fixture.Add.Execute().Subscribe();
         fixture.FileFilters.First().Filter = "avi";

@@ -11,19 +11,19 @@ using DynamicData.Kernel;
 using MultiConverter.Common;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions.Settings;
-using MultiConverter.ViewModels.Options.Interfaces;
+using MultiConverter.ViewModels.Settings.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace MultiConverter.ViewModels.Options;
+namespace MultiConverter.ViewModels.Settings;
 
-public sealed class SupportedFileExtensionOptionItem : ViewModelBase, IOptionItem, IDisposable
+public sealed class SupportedFileExtensionSettingItem : ViewModelBase, ISettingItem, IDisposable
 {
     private readonly IDisposable _cleanup;
 
     private readonly ISourceList<string> _supportedExtensions = new SourceList<string>();
 
-    public SupportedFileExtensionOptionItem(ISchedulerProvider schedulerProvider, ISetting<GeneralOptions> setting)
+    public SupportedFileExtensionSettingItem(ISchedulerProvider schedulerProvider, ISetting<GeneralOptions> setting)
     {
         var updateExtensions = setting.Value
             .Select(x => x.SupportedFilesExtensions)

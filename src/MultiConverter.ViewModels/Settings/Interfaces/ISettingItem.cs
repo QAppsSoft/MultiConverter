@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using MultiConverter.Models.Settings.General;
 
-namespace MultiConverter.ViewModels.Options.Interfaces;
+namespace MultiConverter.ViewModels.Settings.Interfaces;
 
-public interface IOptionItem : INotifyPropertyChanged
+public interface ISettingItem : INotifyPropertyChanged
 {
     bool HasChanged { get; }
 

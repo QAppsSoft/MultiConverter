@@ -7,17 +7,17 @@ using MultiConverter.Localization;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services;
 using MultiConverter.Services.Abstractions.Settings;
-using MultiConverter.ViewModels.Options.Interfaces;
+using MultiConverter.ViewModels.Settings.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace MultiConverter.ViewModels.Options;
+namespace MultiConverter.ViewModels.Settings;
 
-public sealed class TemporalPathOptionItem : ViewModelBase, IOptionItem, IDisposable
+public sealed class TemporalPathSettingItem : ViewModelBase, ISettingItem, IDisposable
 {
     private readonly IDisposable _cleanup;
 
-    public TemporalPathOptionItem(ISchedulerProvider schedulerProvider, ISetting<GeneralOptions> setting,
+    public TemporalPathSettingItem(ISchedulerProvider schedulerProvider, ISetting<GeneralOptions> setting,
         IDialogService dialogService)
     {
         IDisposable updateSavedTemporalPath = setting.Value

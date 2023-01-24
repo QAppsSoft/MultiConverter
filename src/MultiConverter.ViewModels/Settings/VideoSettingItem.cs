@@ -4,17 +4,17 @@ using System.Reactive.Linq;
 using MultiConverter.Common;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions.Settings;
-using MultiConverter.ViewModels.Options.Interfaces;
+using MultiConverter.ViewModels.Settings.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace MultiConverter.ViewModels.Options;
+namespace MultiConverter.ViewModels.Settings;
 
-public sealed class VideoOptionItem : ViewModelBase, IOptionItem, IDisposable
+public sealed class VideoSettingItem : ViewModelBase, ISettingItem, IDisposable
 {
     private readonly IDisposable _cleanup;
 
-    public VideoOptionItem(ISchedulerProvider schedulerProvider, ISetting<GeneralOptions> setting)
+    public VideoSettingItem(ISchedulerProvider schedulerProvider, ISetting<GeneralOptions> setting)
     {
         var updateSavedTimeout = setting.Value
             .Select(x => x.AnalysisTimeout)

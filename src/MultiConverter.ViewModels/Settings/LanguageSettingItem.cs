@@ -7,17 +7,17 @@ using MultiConverter.Models;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions;
 using MultiConverter.Services.Abstractions.Settings;
-using MultiConverter.ViewModels.Options.Interfaces;
+using MultiConverter.ViewModels.Settings.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace MultiConverter.ViewModels.Options;
+namespace MultiConverter.ViewModels.Settings;
 
-public sealed class LanguageOptionItem : ViewModelBase, IOptionItem, IDisposable
+public sealed class LanguageSettingItem : ViewModelBase, ISettingItem, IDisposable
 {
     private readonly IDisposable _cleanup;
 
-    public LanguageOptionItem(ISchedulerProvider schedulerProvider, ISetting<GeneralOptions> setting,
+    public LanguageSettingItem(ISchedulerProvider schedulerProvider, ISetting<GeneralOptions> setting,
         ILanguageManager languageManager)
     {
         Languages = languageManager.AllLanguages;

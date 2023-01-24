@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using MultiConverter.Models.Settings.General.FileFilters;
-using MultiConverter.ViewModels.Options;
+using MultiConverter.ViewModels.Settings;
 
 namespace MultiConverter.ViewModelsFixtures.Options;
 
