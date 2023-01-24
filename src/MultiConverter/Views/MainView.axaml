@@ -3,62 +3,62 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:MultiConverter.ViewModels;assembly=MultiConverter.ViewModels"
+             xmlns:interfaces="clr-namespace:MultiConverter.ViewModels.Interfaces;assembly=MultiConverter.ViewModels"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-             xmlns:controls="clr-namespace:Material.Styles;assembly=Material.Styles"
+             xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+             xmlns:converters="clr-namespace:MultiConverter.Views.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.MainView" x:DataType="viewModels:MainViewModel"
              Foreground="White"
              Background="#171C2C">
+    <UserControl.Resources>
+        <converters:DrawerMenuIconConverter x:Key="DrawerMenuIconConverter" />
+    </UserControl.Resources>
+
 
     <controls:SnackbarHost HostName="Root">
         <controls:NavigationDrawer Name="LeftDrawer">
 
             <controls:NavigationDrawer.LeftDrawerContent>
-                <DockPanel MinWidth="220">
-                    <controls:ColorZone DockPanel.Dock="Top" Mode="Accent" Height="180">
-                        <StackPanel Margin="16">
-                            <ToggleButton HorizontalAlignment="Right"
-                                          VerticalAlignment="Top"
-                                          DockPanel.Dock="Top"
-                                          IsChecked="{Binding ElementName=LeftDrawer, Path=LeftDrawerOpened, Mode=TwoWay}"
-                                          Foreground="{DynamicResource MaterialDesignBody}"
-                                          Width="32"
-                                          Height="32"
-                                          Padding="4">
-                                <materialIcons:MaterialIcon Kind="ArrowLeft" Width="24" Height="24" />
-                            </ToggleButton>
+                <ScrollViewer MinWidth="220">
+                    <StackPanel>
+                        <controls:ColorZone DockPanel.Dock="Top" Mode="Accent" Height="180">
+                            <StackPanel Margin="16" HorizontalAlignment="Stretch">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Margin="8"
+                                    DockPanel.Dock="Top"
+                                    Classes="Headline6"
+                                    Text="Multi Converter" />
+                            </StackPanel>
+                        </controls:ColorZone>
 
-                            <TextBlock
-                                Margin="8"
-                                DockPanel.Dock="Top"
-                                Classes="Headline6"
-                                Text="Multi Converter" />
-                        </StackPanel>
-                    </controls:ColorZone>
-
-                    <ListBox Items="{CompiledBinding Pages}" SelectedItem="{CompiledBinding SelectedPage}">
-                        <ListBox.DataTemplates>
-                            <DataTemplate>
-                                <Grid ColumnDefinitions="32 *">
-                                    <materialIcons:MaterialIcon Grid.Column="0" Kind="{CompiledBinding Icon}"
-                                                                Width="24" Height="24" Margin="4" />
-                                    <TextBlock Margin="4" Classes="Subtitle2" Grid.Column="1" Text="{CompiledBinding Name}"
-                                               VerticalAlignment="Center" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.DataTemplates>
-                    </ListBox>
-                </DockPanel>
+                        <ListBox Classes="NoScroll" Items="{CompiledBinding Pages}"
+                                 SelectedItem="{CompiledBinding SelectedPage}">
+                            <ListBox.DataTemplates>
+                                <DataTemplate x:DataType="interfaces:IPageViewModel">
+                                    <Grid ColumnDefinitions="32 *">
+                                        <materialIcons:MaterialIcon Grid.Column="0" Kind="{CompiledBinding Icon}"
+                                                                    Width="24" Height="24" Margin="4" />
+                                        <TextBlock Margin="4" Classes="Subtitle2" Grid.Column="1"
+                                                   Text="{CompiledBinding Name}"
+                                                   VerticalAlignment="Center" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.DataTemplates>
+                        </ListBox>
+                    </StackPanel>
+                </ScrollViewer>
             </controls:NavigationDrawer.LeftDrawerContent>
 
             <DockPanel>
                 <controls:ColorZone VerticalAlignment="Top" HorizontalAlignment="Stretch" DockPanel.Dock="Top"
-                                    Height="56" Mode="PrimaryMid" ZIndex="1">
+                                    Height="56" Mode="PrimaryMid">
                     <Grid ColumnDefinitions="24 32 * 32 Auto" Margin="16">
                         <ToggleButton IsChecked="{Binding ElementName=LeftDrawer, Path=LeftDrawerOpened, Mode=TwoWay}"
                                       Foreground="{DynamicResource MaterialDesignBody}"
                                       Width="32" Height="32" Padding="4">
-                            <materialIcons:MaterialIcon Kind="Menu" Width="24" Height="24" />
+                            <materialIcons:MaterialIcon Kind="{Binding ElementName=LeftDrawer, Path=LeftDrawerOpened, Converter={StaticResource DrawerMenuIconConverter}}" Width="24" Height="24" />
                         </ToggleButton>
                         <TextBlock Grid.Column="2" Classes="Headline6" Text="{CompiledBinding SelectedPage.Name}"
                                    VerticalAlignment="Center" />

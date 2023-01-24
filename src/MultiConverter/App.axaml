@@ -2,14 +2,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:MultiConverter"
              xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              x:Class="MultiConverter.App">
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
-    <Application.Resources>
-        <themes:BundledTheme BaseTheme="Light" PrimaryColor="Teal" SecondaryColor="Amber"/>
-    </Application.Resources>
     <Application.Styles>
-        <StyleInclude Source="avares://Material.Avalonia/Material.Avalonia.Templates.xaml" />
+        <themes:MaterialTheme BaseTheme="Light" PrimaryColor="Teal" SecondaryColor="Amber" />
+        <materialIcons:MaterialIconStyles />
     </Application.Styles>
 </Application>
