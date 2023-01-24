@@ -1,9 +1,10 @@
-﻿using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
+using MultiConverter.ViewModels.Settings;
 
 namespace MultiConverter.Views.Settings;
 
-public partial class SettingsView : UserControl
+public partial class SettingsView : ReactiveUserControl<SettingsViewModel>
 {
     public SettingsView()
     {
