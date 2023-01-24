@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Reactive.Linq;
+using Avalonia;
+using Material.Styles.Themes;
+using Material.Styles.Themes.Base;
 using Microsoft.Extensions.Logging;
 using MultiConverter.Common;
 using MultiConverter.Models.Settings.General;
@@ -12,6 +15,8 @@ namespace MultiConverter.Services.Implementations;
 public class SystemSetterJob : ISystemSetterJob
 {
     private readonly ILanguageManager _languageManager;
+    private static readonly MaterialTheme MaterialThemeStyles =
+        Application.Current!.LocateMaterialTheme<MaterialTheme>();
 
     public SystemSetterJob(ISchedulerProvider schedulerProvider, ILogger<SystemSetterJob> logger, ISetting<GeneralOptions> setting,
         ILanguageManager languageManager)
@@ -28,16 +33,9 @@ public class SystemSetterJob : ISystemSetterJob
             .Subscribe(SetTheme);
     }
 
-    private void SetTheme(Theme theme)
+    private static void SetTheme(Theme theme)
     {
-        if (theme == Theme.Dark)
-        {
-            // TODO: Set dark theme
-        }
-        else
-        {
-            // TODO: Set light theme
-        }
+        MaterialThemeStyles.BaseTheme = theme == Theme.Dark ? BaseThemeMode.Dark : BaseThemeMode.Light;
     }
 
     private void SetLanguage(string language) => _languageManager.SetLanguage(language);
