@@ -21,7 +21,7 @@ public class SettingsModule : Module
             var factory = context.Resolve<ISettingFactory>();
             IConverter<GeneralOptions> converter = context.Resolve<IConverter<GeneralOptions>>();
             return factory.Create(converter, "GeneralOptions");
-        });
+        }).SingleInstance();
 
     private static void RegisterConverters(ContainerBuilder builder) =>
         builder.RegisterType<GeneralOptionsConverter>()
@@ -32,6 +32,5 @@ public class SettingsModule : Module
     {
         builder.RegisterType<SettingFactory>().As<ISettingFactory>().SingleInstance();
         builder.RegisterType<FileSettingsStore>().As<ISettingsStore>().SingleInstance();
-        //builder.RegisterType<SettingsRegister>().As<ISettingsRegister>().SingleInstance();
     }
 }
