@@ -1,0 +1,17 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:settings="clr-namespace:MultiConverter.ViewModels.Settings;assembly=MultiConverter.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="settings:ThemeSettingItem"
+             x:Class="MultiConverter.Views.Settings.ThemeSettingItemView">
+    <StackPanel HorizontalAlignment="Stretch">
+        <TextBlock Text="Theme" Classes="Headline6" />
+        <Rectangle HorizontalAlignment="Stretch" Fill="Blue" Height="1" />
+        <Grid ColumnDefinitions="* *" VerticalAlignment="Top">
+            <TextBlock Grid.Column="0" Text="theme selected" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Items="{CompiledBinding Themes}" SelectedItem="{CompiledBinding SelectedTheme}" VerticalAlignment="Center"  Classes="Filled" VerticalContentAlignment="Center" />
+        </Grid>
+    </StackPanel>
+</UserControl>
