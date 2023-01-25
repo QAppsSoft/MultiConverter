@@ -20,13 +20,13 @@
             <Button Command="{CompiledBinding Save}" Margin="4">
                 <StackPanel Orientation="Horizontal">
                     <avalonia:MaterialIcon Kind="ContentSave" Width="24" Height="24" />
-                    <TextBlock Text="Save" VerticalAlignment="Center" Margin="4" Classes="Subtitle1" />
+                    <TextBlock Text="Save" VerticalAlignment="Center" Margin="4" />
                 </StackPanel>
             </Button>
             <Button Command="{CompiledBinding Reset}" Margin="4">
                 <StackPanel Orientation="Horizontal">
                     <avalonia:MaterialIcon Kind="Autorenew" Width="24" Height="24" />
-                    <TextBlock Text="Reset" VerticalAlignment="Center" Margin="4" Classes="Subtitle1" />
+                    <TextBlock Text="Reset" VerticalAlignment="Center" Margin="4" />
                 </StackPanel>
             </Button>
         </StackPanel>
