@@ -2,8 +2,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:settingsVm="clr-namespace:MultiConverter.ViewModels.Settings;assembly=MultiConverter.ViewModels"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:settingsView="clr-namespace:MultiConverter.Views.Settings"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="settingsVm:SettingsViewModel"
              x:Class="MultiConverter.Views.Settings.SettingsView">
-    Settings
-</UserControl>
 
+    <UserControl.DataTemplates>
+        <DataTemplate DataType="{x:Type settingsVm:ThemeSettingItem}">
+            <settingsView:ThemeSettingItemView />
+        </DataTemplate>
+    </UserControl.DataTemplates>
+
+    <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Command="{CompiledBinding Save}" Margin="4">
+                <StackPanel Orientation="Horizontal">
+                    <avalonia:MaterialIcon Kind="ContentSave" Width="24" Height="24" />
+                    <TextBlock Text="Save" VerticalAlignment="Center" Margin="4" Classes="Subtitle1" />
+                </StackPanel>
+            </Button>
+            <Button Command="{CompiledBinding Reset}" Margin="4">
+                <StackPanel Orientation="Horizontal">
+                    <avalonia:MaterialIcon Kind="Autorenew" Width="24" Height="24" />
+                    <TextBlock Text="Reset" VerticalAlignment="Center" Margin="4" Classes="Subtitle1" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl Items="{CompiledBinding Options}" />
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>
