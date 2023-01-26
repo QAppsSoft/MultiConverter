@@ -45,6 +45,27 @@ public class SupportedFileExtensionOptionItemTests : OptionsTestBase
     }
 
     [Test]
+    public void After_adding_new_item_and_extension_modified_hasChanged_and_can_add()
+    {
+        bool? canDelete = null;
+        bool? canAdd = null;
+        var mocker = GetAutoMocker();
+        SetupGeneralOptions(mocker);
+        using var fixture = mocker.CreateInstance<SupportedFileExtensionSettingItem>();
+
+        fixture.Add.Execute().Subscribe();
+        var extensionProxy = fixture.SupportedExtensions.First(x => x.Extension == string.Empty);
+        extensionProxy.Extension = ".exe";
+        fixture.Delete.CanExecute.Subscribe(x => canDelete = x);
+        fixture.Add.CanExecute.Subscribe(x => canAdd = x);
+
+        fixture.SupportedExtensions.Select(x => (string)x).Should()
+            .NotBeEquivalentTo(GeneralOptions.Default().SupportedFilesExtensions);
+        canAdd.Should().BeTrue();
+        fixture.HasChanged.Should().BeTrue();
+    }
+
+    [Test]
     public void With_clear_list_cannot_delete()
     {
         bool? canDelete = null;

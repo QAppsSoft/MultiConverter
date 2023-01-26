@@ -39,6 +39,7 @@ public sealed class SupportedFileExtensionSettingItem : ViewModelBase, ISettingI
         var supportedExtensionsObservable = _supportedExtensions.Connect()
             .Sort(SortExpressionComparer<string>.Ascending(x => x))
             .Transform(x => new ExtensionProxy(x))
+            .AutoRefresh(x => x.Extension)
             .AutoRefresh(x => x.HasChanged)
             .Publish();
 
