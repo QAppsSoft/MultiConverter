@@ -2,8 +2,59 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:settings="clr-namespace:MultiConverter.ViewModels.Settings;assembly=MultiConverter.ViewModels"
+             xmlns:material="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:converters="clr-namespace:MultiConverter.Views.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="settings:SupportedFileExtensionSettingItem"
              x:Class="MultiConverter.Views.Settings.SupportedFileExtensionSettingItemView">
-    Welcome to Avalonia!
-</UserControl>
+    <UserControl.Resources>
+    </UserControl.Resources>
+    <StackPanel HorizontalAlignment="Stretch">
+        <Grid ColumnDefinitions="* *">
+            <TextBlock Grid.Column="0" Text="Supported extension" />
+            <Button Grid.Column="1" Command="{CompiledBinding Add}">
+                <material:MaterialIcon Kind="FilePlus" />
+            </Button>
+        </Grid>
 
+        <ScrollViewer Height="250">
+            <ItemsRepeater x:Name="ExtensionsList" Items="{CompiledBinding SupportedExtensions}">
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate x:DataType="settings:ExtensionProxy">
+                        <Border
+                            BorderThickness="1"
+                            Padding="8"
+                            CornerRadius="8"
+                            Height="64">
+
+                            <DockPanel HorizontalAlignment="Stretch">
+                                <Grid DockPanel.Dock="Left">
+                                    <TextBlock Text="{Binding Extension}"
+                                               IsVisible="{Binding !Editing}"
+                                               VerticalAlignment="Center" />
+                                    <TextBox Text="{Binding Extension}"
+                                             IsVisible="{Binding Editing}"
+                                             VerticalAlignment="Center" />
+                                </Grid>
+                                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal"
+                                            HorizontalAlignment="Right" Spacing="8">
+                                    <Button Command="{CompiledBinding ToggleEditing}">
+                                        <material:MaterialIcon
+                                            Kind="{CompiledBinding Editing, Converter={x:Static converters:SymbolConverters.EditStatusToSymbol}}" />
+                                    </Button>
+                                    <Button Command="{Binding  $parent[ItemsRepeater].DataContext.Delete}"
+                                            CommandParameter="{Binding}">
+                                        <material:MaterialIcon Kind="Delete" />
+                                    </Button>
+                                </StackPanel>
+                            </DockPanel>
+
+                        </Border>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </ScrollViewer>
+
+    </StackPanel>
+</UserControl>
