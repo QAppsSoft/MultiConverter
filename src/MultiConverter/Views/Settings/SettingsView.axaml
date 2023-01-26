@@ -10,6 +10,12 @@
              x:Class="MultiConverter.Views.Settings.SettingsView">
 
     <UserControl.DataTemplates>
+        <DataTemplate DataType="{x:Type settingsVm:LanguageSettingItem}">
+            <settingsView:LanguageSettingItemView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type settingsVm:VideoSettingItem}">
+            <settingsView:VideoSettingItemView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type settingsVm:ThemeSettingItem}">
             <settingsView:ThemeSettingItemView />
         </DataTemplate>

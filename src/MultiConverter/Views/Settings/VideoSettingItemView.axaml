@@ -1,0 +1,20 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:settings="clr-namespace:MultiConverter.ViewModels.Settings;assembly=MultiConverter.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="settings:VideoSettingItem"
+             x:Class="MultiConverter.Views.Settings.VideoSettingItemView">
+    <StackPanel HorizontalAlignment="Stretch">
+        <TextBlock Text="Video" />
+        <Grid ColumnDefinitions="* *" VerticalAlignment="Top" RowDefinitions="* *">
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Analysis timeout:" VerticalAlignment="Center" />
+            <NumericUpDown Grid.Row="0" Grid.Column="1" Value="{CompiledBinding AnalysisTimeout}" Minimum="10" Maximum="360" Increment="10" />
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Load files already in conversion queue:" VerticalAlignment="Center" />
+            <ToggleSwitch Grid.Row="1" Grid.Column="1" IsChecked="{CompiledBinding LoadFilesAlreadyInQueue}" />
+        </Grid>
+    </StackPanel>
+</UserControl>
+
