@@ -13,5 +13,5 @@ public class SettingsPage : PageViewModelBase<SettingsViewModel>, IFooterPageVie
 
     public override int Order => 1000;
     public override string Name => "Settings";
-    public override string Icon => "Settings";
+    public override string Icon => PageIcons.SettingsIconKey;
 }

@@ -14,5 +14,5 @@ public class EditorPage : PageViewModelBase<EditorViewModel>, IGeneralPageViewMo
     public override int Order => 1;
     public override string Name => "Editor";
 
-    public override string Icon => "Home";
+    public override string Icon => PageIcons.EditorIconKey;
 }

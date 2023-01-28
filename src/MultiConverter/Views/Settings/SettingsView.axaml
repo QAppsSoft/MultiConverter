@@ -25,7 +25,7 @@
     </UserControl.DataTemplates>
 
     <DockPanel LastChildFill="True">
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="16">
             <Button Command="{CompiledBinding Save}" Margin="4">
                 <StackPanel Orientation="Horizontal">
                     <avalonia:MaterialIcon Kind="ContentSave" Width="24" Height="24" />
@@ -40,8 +40,9 @@
             </Button>
         </StackPanel>
 
-        <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled">
-            <ItemsControl Items="{CompiledBinding Options}" />
+        <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl Items="{CompiledBinding Options}" Margin="32" />
         </ScrollViewer>
     </DockPanel>
 </UserControl>
