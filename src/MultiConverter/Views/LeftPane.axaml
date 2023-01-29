@@ -1,0 +1,49 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:MultiConverter.ViewModels;assembly=MultiConverter.ViewModels"
+             xmlns:views="clr-namespace:MultiConverter.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="viewModels:MainViewModel"
+             x:Class="MultiConverter.Views.LeftPane">
+    <Panel>
+        <!-- AcrylicBlur -->
+        <ExperimentalAcrylicBorder DockPanel.Dock="Left" IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial BackgroundSource="Digger"
+                                             TintColor="{DynamicResource SystemAltLowColor}"
+                                             TintOpacity="1"
+                                             FallbackColor="{DynamicResource SystemAltLowColor}"
+                                             MaterialOpacity="0.6" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+
+        <!-- Contents -->
+        <DockPanel>
+
+            <!-- Separator -->
+            <Separator DockPanel.Dock="Top"
+                       Margin="12,12,12,0"
+                       Background="{DynamicResource SystemChromeAltLowColor}"
+                       Opacity="0.3"
+                       Height="0.55" />
+
+            <!-- Items -->
+            <DockPanel>
+                <views:ProjectActionsView DockPanel.Dock="Bottom"
+                                          Margin="12,0,12,0" />
+                <Separator DockPanel.Dock="Bottom"
+                           Margin="12,0,12,0"
+                           Background="{DynamicResource SystemChromeAltLowColor}"
+                           Opacity="0.3"
+                           Height="0.55"/>
+                <views:ItemsView Margin="12,12,12,12" />
+            </DockPanel>
+
+        </DockPanel>
+
+    </Panel>
+
+</UserControl>
+

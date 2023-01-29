@@ -41,7 +41,7 @@
 
         <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                       HorizontalScrollBarVisibility="Disabled">
-            <ItemsControl Items="{CompiledBinding Options}" Margin="32" />
+            <ItemsControl Items="{CompiledBinding Options}" Margin="24" />
         </ScrollViewer>
     </DockPanel>
 </UserControl>

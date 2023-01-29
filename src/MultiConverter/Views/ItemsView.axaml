@@ -1,0 +1,42 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:interfaces="clr-namespace:MultiConverter.ViewModels.Interfaces;assembly=MultiConverter.ViewModels"
+             xmlns:viewModels="clr-namespace:MultiConverter.ViewModels;assembly=MultiConverter.ViewModels"
+             xmlns:converters1="clr-namespace:MultiConverter.Views.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="viewModels:MainViewModel"
+             x:Class="MultiConverter.Views.ItemsView">
+
+    <ListBox Items="{CompiledBinding Pages}"
+             SelectedItem="{CompiledBinding SelectedPage}"
+             Background="Transparent">
+
+        <ListBox.Styles>
+            <Style Selector="ListBoxItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+        </ListBox.Styles>
+
+        <ListBox.DataTemplates>
+            <DataTemplate x:DataType="interfaces:IPageViewModel">
+                <Panel Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Focusable="True" Margin="4">
+                    <StackPanel Orientation="Horizontal" IsHitTestVisible="False">
+                        <PathIcon Width="24" Height="24" Margin="4" Opacity="0.8"
+                                  Data="{CompiledBinding Icon, Converter={x:Static converters1:GeometryConverters.ResourceKeyToGeometry}}"/>
+
+                        <TextBlock HorizontalAlignment="Left" Margin="16 0 16 0" Opacity="0.8"
+                                   Padding="12"
+                                   Text="{CompiledBinding Name}"
+                                   VerticalAlignment="Center"  />
+                    </StackPanel>
+                </Panel>
+
+            </DataTemplate>
+        </ListBox.DataTemplates>
+    </ListBox>
+</UserControl>
+

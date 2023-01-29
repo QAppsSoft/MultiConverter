@@ -3,30 +3,32 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:MultiConverter.ViewModels;assembly=MultiConverter.ViewModels"
-             xmlns:interfaces="clr-namespace:MultiConverter.ViewModels.Interfaces;assembly=MultiConverter.ViewModels"
-             xmlns:converters="clr-namespace:MultiConverter.Views.Converters"
+             xmlns:views="clr-namespace:MultiConverter.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.MainView" x:DataType="viewModels:MainViewModel">
 
-    <Grid ColumnDefinitions="64 *">
+    <Grid ColumnDefinitions="200 8 *" RowDefinitions="30 *">
 
-        <ListBox Grid.Column="0" Items="{CompiledBinding Pages}"
-                 SelectedItem="{CompiledBinding SelectedPage}">
-            <ListBox.DataTemplates>
-                <DataTemplate x:DataType="interfaces:IPageViewModel">
-                    <StackPanel>
-                        <PathIcon Width="24" Height="24" Margin="4" Opacity="0.8"
-                                  Data="{CompiledBinding Icon, Converter={x:Static converters:GeometryConverters.ResourceKeyToGeometry}}"/>
+        <!-- Title Bar -->
+        <views:TitleBar Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" />
 
-                        <TextBlock HorizontalAlignment="Center" Opacity="0.8"
-                                   Text="{CompiledBinding Name}"
-                                   VerticalAlignment="Center" FontSize="10" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.DataTemplates>
-        </ListBox>
+        <!-- Left Pane -->
+        <views:LeftPane Grid.Column="0" Grid.Row="1" />
 
-        <ContentControl Grid.Column="1" Content="{CompiledBinding SelectedPage.ContentViewModel, Mode=OneWay}" />
+        <!-- Pane Splitter -->
+        <GridSplitter
+            Grid.Row="1" Grid.Column="1"
+            Margin="0,0,0,0"
+            Background="{DynamicResource SystemChromeMediumColor}" />
 
+        <!-- Background -->
+        <Panel Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2"
+               Background="{DynamicResource SystemChromeMediumColor}"
+               IsHitTestVisible="False"
+               HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+        <!-- Right Pane -->
+        <views:RightPane Grid.Column="2" Grid.Row="1" />
     </Grid>
+
 </UserControl>

@@ -1,0 +1,28 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MultiConverter.Views.TitleBar">
+    <Panel>
+        <!-- AcrylicBlur -->
+        <ExperimentalAcrylicBorder DockPanel.Dock="Left" IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial BackgroundSource="Digger"
+                                             TintColor="{DynamicResource SystemAltLowColor}"
+                                             TintOpacity="1"
+                                             FallbackColor="{DynamicResource SystemAltLowColor}"
+                                             MaterialOpacity="0.6" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+
+        <!-- Contents -->
+        <Grid ColumnDefinitions="Auto,*" IsHitTestVisible="False">
+            <Image Grid.Column="0" VerticalAlignment="Center" Source="/Assets/avalonia-logo.ico" Width="18"
+                   Margin="12 0 12 0" />
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="12">Multi Converter</TextBlock>
+        </Grid>
+
+    </Panel>
+
+</UserControl>
