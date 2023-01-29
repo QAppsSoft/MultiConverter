@@ -3,7 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:settingsVm="clr-namespace:MultiConverter.ViewModels.Settings;assembly=MultiConverter.ViewModels"
-             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:settingsView="clr-namespace:MultiConverter.Views.Settings"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="settingsVm:SettingsViewModel"
@@ -28,13 +27,13 @@
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="16">
             <Button Command="{CompiledBinding Save}" Margin="4">
                 <StackPanel Orientation="Horizontal">
-                    <avalonia:MaterialIcon Kind="ContentSave" Width="24" Height="24" />
+                    <PathIcon Data="{DynamicResource SaveIcon}" />
                     <TextBlock Text="Save" VerticalAlignment="Center" Margin="4" />
                 </StackPanel>
             </Button>
             <Button Command="{CompiledBinding Reset}" Margin="4">
                 <StackPanel Orientation="Horizontal">
-                    <avalonia:MaterialIcon Kind="Autorenew" Width="24" Height="24" />
+                    <PathIcon Data="{DynamicResource ResetIcon}" />
                     <TextBlock Text="Reset" VerticalAlignment="Center" Margin="4" />
                 </StackPanel>
             </Button>

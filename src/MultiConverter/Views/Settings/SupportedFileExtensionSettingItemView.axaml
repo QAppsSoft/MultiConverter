@@ -3,8 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:settings="clr-namespace:MultiConverter.ViewModels.Settings;assembly=MultiConverter.ViewModels"
-             xmlns:material="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-             xmlns:styles="clr-namespace:MultiConverter.Styles"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="settings:SupportedFileExtensionSettingItem"
              x:Class="MultiConverter.Views.Settings.SupportedFileExtensionSettingItemView">
@@ -14,7 +12,7 @@
         <Grid ColumnDefinitions="* *">
             <TextBlock Grid.Column="0" Text="Supported extension" />
             <Button Grid.Column="1" Command="{CompiledBinding Add}">
-                <material:MaterialIcon Kind="FilePlus" />
+                <PathIcon Data="{DynamicResource NewFileIcon}" />
             </Button>
         </Grid>
 
@@ -41,13 +39,13 @@
                                             HorizontalAlignment="Right" Spacing="8">
                                     <Button Width="32" Height="32" Padding="4" Command="{CompiledBinding ToggleEditing}">
                                        <Panel>
-                                           <Image Source="{DynamicResource {x:Static styles:Icons.EditRegular}}" IsVisible="{CompiledBinding !Editing}" />
-                                           <Image Source="{DynamicResource {x:Static styles:Icons.SaveRegular}}" IsVisible="{CompiledBinding Editing}" />
+                                           <PathIcon Data="{DynamicResource EditIcon}" IsVisible="{CompiledBinding !Editing}" />
+                                           <PathIcon Data="{DynamicResource SaveIcon}" IsVisible="{CompiledBinding Editing}" />
                                        </Panel>
                                     </Button>
                                     <Button Width="32" Height="32" Padding="4" Command="{Binding  $parent[ItemsRepeater].DataContext.Delete}"
                                             CommandParameter="{Binding}">
-                                        <Image  Source="{DynamicResource {x:Static styles:Icons.DeleteRegular}}" />
+                                        <PathIcon Data="{DynamicResource DeleteIcon}" />
                                     </Button>
                                 </StackPanel>
                             </DockPanel>

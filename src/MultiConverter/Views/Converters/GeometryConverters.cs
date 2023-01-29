@@ -4,11 +4,11 @@ using MultiConverter.Extension;
 
 namespace MultiConverter.Views.Converters;
 
-public static class ImageConverters
+public static class GeometryConverters
 {
     /// <summary>
     ///     A value converter that returns an icon if the input bool is true or false, representing an Edit state
     /// </summary>
-    public static IValueConverter ResourceKeyToDrawingImage =>
-        new FuncValueConverter<string, DrawingImage?>(key => key.GetResource<DrawingImage>());
+    public static IValueConverter ResourceKeyToGeometry =>
+        new FuncValueConverter<string, StreamGeometry?>(key => key.GetResource<StreamGeometry>());
 }

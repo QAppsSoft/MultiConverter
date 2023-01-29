@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:MultiConverter.ViewModels;assembly=MultiConverter.ViewModels"
              xmlns:interfaces="clr-namespace:MultiConverter.ViewModels.Interfaces;assembly=MultiConverter.ViewModels"
+             xmlns:converters="clr-namespace:MultiConverter.Views.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.MainView" x:DataType="viewModels:MainViewModel">
 
@@ -14,8 +15,10 @@
             <ListBox.DataTemplates>
                 <DataTemplate x:DataType="interfaces:IPageViewModel">
                     <StackPanel>
-                        <Image Classes="NavigationMenu" />
-                        <TextBlock HorizontalAlignment="Center"
+                        <PathIcon Width="24" Height="24" Margin="4" Opacity="0.8"
+                                  Data="{CompiledBinding Icon, Converter={x:Static converters:GeometryConverters.ResourceKeyToGeometry}}"/>
+
+                        <TextBlock HorizontalAlignment="Center" Opacity="0.8"
                                    Text="{CompiledBinding Name}"
                                    VerticalAlignment="Center" FontSize="10" />
                     </StackPanel>
