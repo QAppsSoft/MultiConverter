@@ -1,10 +1,10 @@
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using FluentAvalonia.UI.Windowing;
 
 namespace MultiConverter.Views;
 
-public partial class MainWindow : Window
+public partial class MainWindow : AppWindow
 {
     public MainWindow()
     {
@@ -12,6 +12,8 @@ public partial class MainWindow : Window
 #if DEBUG
         this.AttachDevTools();
 #endif
+
+        TitleBar.ExtendsContentIntoTitleBar = true;
     }
 
     private void InitializeComponent()

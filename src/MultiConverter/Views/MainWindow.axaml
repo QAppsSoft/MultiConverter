@@ -6,15 +6,13 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="MultiConverter.Views.MainWindow"
         x:Name="Main"
-        WindowStartupLocation="CenterScreen"
         Background="{x:Null}"
         TransparencyLevelHint="AcrylicBlur"
-        ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="PreferSystemChrome"
+        WindowStartupLocation="CenterScreen"
         UseLayoutRounding="True"
         Icon="/Assets/avalonia-logo.ico"
         Title="MultiConverter">
-    <Panel Margin="{Binding #Main.OffScreenMargin}">
+    <Panel>
         <views:MainView />
     </Panel>
 </Window>

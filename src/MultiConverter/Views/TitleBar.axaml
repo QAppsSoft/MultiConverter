@@ -5,17 +5,6 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.TitleBar">
     <Panel>
-        <!-- AcrylicBlur -->
-        <ExperimentalAcrylicBorder DockPanel.Dock="Left" IsHitTestVisible="False">
-            <ExperimentalAcrylicBorder.Material>
-                <ExperimentalAcrylicMaterial BackgroundSource="Digger"
-                                             TintColor="{DynamicResource SystemAltLowColor}"
-                                             TintOpacity="1"
-                                             FallbackColor="{DynamicResource SystemAltLowColor}"
-                                             MaterialOpacity="0.6" />
-            </ExperimentalAcrylicBorder.Material>
-        </ExperimentalAcrylicBorder>
-
         <!-- Contents -->
         <Grid ColumnDefinitions="Auto,*" IsHitTestVisible="False">
             <Image Grid.Column="0" VerticalAlignment="Center" Source="/Assets/avalonia-logo.ico" Width="18"

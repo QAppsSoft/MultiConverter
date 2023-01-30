@@ -8,17 +8,6 @@
              x:DataType="viewModels:MainViewModel"
              x:Class="MultiConverter.Views.LeftPane">
     <Panel>
-        <!-- AcrylicBlur -->
-        <ExperimentalAcrylicBorder DockPanel.Dock="Left" IsHitTestVisible="False">
-            <ExperimentalAcrylicBorder.Material>
-                <ExperimentalAcrylicMaterial BackgroundSource="Digger"
-                                             TintColor="{DynamicResource SystemAltLowColor}"
-                                             TintOpacity="1"
-                                             FallbackColor="{DynamicResource SystemAltLowColor}"
-                                             MaterialOpacity="0.6" />
-            </ExperimentalAcrylicBorder.Material>
-        </ExperimentalAcrylicBorder>
-
         <!-- Contents -->
         <DockPanel>
 
