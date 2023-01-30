@@ -6,8 +6,6 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="MultiConverter.Views.MainWindow"
         x:Name="Main"
-        Background="{x:Null}"
-        TransparencyLevelHint="AcrylicBlur"
         WindowStartupLocation="CenterScreen"
         UseLayoutRounding="True"
         Icon="/Assets/avalonia-logo.ico"
