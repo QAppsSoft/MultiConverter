@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:settingsVm="clr-namespace:MultiConverter.ViewModels.Settings;assembly=MultiConverter.ViewModels"
              xmlns:settingsView="clr-namespace:MultiConverter.Views.Settings"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="settingsVm:SettingsViewModel"
              x:Class="MultiConverter.Views.Settings.SettingsView">
-
     <UserControl.DataTemplates>
         <DataTemplate DataType="{x:Type settingsVm:LanguageSettingItem}">
             <settingsView:LanguageSettingItemView />
@@ -21,20 +21,27 @@
         <DataTemplate DataType="{x:Type settingsVm:ThemeSettingItem}">
             <settingsView:ThemeSettingItemView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type settingsVm:FileFiltersSettingItem}">
+            <settingsView:FileFiltersSettingItemView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type settingsVm:TemporalPathSettingItem}">
+            <settingsView:TemporalPathSettingItemView />
+        </DataTemplate>
     </UserControl.DataTemplates>
 
     <DockPanel LastChildFill="True">
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="16">
-            <Button Command="{CompiledBinding Save}" Margin="4">
-                <StackPanel Orientation="Horizontal">
-                    <PathIcon Data="{DynamicResource SaveIcon}" />
-                    <TextBlock Text="Save" VerticalAlignment="Center" Margin="4" />
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="16"
+                    Spacing="8">
+            <Button Command="{CompiledBinding Save}">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <controls:FAPathIcon Data="{DynamicResource SaveIcon}" Width="16" />
+                    <TextBlock Text="Save" VerticalAlignment="Center" />
                 </StackPanel>
             </Button>
             <Button Command="{CompiledBinding Reset}" Margin="4">
-                <StackPanel Orientation="Horizontal">
-                    <PathIcon Data="{DynamicResource ResetIcon}" />
-                    <TextBlock Text="Reset" VerticalAlignment="Center" Margin="4" />
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <controls:FAPathIcon Data="{DynamicResource ResetIcon}" Width="16" />
+                    <TextBlock Text="Reset" VerticalAlignment="Center" />
                 </StackPanel>
             </Button>
         </StackPanel>
