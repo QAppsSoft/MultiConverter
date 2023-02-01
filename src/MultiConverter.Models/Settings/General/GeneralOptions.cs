@@ -6,21 +6,28 @@ using MultiConverter.Models.Settings.General.FileFilters;
 
 namespace MultiConverter.Models.Settings.General;
 
-public readonly record struct GeneralOptions([property: JsonConverter(typeof(JsonStringEnumConverter))]
+public sealed record GeneralOptions([property: JsonConverter(typeof(JsonStringEnumConverter))]
     Theme Theme,
     string Language, int AnalysisTimeout, string TemporalFolder, string[] SupportedFilesExtensions,
     FileFilter[] FileFilters, bool LoadFilesAlreadyInQueue)
 {
     private static readonly Lazy<GeneralOptions> s_defaultGeneralOptions = new(GenerateDefaultOption, true);
 
-    public bool Equals(GeneralOptions other) =>
-        Theme.Equals(other.Theme) &&
-        Language.Equals(other.Language) &&
-        AnalysisTimeout.Equals(other.AnalysisTimeout) &&
-        LoadFilesAlreadyInQueue.Equals(other.LoadFilesAlreadyInQueue) &&
-        TemporalFolder.Equals(other.TemporalFolder) &&
-        SupportedFilesExtensions.OrderBy(x => x).SequenceEqual(other.SupportedFilesExtensions.OrderBy(x => x)) &&
-        FileFilters.OrderBy(x => x).SequenceEqual(other.FileFilters.OrderBy(x => x));
+    public bool Equals(GeneralOptions? other)
+    {
+        if (other is null)
+        {
+            return false;
+        }
+
+        return Theme.Equals(other.Theme) &&
+               Language.Equals(other.Language) &&
+               AnalysisTimeout.Equals(other.AnalysisTimeout) &&
+               LoadFilesAlreadyInQueue.Equals(other.LoadFilesAlreadyInQueue) &&
+               TemporalFolder.Equals(other.TemporalFolder) &&
+               SupportedFilesExtensions.OrderBy(x => x).SequenceEqual(other.SupportedFilesExtensions.OrderBy(x => x)) &&
+               FileFilters.OrderBy(x => x).SequenceEqual(other.FileFilters.OrderBy(x => x));
+    }
 
     private static GeneralOptions GenerateDefaultOption()
     {
