@@ -30,7 +30,7 @@ public class ViewModelsModule : Module
         builder.RegisterType<LanguageSettingItem>().AsImplementedInterfaces().ExternallyOwned();
         builder.RegisterType<VideoSettingItem>().AsImplementedInterfaces().ExternallyOwned();
         builder.RegisterType<TemporalPathSettingItem>().AsImplementedInterfaces().ExternallyOwned();
-        builder.RegisterType<SupportedFileExtensionSettingItem>().AsImplementedInterfaces().ExternallyOwned();
         builder.RegisterType<FileFiltersSettingItem>().AsImplementedInterfaces().ExternallyOwned();
+        builder.RegisterType<SupportedFileExtensionSettingItem>().AsImplementedInterfaces().ExternallyOwned();
     }
 }
