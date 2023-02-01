@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
+using Avalonia;
+using FluentAvalonia.Styling;
 using Microsoft.Extensions.Logging;
 using MultiConverter.Common;
 using MultiConverter.Models.Settings.General;
@@ -31,13 +33,20 @@ public class SystemSetterJob : ISystemSetterJob
 
     private static void SetTheme(Theme theme)
     {
+        FluentAvaloniaTheme? faTheme = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
+
+        if (faTheme is null)
+        {
+            return;
+        }
+
         if (theme == Theme.Dark)
         {
-            // TODO: Dark theme
+            faTheme.RequestedTheme = FluentAvaloniaTheme.DarkModeString;
         }
         else
         {
-            // TODO: Light theme
+            faTheme.RequestedTheme = FluentAvaloniaTheme.LightModeString;
         }
     }
 
