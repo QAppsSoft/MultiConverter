@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:interfaces="clr-namespace:MultiConverter.ViewModels.Interfaces;assembly=MultiConverter.ViewModels"
              xmlns:viewModels="clr-namespace:MultiConverter.ViewModels;assembly=MultiConverter.ViewModels"
-             xmlns:converters1="clr-namespace:MultiConverter.Views.Converters"
+             xmlns:converters="clr-namespace:MultiConverter.Views.Converters"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="viewModels:MainViewModel"
@@ -24,13 +24,11 @@
 
         <ListBox.DataTemplates>
             <DataTemplate x:DataType="interfaces:IPageViewModel">
-                <Panel Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Focusable="True" Margin="4">
-                    <StackPanel Orientation="Horizontal" IsHitTestVisible="False">
-                        <controls:FAPathIcon Width="24" Height="24" Margin="4" Opacity="0.8"
-                                  Data="{CompiledBinding Icon, Converter={x:Static converters1:GeometryConverters.ResourceKeyToGeometry}}"/>
-
-                        <TextBlock HorizontalAlignment="Left" Margin="16 0 16 0" Opacity="0.8"
-                                   Padding="12"
+                <Panel HorizontalAlignment="Left" >
+                    <StackPanel Orientation="Horizontal" Spacing="8" Margin="4">
+                        <controls:FAPathIcon Width="24" Height="24" Margin="4"
+                                  Data="{CompiledBinding Icon, Converter={x:Static converters:GeometryConverters.ResourceKeyToGeometry}}"/>
+                        <TextBlock HorizontalAlignment="Left"
                                    Text="{CompiledBinding Name}"
                                    VerticalAlignment="Center"  />
                     </StackPanel>
