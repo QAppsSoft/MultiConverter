@@ -9,7 +9,8 @@ namespace MultiConverter.Models.Settings.General;
 public sealed record GeneralOptions([property: JsonConverter(typeof(JsonStringEnumConverter))]
     Theme Theme,
     string Language, int AnalysisTimeout, string TemporalFolder, string[] SupportedFilesExtensions,
-    FileFilter[] FileFilters, bool LoadFilesAlreadyInQueue)
+    FileFilter[] FileFilters, bool LoadFilesAlreadyInQueue,
+    bool CheckTemporalFolder, int CheckTemporalFolderEvery)
 {
     private static readonly Lazy<GeneralOptions> s_defaultGeneralOptions = new(GenerateDefaultOption, true);
 
@@ -35,6 +36,8 @@ public sealed record GeneralOptions([property: JsonConverter(typeof(JsonStringEn
         const string language = "en";
         const int timeout = 60;
         const bool loadFilesAlreadyInQueue = false;
+        const bool checkTemporalPath = true;
+        const int checkTemporalPathEvery = 30;
 
         string temporalFolder = Path.GetTempPath();
         FileFilter[] fileFilters = Array.Empty<FileFilter>();
@@ -48,7 +51,7 @@ public sealed record GeneralOptions([property: JsonConverter(typeof(JsonStringEn
         };
 
         return new GeneralOptions(theme, language, timeout, temporalFolder, supportedFilesExtensions, fileFilters,
-            loadFilesAlreadyInQueue);
+            loadFilesAlreadyInQueue, checkTemporalPath, checkTemporalPathEvery);
     }
 
     public static GeneralOptions Default() => s_defaultGeneralOptions.Value;
@@ -62,6 +65,8 @@ public sealed record GeneralOptions([property: JsonConverter(typeof(JsonStringEn
         hashCode ^= AnalysisTimeout.GetHashCode();
         hashCode ^= LoadFilesAlreadyInQueue.GetHashCode();
         hashCode ^= TemporalFolder.GetHashCode();
+        hashCode ^= CheckTemporalFolder.GetHashCode();
+        hashCode ^= CheckTemporalFolderEvery.GetHashCode();
 
         foreach (string item in SupportedFilesExtensions)
         {

@@ -33,14 +33,14 @@
         <controls:SettingsExpander Header="{localization:Localize UI_OptionsView_CheckTemporalPath}" IsExpanded="True">
 
             <controls:SettingsExpander.Footer>
-                <ToggleSwitch x:Name="CheckRemoteFolderToggle" IsChecked="True" MinWidth="0" />
+                <ToggleSwitch x:Name="CheckRemoteFolderToggle" IsChecked="{CompiledBinding CheckTemporalPath}" MinWidth="0" />
             </controls:SettingsExpander.Footer>
 
             <controls:SettingsExpanderItem Content="{localization:Localize UI_OptionsView_CheckTemporalPathEvery}"
                                            IsEnabled="{Binding ElementName=CheckRemoteFolderToggle, Path=IsChecked}">
 
                 <controls:SettingsExpanderItem.Footer>
-                    <NumericUpDown Value="60" Minimum="5" Maximum="60" Increment="5" MinWidth="150" />
+                    <NumericUpDown Value="{CompiledBinding CheckTemporalPathEvery}" Minimum="5" Maximum="60" Increment="5" MinWidth="150" />
                 </controls:SettingsExpanderItem.Footer>
             </controls:SettingsExpanderItem>
 

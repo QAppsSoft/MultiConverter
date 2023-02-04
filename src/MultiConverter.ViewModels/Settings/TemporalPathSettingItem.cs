@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Reactive;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using MultiConverter.Common;
@@ -25,19 +27,47 @@ public sealed class TemporalPathSettingItem : ViewModelBase, ISettingItem, IDisp
             .ObserveOn(schedulerProvider.Dispatcher)
             .Subscribe(path => TemporalPath = path);
 
-        IObservable<string> newTemporalPath = this.WhenAnyValue(x => x.TemporalPath);
+        IDisposable updateCheckTemporalPath = setting.Value
+            .Select(x => x.CheckTemporalFolder)
+            .ObserveOn(schedulerProvider.Dispatcher)
+            .Subscribe(shouldCheck => CheckTemporalPath = shouldCheck);
 
-        var hasChanged = setting.Value
+        IDisposable updateCheckEvery = setting.Value
+            .Select(x => x.CheckTemporalFolderEvery)
+            .ObserveOn(schedulerProvider.Dispatcher)
+            .Subscribe(every => CheckTemporalPathEvery = every);
+
+        IObservable<string> newTemporalPath = this.WhenAnyValue(x => x.TemporalPath);
+        IObservable<bool> newCheckTemporalPath = this.WhenAnyValue(x => x.CheckTemporalPath);
+        IObservable<int> newCheckEvery = this.WhenAnyValue(x => x.CheckTemporalPathEvery);
+
+        IObservable<bool> hasChangedPath = setting.Value
             .Select(x => x.TemporalFolder)
             .CombineLatest(newTemporalPath, (savedPath, newPath) => savedPath != newPath);
 
+        IObservable<bool> hasChangedCheck = setting.Value
+            .Select(x => x.CheckTemporalFolder)
+            .CombineLatest(newCheckTemporalPath, (savedCheck, newCheck) => savedCheck != newCheck);
+
+        IObservable<bool> hasChangedEvery = setting.Value
+            .Select(x => x.CheckTemporalFolderEvery)
+            .CombineLatest(newCheckEvery, (savedEvery, newEvery) => savedEvery != newEvery);
+
+        var hasChanged = Observable.CombineLatest(hasChangedPath, hasChangedCheck, hasChangedEvery)
+            .Select(changed => changed.Any(x => x));
+
         hasChanged.ToPropertyEx(this, vm => vm.HasChanged);
 
-        UpdateOption = option => option with { TemporalFolder = TemporalPath };
+        UpdateOption = option => option with
+        {
+            TemporalFolder = TemporalPath,
+            CheckTemporalFolder = CheckTemporalPath,
+            CheckTemporalFolderEvery = CheckTemporalPathEvery
+        };
 
         ChangeTemporalPath = ReactiveCommand.CreateFromTask(() => UpdateTemporalFolderPath(dialogService));
 
-        _cleanup = updateSavedTemporalPath;
+        _cleanup = new CompositeDisposable(updateSavedTemporalPath, updateCheckTemporalPath, updateCheckEvery);
     }
 
     private async Task UpdateTemporalFolderPath(IDialogService dialogService)
@@ -57,6 +87,10 @@ public sealed class TemporalPathSettingItem : ViewModelBase, ISettingItem, IDisp
     }
 
     [Reactive] public string TemporalPath { get; set; } = string.Empty;
+
+    [Reactive] public bool CheckTemporalPath { get; set; }
+
+    [Reactive] public int CheckTemporalPathEvery { get; set; }
 
     public ReactiveCommand<Unit, Unit> ChangeTemporalPath { get; }
 

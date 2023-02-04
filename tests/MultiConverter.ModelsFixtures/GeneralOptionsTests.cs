@@ -65,4 +65,15 @@ public class GeneralOptionsTests
         equal.Should().BeFalse();
         firstHashCode.Should().NotBe(secondHashCode);
     }
+
+    [Test]
+    public void Comparing_to_null_should_not_be_equal()
+    {
+        GeneralOptions first = GeneralOptions.Default() with { SupportedFilesExtensions = new[] { "1", "2", "3" } };
+        GeneralOptions? second = null;
+
+        bool equal = first == second;
+
+        equal.Should().BeFalse();
+    }
 }

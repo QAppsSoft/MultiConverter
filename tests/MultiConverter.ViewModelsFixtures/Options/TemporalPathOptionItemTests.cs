@@ -20,17 +20,21 @@ public class TemporalPathOptionItemTests : OptionsTestBase
     [Test]
     public void TemporalPathOptionItem_after_initialization()
     {
-        string expectedValue = Path.GetTempPath();
+        string expectedPath = Path.GetTempPath();
+        bool expectedCheck = GeneralOptions.Default().CheckTemporalFolder;
+        int expectedEvery = GeneralOptions.Default().CheckTemporalFolderEvery;
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
         using TemporalPathSettingItem fixture = mocker.CreateInstance<TemporalPathSettingItem>();
 
-        fixture.TemporalPath.Should().Be(expectedValue);
+        fixture.TemporalPath.Should().Be(expectedPath);
+        fixture.CheckTemporalPath.Should().Be(expectedCheck);
+        fixture.CheckTemporalPathEvery.Should().Be(expectedEvery);
         fixture.HasChanged.Should().BeFalse();
     }
 
     [Test]
-    public void TemporalPathOptionItem_when_changed_HasChanged_should_be_true()
+    public void TemporalPath_when_changed_HasChanged_should_be_true()
     {
         using TemporalDirectory expectedPath = TemporalDirectory.Create("has_changed");
         AutoMocker mocker = GetAutoMocker();
@@ -86,5 +90,33 @@ public class TemporalPathOptionItemTests : OptionsTestBase
 
         fixture.TemporalPath.Should().Be(expectedPath);
         expectedResult.Should().Be(GeneralOptions.Default() with { TemporalFolder = expectedPath });
+    }
+
+    [Test]
+    public void CheckTemporalFolder_when_changed_HasChanged_should_be_true()
+    {
+        bool expected = !GeneralOptions.Default().CheckTemporalFolder;
+        AutoMocker mocker = GetAutoMocker();
+        SetupGeneralOptions(mocker);
+        using TemporalPathSettingItem fixture = mocker.CreateInstance<TemporalPathSettingItem>();
+
+        fixture.CheckTemporalPath = expected;
+
+        fixture.CheckTemporalPath.Should().Be(expected);
+        fixture.HasChanged.Should().BeTrue();
+    }
+
+    [Test]
+    public void CheckTemporalPathEvery_when_changed_HasChanged_should_be_true()
+    {
+        int expected = 76;
+        AutoMocker mocker = GetAutoMocker();
+        SetupGeneralOptions(mocker);
+        using TemporalPathSettingItem fixture = mocker.CreateInstance<TemporalPathSettingItem>();
+
+        fixture.CheckTemporalPathEvery = expected;
+
+        fixture.CheckTemporalPathEvery.Should().Be(expected);
+        fixture.HasChanged.Should().BeTrue();
     }
 }
