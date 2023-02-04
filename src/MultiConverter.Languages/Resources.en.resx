@@ -23,8 +23,8 @@
   <data name="UI_OptionsView_Language" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="UI_OptionsView_Video" xml:space="preserve">
-    <value>Video</value>
+  <data name="UI_OptionsView_VideoAnalysis" xml:space="preserve">
+    <value>Video analysis</value>
   </data>
   <data name="UI_OptionsView_VideoAnalysisTimeout" xml:space="preserve">
     <value>Video analysis timeout</value>
@@ -43,5 +43,38 @@
   </data>
   <data name="UI_OptionsView_SupportedFileExtension" xml:space="preserve">
     <value>Supported video extensions</value>
+  </data>
+  <data name="UI_OptionsView_Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="UI_OptionsView_FileFilters" xml:space="preserve">
+    <value>File filters</value>
+  </data>
+  <data name="UI_OptionsView_SupportedExtensions" xml:space="preserve">
+    <value>Supported file extensions</value>
+  </data>
+  <data name="UI_OptionsView_Translation" xml:space="preserve">
+    <value>Translation</value>
+  </data>
+  <data name="UI_OptionsView_VideoFiles" xml:space="preserve">
+    <value>Video files</value>
+  </data>
+  <data name="UI_OptionsView_ExcludeFilesIf" xml:space="preserve">
+    <value>Exclude filters, if</value>
+  </data>
+  <data name="UI_OptionsView_Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="UI_OptionsView_Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="UI_OptionsView_Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="UI_OptionsView_CheckTemporalPath" xml:space="preserve">
+    <value>Check temporal folder access</value>
+  </data>
+  <data name="UI_OptionsView_CheckTemporalPathEvery" xml:space="preserve">
+    <value>Check every (seconds)</value>
   </data>
 </root>

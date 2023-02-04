@@ -5,6 +5,7 @@
              xmlns:settingsVm="clr-namespace:MultiConverter.ViewModels.Settings;assembly=MultiConverter.ViewModels"
              xmlns:settingsView="clr-namespace:MultiConverter.Views.Settings"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:localization="clr-namespace:MultiConverter.Localization"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="settingsVm:SettingsViewModel"
              x:Class="MultiConverter.Views.Settings.SettingsView">
@@ -35,13 +36,13 @@
             <Button Command="{CompiledBinding Save}">
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <controls:FAPathIcon Data="{DynamicResource SaveIcon}" Width="16" />
-                    <TextBlock Text="Save" VerticalAlignment="Center" />
+                    <TextBlock Text="{localization:Localize UI_OptionsView_Save}" VerticalAlignment="Center" />
                 </StackPanel>
             </Button>
             <Button Command="{CompiledBinding Reset}" Margin="4">
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <controls:FAPathIcon Data="{DynamicResource ResetIcon}" Width="16" />
-                    <TextBlock Text="Reset" VerticalAlignment="Center" />
+                    <TextBlock Text="{localization:Localize UI_OptionsView_Reset}" VerticalAlignment="Center" />
                 </StackPanel>
             </Button>
         </StackPanel>

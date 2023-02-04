@@ -4,15 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:settings="clr-namespace:MultiConverter.ViewModels.Settings;assembly=MultiConverter.ViewModels"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:localization="clr-namespace:MultiConverter.Localization"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="200"
              x:DataType="settings:ThemeSettingItem"
              x:Class="MultiConverter.Views.Settings.ThemeSettingItemView">
 
     <StackPanel Margin="{StaticResource SettingsViewMargin}" Spacing="4" >
 
-        <TextBlock Text="Appearance" FontWeight="Bold" />
+        <TextBlock Text="{localization:Localize UI_OptionsView_Appearance}" FontWeight="Bold" />
 
-        <controls:SettingsExpander Header="Theme">
+        <controls:SettingsExpander Header="{localization:Localize UI_OptionsView_Theme}">
 
             <controls:SettingsExpander.IconSource>
                 <controls:PathIconSource Data="{DynamicResource ThemeIcon}" />

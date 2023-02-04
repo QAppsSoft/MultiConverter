@@ -60,6 +60,15 @@ namespace MultiConverter.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to @UI_OptionsView_Appearance.
+        /// </summary>
+        public static string UI_OptionsView_Appearance {
+            get {
+                return ResourceManager.GetString("UI_OptionsView_Appearance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to @UI_OptionsView_ApplicationTheme.
         /// </summary>
         public static string UI_OptionsView_ApplicationTheme {
@@ -69,11 +78,47 @@ namespace MultiConverter.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to @UI_OptionsView_CheckTemporalPath.
+        /// </summary>
+        public static string UI_OptionsView_CheckTemporalPath {
+            get {
+                return ResourceManager.GetString("UI_OptionsView_CheckTemporalPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @UI_OptionsView_CheckTemporalPathEvery.
+        /// </summary>
+        public static string UI_OptionsView_CheckTemporalPathEvery {
+            get {
+                return ResourceManager.GetString("UI_OptionsView_CheckTemporalPathEvery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to @UI_OptionsView_ConfigureWindowsColor.
         /// </summary>
         public static string UI_OptionsView_ConfigureWindowsColor {
             get {
                 return ResourceManager.GetString("UI_OptionsView_ConfigureWindowsColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @UI_OptionsView_ExcludeFilesIf.
+        /// </summary>
+        public static string UI_OptionsView_ExcludeFilesIf {
+            get {
+                return ResourceManager.GetString("UI_OptionsView_ExcludeFilesIf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @UI_OptionsView_FileFilters.
+        /// </summary>
+        public static string UI_OptionsView_FileFilters {
+            get {
+                return ResourceManager.GetString("UI_OptionsView_FileFilters", resourceCulture);
             }
         }
         
@@ -96,11 +141,38 @@ namespace MultiConverter.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to @UI_OptionsView_Path.
+        /// </summary>
+        public static string UI_OptionsView_Path {
+            get {
+                return ResourceManager.GetString("UI_OptionsView_Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @UI_OptionsView_Reset.
+        /// </summary>
+        public static string UI_OptionsView_Reset {
+            get {
+                return ResourceManager.GetString("UI_OptionsView_Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to @UI_OptionsView_Save.
         /// </summary>
         public static string UI_OptionsView_Save {
             get {
                 return ResourceManager.GetString("UI_OptionsView_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @UI_OptionsView_SupportedExtensions.
+        /// </summary>
+        public static string UI_OptionsView_SupportedExtensions {
+            get {
+                return ResourceManager.GetString("UI_OptionsView_SupportedExtensions", resourceCulture);
             }
         }
         
@@ -132,11 +204,29 @@ namespace MultiConverter.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to @UI_OptionsView_Video.
+        ///   Looks up a localized string similar to @UI_OptionsView_Theme.
         /// </summary>
-        public static string UI_OptionsView_Video {
+        public static string UI_OptionsView_Theme {
             get {
-                return ResourceManager.GetString("UI_OptionsView_Video", resourceCulture);
+                return ResourceManager.GetString("UI_OptionsView_Theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @UI_OptionsView_Translation.
+        /// </summary>
+        public static string UI_OptionsView_Translation {
+            get {
+                return ResourceManager.GetString("UI_OptionsView_Translation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @UI_OptionsView_VideoAnalysis.
+        /// </summary>
+        public static string UI_OptionsView_VideoAnalysis {
+            get {
+                return ResourceManager.GetString("UI_OptionsView_VideoAnalysis", resourceCulture);
             }
         }
         
@@ -146,6 +236,15 @@ namespace MultiConverter.Languages {
         public static string UI_OptionsView_VideoAnalysisTimeout {
             get {
                 return ResourceManager.GetString("UI_OptionsView_VideoAnalysisTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @UI_OptionsView_VideoFiles.
+        /// </summary>
+        public static string UI_OptionsView_VideoFiles {
+            get {
+                return ResourceManager.GetString("UI_OptionsView_VideoFiles", resourceCulture);
             }
         }
         
