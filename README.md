@@ -87,9 +87,9 @@ MultiConverter aims to be a full replacement for a closed source video converter
   - [ ] Output file naming convention
 
 
-- [ ] App Settings
-  - [ ] Dark/Light mode
+- [X] App Settings
+  - [X] Dark/Light mode
   - [X] App language selection
   - [X] Temporal conversion folder selection
   - [X] Supported video files
-  - [ ] File loading filter
+  - [X] File loading filter
