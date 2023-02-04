@@ -16,11 +16,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup .NET
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 7.x.x
       - name: Prepare FFMpeg
-        uses: FedericoCarboni/setup-ffmpeg@v1
+        uses: FedericoCarboni/setup-ffmpeg@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Restore dependencies
         run: dotnet restore
       - name: Test
