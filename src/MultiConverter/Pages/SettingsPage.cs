@@ -3,7 +3,7 @@ using MultiConverter.ViewModels;
 using MultiConverter.ViewModels.Interfaces;
 using MultiConverter.ViewModels.Settings;
 
-namespace MultiConverter.Settings;
+namespace MultiConverter.Pages;
 
 public class SettingsPage : PageViewModelBase<SettingsViewModel>, IFooterPageViewModel
 {

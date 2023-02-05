@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using MultiConverter.Settings;
+using MultiConverter.Pages;
 using MultiConverter.ViewModels;
 using MultiConverter.ViewModels.Editor;
 using MultiConverter.ViewModels.Settings;

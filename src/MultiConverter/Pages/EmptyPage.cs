@@ -1,7 +1,7 @@
 ﻿using MultiConverter.ViewModels;
 using MultiConverter.ViewModels.Interfaces;
 
-namespace MultiConverter.Settings;
+namespace MultiConverter.Pages;
 
 public class EmptyPage : IPageViewModel
 {
