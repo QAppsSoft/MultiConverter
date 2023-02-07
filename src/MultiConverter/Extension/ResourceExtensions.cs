@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.Controls;
 
 namespace MultiConverter.Extension;
 
@@ -12,7 +13,7 @@ public static class ResourceExtensions
         }
 
         if (Application.Current is not null &&
-            Application.Current.Resources.TryGetResource(key, out object? style) &&
+            Application.Current.TryGetResource(key, out object? style) &&
             style is T resource)
         {
             return resource;

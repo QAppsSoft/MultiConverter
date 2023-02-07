@@ -1,5 +1,5 @@
 ﻿using System.Reactive.Concurrency;
-using Avalonia.Threading;
+using Avalonia.ReactiveUI;
 using MultiConverter.Common;
 
 namespace MultiConverter.Infrastructure;
