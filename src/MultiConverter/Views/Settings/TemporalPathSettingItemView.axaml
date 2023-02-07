@@ -9,7 +9,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.Settings.TemporalPathSettingItemView">
 
-    <StackPanel Margin="{StaticResource SettingsViewMargin}" Spacing="4">
+    <StackPanel Margin="{StaticResource  SettingsViewMargin}" Spacing="4">
 
         <TextBlock Text="{localization:Localize UI_OptionsView_TemporalPath}" FontWeight="Bold" />
 
@@ -20,12 +20,11 @@
             </controls:SettingsExpander.IconSource>
 
             <controls:SettingsExpander.Footer>
-                <TextBox Text="{CompiledBinding TemporalPath}" MinWidth="150" MaxWidth="450">
-                    <TextBox.InnerRightContent>
-                        <Button Padding="0" Width="30" Margin="4" Content="..."
-                                Command="{CompiledBinding ChangeTemporalPath}" />
-                    </TextBox.InnerRightContent>
-                </TextBox>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Text="{CompiledBinding TemporalPath}" MinWidth="150" MaxWidth="450" />
+                    <Button Margin="4 0 0 0" Content="..."
+                            Command="{CompiledBinding ChangeTemporalPath}" />
+                </StackPanel>
             </controls:SettingsExpander.Footer>
 
         </controls:SettingsExpander>
