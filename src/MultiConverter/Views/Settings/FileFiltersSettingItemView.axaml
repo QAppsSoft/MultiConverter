@@ -16,7 +16,7 @@
 
         <controls:SettingsExpander Header="{localization:Localize UI_OptionsView_ExcludeFilesIf}"
                                    Items="{CompiledBinding  FileFilters}"
-                                   IsExpanded="False">
+                                   IsExpanded="True">
 
             <controls:SettingsExpander.IconSource>
                 <controls:PathIconSource Data="{DynamicResource FilterIcon}" />

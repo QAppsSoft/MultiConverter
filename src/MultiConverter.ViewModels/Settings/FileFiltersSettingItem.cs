@@ -59,7 +59,7 @@ public sealed class FileFiltersSettingItem : ViewModelBase, ISettingItem, IDispo
 
         var anyFilter = _filters.Connect().IsNotEmpty();
 
-        Delete = ReactiveCommand.Create<FileFilter>(filter => _filters.Remove(filter), anyFilter);
+        Delete = ReactiveCommand.Create<FileFilterProxy>(filter => _filters.Remove(filter), anyFilter);
 
         Reset = ReactiveCommand.Create(() => _filters.Edit(cache =>
         {
@@ -77,7 +77,7 @@ public sealed class FileFiltersSettingItem : ViewModelBase, ISettingItem, IDispo
 
     public ReadOnlyObservableCollection<FileFilterProxy> FileFilters { get; }
 
-    public ReactiveCommand<FileFilter, Unit> Delete { get; }
+    public ReactiveCommand<FileFilterProxy, Unit> Delete { get; }
 
     public ReactiveCommand<Unit, Unit> Add { get; }
 
