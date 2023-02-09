@@ -6,6 +6,8 @@
              xmlns:settingsView="clr-namespace:MultiConverter.Views.Settings"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              xmlns:localization="clr-namespace:MultiConverter.Localization"
+             xmlns:fileFilter="clr-namespace:MultiConverter.Views.Settings.FileFilter"
+             xmlns:supportedFileExtensions="clr-namespace:MultiConverter.Views.Settings.SupportedFileExtensions"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="settingsVm:SettingsViewModel"
              x:Class="MultiConverter.Views.Settings.SettingsView">
@@ -17,13 +19,13 @@
             <settingsView:VideoSettingItemView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type settingsVm:SupportedFileExtensionSettingItem}">
-            <settingsView:SupportedFileExtensionSettingItemView />
+            <supportedFileExtensions:SupportedFileExtensionSettingItemView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type settingsVm:ThemeSettingItem}">
             <settingsView:ThemeSettingItemView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type settingsVm:FileFiltersSettingItem}">
-            <settingsView:FileFiltersSettingItemView />
+            <fileFilter:FileFiltersSettingItemView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type settingsVm:TemporalPathSettingItem}">
             <settingsView:TemporalPathSettingItemView />

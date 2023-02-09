@@ -1,7 +1,7 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace MultiConverter.Views.Settings;
+namespace MultiConverter.Views.Settings.FileFilter;
 
 public partial class FileFiltersSettingItemView : UserControl
 {

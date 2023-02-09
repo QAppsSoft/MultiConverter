@@ -1,0 +1,21 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:behaviors="clr-namespace:MultiConverter.Views.Behaviors"
+             xmlns:settings="clr-namespace:MultiConverter.ViewModels.Settings;assembly=MultiConverter.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="settings:FileFilterProxy"
+             x:Class="MultiConverter.Views.Settings.FileFilter.FileFilterContentControl">
+    <StackPanel Spacing="4" Orientation="Horizontal">
+        <ComboBox Items="{CompiledBinding ApplyOnParts}"
+                  SelectedItem="{CompiledBinding ApplyOn}" />
+        <ComboBox Items="{CompiledBinding Positions}" SelectedItem="{CompiledBinding Position}" />
+        <TextBox MinWidth="150">
+            <Interaction.Behaviors>
+                <behaviors:LostFocusUpdateBindingBehavior Text="{CompiledBinding Filter}" />
+            </Interaction.Behaviors>
+        </TextBox>
+    </StackPanel>
+</UserControl>
+
