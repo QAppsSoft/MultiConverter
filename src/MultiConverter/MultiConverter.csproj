@@ -42,17 +42,4 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\Bindings" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Views\Settings\FileFilter\FileFiltersSettingItemView.axaml.cs">
-      <DependentUpon>FileFiltersSettingItemView.axaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Settings\SupportedFileExtensions\SupportedFileExtensionSettingItemView.axaml.cs">
-      <DependentUpon>SupportedFileExtensionSettingItemView.axaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
 </Project>
