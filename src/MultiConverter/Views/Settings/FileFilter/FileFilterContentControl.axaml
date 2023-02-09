@@ -7,15 +7,24 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="settings:FileFilterProxy"
              x:Class="MultiConverter.Views.Settings.FileFilter.FileFilterContentControl">
-    <StackPanel Spacing="4" Orientation="Horizontal">
-        <ComboBox Items="{CompiledBinding ApplyOnParts}"
-                  SelectedItem="{CompiledBinding ApplyOn}" />
-        <ComboBox Items="{CompiledBinding Positions}" SelectedItem="{CompiledBinding Position}" />
-        <TextBox MinWidth="150">
-            <Interaction.Behaviors>
-                <behaviors:LostFocusUpdateBindingBehavior Text="{CompiledBinding Filter}" />
-            </Interaction.Behaviors>
-        </TextBox>
-    </StackPanel>
-</UserControl>
 
+    <Panel>
+        <StackPanel Spacing="4" Orientation="Horizontal" IsVisible="{CompiledBinding Editing}">
+            <ComboBox Items="{CompiledBinding ApplyOnParts}"
+                      SelectedItem="{CompiledBinding ApplyOn}" />
+            <ComboBox Items="{CompiledBinding Positions}" SelectedItem="{CompiledBinding Position}" />
+            <TextBox MinWidth="150">
+                <Interaction.Behaviors>
+                    <behaviors:LostFocusUpdateBindingBehavior Text="{CompiledBinding Filter}" />
+                </Interaction.Behaviors>
+            </TextBox>
+        </StackPanel>
+
+        <StackPanel Spacing="8" Orientation="Horizontal" IsVisible="{CompiledBinding !Editing}">
+            <TextBlock Text="{CompiledBinding ApplyOn}" />
+            <TextBlock Text="{CompiledBinding Position}" />
+            <TextBlock Text="{CompiledBinding Filter}" />
+        </StackPanel>
+    </Panel>
+
+</UserControl>
