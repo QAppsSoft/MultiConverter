@@ -10,7 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="FFMpegCore" Version="4.8.0" />
+      <PackageReference Include="FFMpegCore" Version="5.0.0" />
     </ItemGroup>
 
 </Project>
