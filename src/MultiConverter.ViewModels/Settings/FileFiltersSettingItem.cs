@@ -40,6 +40,9 @@ public sealed class FileFiltersSettingItem : ViewModelBase, ISettingItem, IDispo
             .Transform(x => new FileFilterProxy(x))
             .DisposeMany()
             .AutoRefresh(x => x.HasChanged)
+            .AutoRefresh(x => x.Position)
+            .AutoRefresh(x => x.ApplyOn)
+            .AutoRefresh(x => x.Filter)
             .Publish();
 
         var bindFilters = fileFiltersObservable
