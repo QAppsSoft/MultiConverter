@@ -12,6 +12,7 @@
     <ItemGroup>
       <ProjectReference Include="..\MultiConverter.Common\MultiConverter.Common.csproj" />
       <ProjectReference Include="..\MultiConverter.Localization\MultiConverter.Localization.csproj" />
+      <ProjectReference Include="..\MultiConverter.Models.Presets\MultiConverter.Models.Presets.csproj" />
       <ProjectReference Include="..\MultiConverter.Models\MultiConverter.Models.csproj" />
       <ProjectReference Include="..\MultiConverter.Services.Abstractions\MultiConverter.Services.Abstractions.csproj" />
     </ItemGroup>
