@@ -2,12 +2,13 @@
 using System.Reactive;
 using System.Reactive.Linq;
 using MultiConverter.Common;
+using MultiConverter.ViewModels.Presets.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
 namespace MultiConverter.ViewModels.Presets.Options;
 
-public abstract class OptionViewModelBase : ViewModelBase
+public abstract class OptionViewModelBase : ViewModelBase, IOptionItem
 {
     protected OptionViewModelBase(ISchedulerProvider schedulerProvider)
     {
@@ -26,6 +27,8 @@ public abstract class OptionViewModelBase : ViewModelBase
     [Reactive] public ValuesUpdater[] DefaultOptions { get; protected set; } = Array.Empty<ValuesUpdater>();
 
     [ObservableAsProperty] public bool HasValues { get; }
+
+    [ObservableAsProperty] public bool HasChanged { get; }
 }
 
 public sealed class ValuesUpdater

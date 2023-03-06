@@ -4,13 +4,12 @@ using DynamicData.Binding;
 using MultiConverter.Common;
 using MultiConverter.Models.Presets.Interfaces;
 using MultiConverter.Models.Presets.Options;
-using MultiConverter.ViewModels.Presets.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
 namespace MultiConverter.ViewModels.Presets.Options;
 
-public sealed class VideoFrameRateOptionViewModel : OptionViewModelBase, IOptionItem
+public sealed class VideoFrameRateOptionViewModel : OptionViewModelBase
 {
     public VideoFrameRateOptionViewModel(VideoFrameRateOption frameRateOption, ISchedulerProvider schedulerProvider) :
         base(schedulerProvider)
@@ -27,8 +26,6 @@ public sealed class VideoFrameRateOptionViewModel : OptionViewModelBase, IOption
     }
 
     [Reactive] public double FrameRate { get; set; }
-
-    [ObservableAsProperty] public bool HasChanged { get; }
 
     private void InitializeDefaultOptions() => DefaultOptions = new[]
     {
