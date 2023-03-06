@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="ReactiveUI.Fody" Version="18.4.22" />
+      <PackageReference Include="ReactiveUI.Fody" Version="18.4.25" />
     </ItemGroup>
 
     <ItemGroup>
