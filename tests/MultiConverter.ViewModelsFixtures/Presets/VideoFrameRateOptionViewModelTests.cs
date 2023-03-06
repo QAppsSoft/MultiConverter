@@ -23,7 +23,7 @@ public class VideoFrameRateOptionViewModelTests
     }
 
     [Test]
-    public void After_value_changed_HasChanged_should_be_false()
+    public void After_value_changed_HasChanged_should_be_true()
     {
         const double newFrameRate = 120;
         VideoFrameRateOptionViewModel fixture = InitializeFixture();
