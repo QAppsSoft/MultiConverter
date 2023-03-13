@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
 using MultiConverter.Models.Presets;
 using MultiConverter.Models.Presets.AudioFilters;
-using MultiConverter.Models.Presets.Base;
+using MultiConverter.Models.Presets.Interfaces;
 using MultiConverter.Models.Presets.Options;
 using MultiConverter.Models.Presets.VideoFilters;
 
@@ -16,7 +16,7 @@ public class PresetJsonTypeResolver : DefaultJsonTypeInfoResolver
     {
         JsonTypeInfo jsonTypeInfo = base.GetTypeInfo(type, options);
 
-        if (jsonTypeInfo.Type == typeof(OptionBase))
+        if (jsonTypeInfo.Type == typeof(IOption))
         {
             jsonTypeInfo.PolymorphismOptions = new JsonPolymorphismOptions
             {

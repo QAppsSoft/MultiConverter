@@ -1,5 +1,5 @@
-﻿using MultiConverter.Models.Presets.Base;
+﻿using MultiConverter.Models.Presets.Interfaces;
 
 namespace MultiConverter.Models.Presets;
 
-public record Preset(string Name, bool Default, VideoFilter[] VideoFilter, AudioFilter[] AudioFilter, OptionBase[] Options);
+public record Preset(string Name, bool Default, VideoFilter[] VideoFilter, AudioFilter[] AudioFilter, IOption[] Options);
