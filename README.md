@@ -93,3 +93,13 @@ MultiConverter aims to be a full replacement for a closed source video converter
   - [X] Temporal conversion folder selection
   - [X] Supported video files
   - [X] File loading filter
+  
+  
+- [ ] Plugins system, should support UI and non UI plugins (Some ideas)
+  - [ ] Plugins control, enable and disable plugins
+  - [ ] Support remote conversion (Multi PC conversion)
+  - [ ] Remote control using Telegram bot platform
+  - [ ] Support more custom audio/video filters (Maybe)
+  - [ ] Support external file loading filtering
+  - [ ] Output file naming convention support
+  
