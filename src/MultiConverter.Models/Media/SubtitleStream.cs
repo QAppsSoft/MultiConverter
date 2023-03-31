@@ -4,5 +4,5 @@ public readonly record struct SubtitleStream(int Index, int StreamIndex, string 
     string Language, string LanguageCode, SubtitleType SubtitleType, string Title) : ISubtitleStream
 {
     public bool CanBurnIn => SubtitleHelper.CheckIfCanBurnIn(SubtitleType);
-    public bool IsExternalSubtitle => SubtitleHelper.IsExternal(Source);
+public bool IsExternalSubtitle => SubtitleHelper.IsExternal(Source);
 }

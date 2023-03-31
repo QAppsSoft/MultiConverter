@@ -7,7 +7,7 @@ public static class ResourceExtensions
 {
     public static T? GetResource<T>(this string? key)
     {
-        if(key is null)
+        if (key is null)
         {
             return default;
         }

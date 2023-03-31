@@ -15,12 +15,12 @@ public readonly record struct Cropping(int Top, int Bottom, int Left, int Right)
     // /// <returns>Empty Cropping</returns>
     public static Cropping NoCrop() => new() { Top = 0, Bottom = 0, Left = 0, Right = 0 };
 
-    //
-    // /// <summary>
-    // ///     Clone this model
-    // /// </summary>
-    // /// <returns>
-    // ///     A Cloned copy
-    // /// </returns>
-    public Cropping Copy() => this with { };
+//
+// /// <summary>
+// ///     Clone this model
+// /// </summary>
+// /// <returns>
+// ///     A Cloned copy
+// /// </returns>
+public Cropping Copy() => this with { };
 }

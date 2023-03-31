@@ -53,7 +53,7 @@ public class TemporalPathOptionItemTests : OptionsTestBase
         using TemporalDirectory expectedPath = TemporalDirectory.Create("command_execution");
         AutoMocker mocker = GetAutoMocker();
         SetupGeneralOptions(mocker);
-        SetupDialogService(mocker,expectedPath);
+        SetupDialogService(mocker, expectedPath);
         TemporalPathSettingItem fixture = mocker.CreateInstance<TemporalPathSettingItem>();
 
         fixture.ChangeTemporalPath.Execute();
