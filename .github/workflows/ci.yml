@@ -62,7 +62,7 @@ jobs:
 
       - name: Report results to DeepSource
         run: curl https://deepsource.io/cli | sh
-             for /r %F in (coverage.cobertura.xml) do ./bin/deepsource report --analyzer test-coverage --key csharp --value-file %F
+             for /r %F in (*coverage.cobertura.xml) do ./bin/deepsource report --analyzer test-coverage --key csharp --value-file %F
         shell: cmd
         env:
           DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
