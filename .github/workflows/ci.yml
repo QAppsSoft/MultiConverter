@@ -15,21 +15,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.x.x
-
       - name: Prepare FFMpeg
         uses: FedericoCarboni/setup-ffmpeg@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Restore dependencies
         run: dotnet restore
-
       - name: Test
         run: dotnet test --no-restore --logger GitHubActions
