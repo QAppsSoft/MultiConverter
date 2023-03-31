@@ -15,15 +15,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.x.x
+
       - name: Prepare FFMpeg
         uses: FedericoCarboni/setup-ffmpeg@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Restore dependencies
         run: dotnet restore
+
       - name: Test
-        run: dotnet test --no-restore --logger GitHubActions
+        run: dotnet test --collect:"XPlat Code Coverage" --no-restore --logger GitHubActions --logger:"console;verbosity=detailed" --results-directory /tmp/test-results/
+
+      - name: Report results to DeepSource
+        run: curl https://deepsource.io/cli | sh
+             ./bin/deepsource report --analyzer test-coverage --key csharp --value-file /tmp/test-results/<test_guid>/coverage.cobertura.xml
+        env:
+          DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
