@@ -45,7 +45,7 @@ public sealed class FileFilterProxy : ReactiveObject, IDisposable
 
     public IEnumerable<FileFilterPosition> Positions { get; } = EnumUtils.GetValues<FileFilterPosition>();
 
-    [Reactive] public  FileFilterApplyOn ApplyOn { get; set; }
+    [Reactive] public FileFilterApplyOn ApplyOn { get; set; }
 
     public IEnumerable<FileFilterApplyOn> ApplyOnParts { get; } = EnumUtils.GetValues<FileFilterApplyOn>();
 
