@@ -110,7 +110,7 @@ public class FFMpegMediaAnalyzerTests
     public async Task Audio_file_container_creation()
     {
         FFMpegMediaAnalyzer analyzer = new();
-        var options = AnalyzerOptions .Default();
+        var options = AnalyzerOptions.Default();
         IContainer container = await analyzer.AnalyzeAsync(Resources.Mp3, options);
 
         // Container tests

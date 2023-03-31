@@ -8,9 +8,9 @@ using MultiConverter.Models.Media;
 using MultiConverter.Services.Abstractions.Media;
 using AudioInfo = FFMpegCore.AudioStream;
 using AudioStream = MultiConverter.Models.Media.AudioStream;
-using VideoInfo = FFMpegCore.VideoStream;
 using SubtitleInfo = FFMpegCore.SubtitleStream;
 using SubtitleStream = MultiConverter.Models.Media.SubtitleStream;
+using VideoInfo = FFMpegCore.VideoStream;
 using VideoStream = MultiConverter.Models.Media.VideoStream;
 
 
