@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel;
+using MultiConverter.Models.Presets.Interfaces;
 
 namespace MultiConverter.ViewModels.Presets.Interfaces;
 
-public interface IOptionItem : INotifyPropertyChanged
+public interface IOptionItem : IChanged
 {
-    bool HasChanged { get; }
+    IOption GetOption();
 }
