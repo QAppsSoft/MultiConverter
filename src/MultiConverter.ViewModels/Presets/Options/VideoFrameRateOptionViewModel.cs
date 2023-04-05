@@ -45,5 +45,7 @@ public sealed class VideoFrameRateOptionViewModel : OptionViewModelBase
 
     public static implicit operator VideoFrameRateOption(VideoFrameRateOptionViewModel vm) => new(vm.FrameRate);
 
-    public static IOption ToOption(VideoFrameRateOptionViewModel vm) => new VideoFrameRateOption(vm.FrameRate);
+    private static IOption ToOption(VideoFrameRateOptionViewModel vm) => new VideoFrameRateOption(vm.FrameRate);
+
+    public override IOption GetOption() => ToOption(this);
 }

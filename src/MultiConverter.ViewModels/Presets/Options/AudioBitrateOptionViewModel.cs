@@ -35,5 +35,7 @@ public class AudioBitrateOptionViewModel : OptionViewModelBase
 
     public static implicit operator AudioBitrateOption(AudioBitrateOptionViewModel vm) => new(vm.Bitrate);
 
-    public static IOption ToOption(AudioBitrateOptionViewModel vm) => new AudioBitrateOption(vm.Bitrate);
+    private static IOption ToOption(AudioBitrateOptionViewModel vm) => new AudioBitrateOption(vm.Bitrate);
+
+    public override IOption GetOption() => ToOption(this);
 }

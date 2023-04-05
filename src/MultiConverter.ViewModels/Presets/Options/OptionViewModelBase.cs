@@ -2,6 +2,7 @@
 using System.Reactive;
 using System.Reactive.Linq;
 using MultiConverter.Common;
+using MultiConverter.Models.Presets.Interfaces;
 using MultiConverter.ViewModels.Presets.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -29,6 +30,8 @@ public abstract class OptionViewModelBase : ViewModelBase, IOptionItem
     [ObservableAsProperty] public bool HasValues { get; }
 
     [ObservableAsProperty] public bool HasChanged { get; }
+
+    public abstract IOption GetOption();
 }
 
 public sealed class ValuesUpdater
