@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using MultiConverter.Models.Presets.Interfaces;
+﻿using MultiConverter.Models.Presets.Interfaces;
 
 namespace MultiConverter.ViewModels.Presets.Interfaces;
 
