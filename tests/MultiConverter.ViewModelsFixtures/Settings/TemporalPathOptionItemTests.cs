@@ -6,7 +6,7 @@ using MultiConverter.Models.Settings.General;
 using MultiConverter.Services;
 using MultiConverter.ViewModels.Settings;
 
-namespace MultiConverter.ViewModelsFixtures.Options;
+namespace MultiConverter.ViewModelsFixtures.Settings;
 
 public class TemporalPathOptionItemTests : OptionsTestBase
 {

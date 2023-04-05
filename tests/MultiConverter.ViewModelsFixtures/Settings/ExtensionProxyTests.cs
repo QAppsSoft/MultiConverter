@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using MultiConverter.ViewModels.Settings;
 
-namespace MultiConverter.ViewModelsFixtures.Options;
+namespace MultiConverter.ViewModelsFixtures.Settings;
 
 public class ExtensionProxyTests
 {

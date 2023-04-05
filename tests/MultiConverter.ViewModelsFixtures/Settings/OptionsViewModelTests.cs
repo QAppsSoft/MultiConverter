@@ -10,7 +10,7 @@ using MultiConverter.ViewModels.Settings.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace MultiConverter.ViewModelsFixtures.Options;
+namespace MultiConverter.ViewModelsFixtures.Settings;
 
 public class OptionsViewModelTests : OptionsTestBase
 {

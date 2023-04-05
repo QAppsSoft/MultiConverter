@@ -2,7 +2,7 @@
 using MultiConverter.Models.Settings.General.FileFilters;
 using MultiConverter.ViewModels.Settings;
 
-namespace MultiConverter.ViewModelsFixtures.Options;
+namespace MultiConverter.ViewModelsFixtures.Settings;
 
 public class FileFilterProxyTests
 {

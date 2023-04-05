@@ -8,7 +8,7 @@ using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.ViewModels.Settings.Interfaces;
 
-namespace MultiConverter.ViewModelsFixtures.Options;
+namespace MultiConverter.ViewModelsFixtures.Settings;
 
 public abstract class OptionsTestBase
 {

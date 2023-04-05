@@ -8,7 +8,7 @@ using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions;
 using MultiConverter.ViewModels.Settings;
 
-namespace MultiConverter.ViewModelsFixtures.Options;
+namespace MultiConverter.ViewModelsFixtures.Settings;
 
 public class LanguageOptionItemTests : OptionsTestBase
 {
