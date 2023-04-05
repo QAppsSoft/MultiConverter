@@ -11,6 +11,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MultiConverter.Common\MultiConverter.Common.csproj" />
+      <ProjectReference Include="..\MultiConverter.Extensions\MultiConverter.Extensions.csproj" />
       <ProjectReference Include="..\MultiConverter.Localization\MultiConverter.Localization.csproj" />
       <ProjectReference Include="..\MultiConverter.Models.Presets\MultiConverter.Models.Presets.csproj" />
       <ProjectReference Include="..\MultiConverter.Models\MultiConverter.Models.csproj" />
