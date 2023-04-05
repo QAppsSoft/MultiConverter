@@ -2,4 +2,13 @@
 
 namespace MultiConverter.Models.Presets;
 
-public record Preset(string Name, bool IsDefault, VideoFilter[] VideoFilter, AudioFilter[] AudioFilter, IOption[] Options);
+public record Preset(string Name, bool IsDefault, VideoFilter[] VideoFilter, AudioFilter[] AudioFilter,
+    IOption[] Options)
+{
+    public static Preset Empty => new Preset(
+        string.Empty,
+        false,
+        Array.Empty<VideoFilter>(),
+        Array.Empty<AudioFilter>(),
+        Array.Empty<IOption>());
+}
