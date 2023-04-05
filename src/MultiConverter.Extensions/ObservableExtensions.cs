@@ -27,4 +27,25 @@ public static class ObservableExtensions
     /// <param name="observable">The observable to filter</param>
     /// <returns><see cref="bool" /> value</returns>
     public static IObservable<bool> WhereFalse(this IObservable<bool> observable) => observable.Where(x => !x);
+
+    /// <summary>
+    ///     Return true for any int greater than value
+    /// </summary>
+    /// <param name="observable">The observable</param>
+    /// <returns><see cref="bool" /> value</returns>
+    public static IObservable<bool> GreaterThan(this IObservable<int> observable, int value) => observable.Select(x => x > value);
+
+    /// <summary>
+    ///     Return true for any int lower than value
+    /// </summary>
+    /// <param name="observable">The observable</param>
+    /// <returns><see cref="bool" /> value</returns>
+    public static IObservable<bool> LowerThan(this IObservable<int> observable, int value) => observable.Select(x => x < value);
+
+    /// <summary>
+    ///     Return true for any int equal value
+    /// </summary>
+    /// <param name="observable">The observable</param>
+    /// <returns><see cref="bool" /> value</returns>
+    public static IObservable<bool> EqualTo(this IObservable<int> observable, int value) => observable.Select(x => x == value);
 }
