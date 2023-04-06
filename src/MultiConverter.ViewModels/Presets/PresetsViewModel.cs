@@ -12,19 +12,21 @@ using MultiConverter.Common;
 using MultiConverter.Extensions;
 using MultiConverter.Models.Presets;
 using MultiConverter.Services.Abstractions.Settings;
+using MultiConverter.ViewModels.Presets.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
 namespace MultiConverter.ViewModels.Presets;
 
-public class PresetsContainerViewModel : ViewModelBase, IActivatableViewModel
+public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewModel
 {
     private readonly SourceList<Preset> _presetsSourceList = new();
 
-    public PresetsContainerViewModel(ISetting<Preset[]> presetsSetting, ISchedulerProvider schedulerProvider)
+    public PresetsContainerViewModel(ISetting<Preset[]> presetsSetting, ISchedulerProvider schedulerProvider, IPresetViewModelFactory presetViewModelFactory)
     {
         ArgumentNullException.ThrowIfNull(presetsSetting);
         ArgumentNullException.ThrowIfNull(schedulerProvider);
+        ArgumentNullException.ThrowIfNull(presetViewModelFactory);
 
         this.WhenActivated(disposable =>
         {
@@ -38,7 +40,7 @@ public class PresetsContainerViewModel : ViewModelBase, IActivatableViewModel
 
             var presetsObservable = _presetsSourceList.Connect()
                 .Sort(SortExpressionComparer<Preset>.Ascending(x => x.Name).ThenByAscending(x => x.IsDefault))
-                .Transform(preset => new PresetViewModel(preset, schedulerProvider))
+                .Transform(presetViewModelFactory.Build)
                 .DisposeMany()
                 .Publish();
 

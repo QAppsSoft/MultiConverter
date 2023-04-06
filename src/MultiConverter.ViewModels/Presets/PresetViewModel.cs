@@ -1,26 +1,24 @@
 ﻿using System;
-using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using DynamicData;
 using MultiConverter.Common;
 using MultiConverter.Extensions;
 using MultiConverter.Models.Presets;
-using MultiConverter.Models.Presets.Interfaces;
 using MultiConverter.ViewModels.Presets.Interfaces;
+using MultiConverter.ViewModels.Presets.Options;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
 namespace MultiConverter.ViewModels.Presets;
 
-public class PresetViewModel : ViewModelBase, IChanged, IActivatableViewModel
+public sealed class PresetViewModel : ViewModelBase, IChanged, IActivatableViewModel, IDisposable
 {
     private readonly Preset _preset;
     private readonly SourceList<VideoFilter> _videoFilterSourceList = new();
     private readonly SourceList<AudioFilter> _audioFilterSourceList = new();
-    private readonly SourceList<IOption> _optionSourceList = new();
 
-    public PresetViewModel(Preset preset, ISchedulerProvider schedulerProvider)
+    public PresetViewModel(Preset preset, ISchedulerProvider schedulerProvider, IOptionsViewModelFactory optionsViewModelFactory)
     {
         ArgumentNullException.ThrowIfNull(preset);
         ArgumentNullException.ThrowIfNull(schedulerProvider);
@@ -29,6 +27,8 @@ public class PresetViewModel : ViewModelBase, IChanged, IActivatableViewModel
 
         Name = _preset.Name;
         IsDefault = _preset.IsDefault;
+
+        OptionsVm = optionsViewModelFactory.Build(_preset.Options);
 
         this.WhenActivated(disposable =>
         {
@@ -47,6 +47,8 @@ public class PresetViewModel : ViewModelBase, IChanged, IActivatableViewModel
     [Reactive] public string Name { get; set; }
 
     [Reactive] public bool IsDefault { get; set; }
+
+    public OptionsViewModel OptionsVm { get; }
 
     public ViewModelActivator Activator { get; } = new();
 
@@ -73,4 +75,6 @@ public class PresetViewModel : ViewModelBase, IChanged, IActivatableViewModel
 
         return hasChangedObservable;
     }
+
+    public void Dispose() => OptionsVm.Dispose();
 }

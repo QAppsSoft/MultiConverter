@@ -4,7 +4,7 @@ using MultiConverter.Common.Testing;
 using MultiConverter.Models.Presets.Options;
 using MultiConverter.ViewModels.Presets.Options;
 
-namespace MultiConverter.ViewModelsFixtures.Presets;
+namespace MultiConverter.ViewModelsFixtures.Presets.Options;
 
 [TestFixture]
 public class VideoFrameRateOptionViewModelTests
