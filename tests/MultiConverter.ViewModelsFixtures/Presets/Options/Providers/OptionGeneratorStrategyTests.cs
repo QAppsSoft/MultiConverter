@@ -6,6 +6,7 @@ using MultiConverter.ViewModelsFixtures.Helper;
 
 namespace MultiConverter.ViewModelsFixtures.Presets.Options.Providers;
 
+[TestFixture]
 public class OptionGeneratorStrategyTests
 {
     [Test]
