@@ -4,8 +4,8 @@
 [![Github Issues](https://img.shields.io/github/issues/QAppsSoft/MultiConverter)](https://github.com/QAppsSoft/MultiConverter/issues)
 ![Forks](https://img.shields.io/github/forks/QAppsSoft/MultiConverter)
 ![Stars](https://img.shields.io/github/stars/QAppsSoft/MultiConverter)
-
 ![License](https://img.shields.io/github/license/QAppsSoft/MultiConverter)
+
 ![GitHub repo size](https://img.shields.io/github/repo-size/QAppsSoft/MultiConverter?color=%234682B4)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/QAppsSoft/MultiConverter?color=%23483D8B)
 [![wakatime](https://wakatime.com/badge/user/1b3378e8-624e-4952-b453-87d2dfdbc51e/project/23e5bf26-2c9a-4516-beb0-bfbab9b4e252.svg)](https://wakatime.com/badge/user/1b3378e8-624e-4952-b453-87d2dfdbc51e/project/23e5bf26-2c9a-4516-beb0-bfbab9b4e252)
