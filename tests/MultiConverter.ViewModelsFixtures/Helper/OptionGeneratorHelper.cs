@@ -12,7 +12,8 @@ public static class OptionGeneratorHelper
         {
             new AudioBitrateOptionProcessor(),
             new VideoFrameRateOptionProcessor(),
-            new AudioCodecOptionProcessor()
+            new AudioCodecOptionProcessor(),
+            new AudioSamplingRateOptionProcessor(),
         };
 
         return new OptionGeneratorStrategy(operators);

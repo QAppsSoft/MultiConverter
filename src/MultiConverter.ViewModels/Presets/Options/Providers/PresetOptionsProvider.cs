@@ -14,7 +14,11 @@ public sealed class PresetOptionsProvider : IPresetOptionsProvider
     {
         ArgumentNullException.ThrowIfNull(optionGeneratorStrategy);
 
-        var types = new[] { typeof(AudioBitrateOption), typeof(VideoFrameRateOption), typeof(AudioCodecOption) };
+        var types = new[]
+        {
+            typeof(AudioBitrateOption), typeof(VideoFrameRateOption), typeof(AudioCodecOption),
+            typeof(AudioSamplingRateOption)
+        };
 
         var options = types.Select(optionGeneratorStrategy.Generate);
 

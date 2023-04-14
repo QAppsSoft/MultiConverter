@@ -40,6 +40,7 @@ public class OptionGeneratorStrategyTests
     [Test]
     [TestCase(typeof(AudioBitrateOption), typeof(AudioBitrateOptionGenerator))]
     [TestCase(typeof(AudioCodecOption), typeof(AudioCodecOptionGenerator))]
+    [TestCase(typeof(AudioSamplingRateOption), typeof(AudioSamplingRateOptionGenerator))]
     [TestCase(typeof(VideoFrameRateOption), typeof(VideoFrameRateOptionGenerator))]
     public void Should_generate_correct_type(Type optionType, Type generatedType)
     {
