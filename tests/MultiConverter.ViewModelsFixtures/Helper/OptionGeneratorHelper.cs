@@ -11,9 +11,11 @@ public static class OptionGeneratorHelper
         IOptionProcessor<IOption>[] operators =
         {
             new AudioBitrateOptionProcessor(),
-            new VideoFrameRateOptionProcessor(),
             new AudioCodecOptionProcessor(),
             new AudioSamplingRateOptionProcessor(),
+
+            new VideoFrameRateOptionProcessor(),
+            new VideoAspectRatioOptionProcessor(),
         };
 
         return new OptionGeneratorStrategy(operators);
