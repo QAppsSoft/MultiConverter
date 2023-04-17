@@ -3,7 +3,18 @@ using MultiConverter.Models.Presets.Base;
 
 namespace MultiConverter.Models.Presets.Options;
 
-public record VideoSizeOption(int Width, int Height) : OptionBase
+public record VideoSizeOption(VideoSize VideoSize) : OptionBase
 {
-    public override IArgument GetArgument() => new SizeArgument(Width, Height);
+    public VideoSizeOption(int width, int height) : this(new VideoSize(width, height))
+    {
+    }
+
+    public override IArgument GetArgument() => new SizeArgument(VideoSize.Width, VideoSize.Height);
+
+    public static VideoSize Default => VideoSize.Default;
+}
+
+public record VideoSize(int Width, int Height)
+{
+    public static VideoSize Default { get; } = new(1024, 768);
 }
