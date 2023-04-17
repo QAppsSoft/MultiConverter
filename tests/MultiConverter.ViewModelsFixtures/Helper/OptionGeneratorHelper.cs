@@ -1,4 +1,5 @@
 ﻿using MultiConverter.Models.Presets.Interfaces;
+using MultiConverter.ViewModels.Presets.Options.Providers;
 using MultiConverter.ViewModels.Presets.Options.Providers.Interfaces;
 using MultiConverter.ViewModels.Presets.Options.Providers.Strategy;
 
@@ -16,6 +17,7 @@ public static class OptionGeneratorHelper
 
             new VideoFrameRateOptionProcessor(),
             new VideoAspectRatioOptionProcessor(),
+            new VideoBitrateOptionProcessor(),
         };
 
         return new OptionGeneratorStrategy(operators);

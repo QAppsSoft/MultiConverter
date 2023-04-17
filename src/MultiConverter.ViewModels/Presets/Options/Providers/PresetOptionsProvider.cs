@@ -22,6 +22,7 @@ public sealed class PresetOptionsProvider : IPresetOptionsProvider
 
             typeof(VideoFrameRateOption),
             typeof(VideoAspectRatioOption),
+            typeof(VideoBitrateOption),
         };
 
         var options = types.Select(optionGeneratorStrategy.Generate);
