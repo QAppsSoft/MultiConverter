@@ -18,6 +18,7 @@ public static class OptionGeneratorHelper
             new VideoFrameRateOptionProcessor(),
             new VideoAspectRatioOptionProcessor(),
             new VideoBitrateOptionProcessor(),
+            new VideoCodecOptionProcessor(),
         };
 
         return new OptionGeneratorStrategy(operators);
