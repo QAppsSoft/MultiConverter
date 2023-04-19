@@ -65,9 +65,7 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
                 .Count()
                 .EqualTo(0);
 
-            Add = ReactiveCommand.Create<ReadOnlyObservableCollection<PresetViewModel>>(
-                presets => presetsSetting.Write(CastAndAddPreset(presets)),
-                canAdd);
+            Add = ReactiveCommand.Create(() => _presetsSourceList.Add(Preset.Empty), canAdd);
         });
     }
 
@@ -77,12 +75,9 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
     [Reactive] public ReactiveCommand<Unit, Unit>? Reset { get; set; }
 
-    [Reactive] public ReactiveCommand<ReadOnlyObservableCollection<PresetViewModel>, Unit>? Add { get; set; }
+    [Reactive] public ReactiveCommand<Unit, Unit>? Add { get; set; }
 
     public ViewModelActivator Activator { get; } = new();
-
-    private static Preset[] CastAndAddPreset(IEnumerable<PresetViewModel> presets) =>
-        presets.Cast<Preset>().Append(Preset.Empty).ToArray();
 
     private static Preset[] CastPresets(IEnumerable<PresetViewModel> presets) =>
         presets.Cast<Preset>().ToArray();
