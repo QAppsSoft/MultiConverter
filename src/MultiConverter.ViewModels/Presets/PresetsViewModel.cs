@@ -80,7 +80,7 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
     public ViewModelActivator Activator { get; } = new();
 
     private static Preset[] CastPresets(IEnumerable<PresetViewModel> presets) =>
-        presets.Cast<Preset>().ToArray();
+        presets.Select(x=> x.ToPreset()).ToArray();
 
     private static Action<IExtendedList<Preset>> ClearAndAdd(Preset[] values) =>
         cache =>
