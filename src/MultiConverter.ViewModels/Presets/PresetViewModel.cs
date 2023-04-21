@@ -70,11 +70,23 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IActivatableViewM
         var isDefaultHasChanged = this.WhenAnyValue(vm => vm.IsDefault)
             .Select(isDefault => isDefault != _preset.IsDefault);
 
-        var hasChangedObservable = new[] { nameHasChanged, isDefaultHasChanged }
+        var optionsVmHasChanged = OptionsVm.WhenAnyValue(vm => vm.HasChanged);
+
+        var hasChangedObservable = new[] { nameHasChanged, isDefaultHasChanged, optionsVmHasChanged }
             .CombineLatest(statuses => statuses.AnyIsTrue());
 
         return hasChangedObservable;
     }
 
     public void Dispose() => OptionsVm.Dispose();
+
+    public Preset ToPreset() => new(
+        Name,
+        IsDefault,
+        Array.Empty<VideoFilter>(), // TODO: Implement VideoFilter
+        Array.Empty<AudioFilter>(), // TODO: Implement AudioFilter
+        OptionsVm
+    );
+
+    public static implicit operator Preset(PresetViewModel vm) => vm.ToPreset();
 }
