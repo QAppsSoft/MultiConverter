@@ -69,7 +69,7 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
         });
     }
 
-    [Reactive] public ReadOnlyObservableCollection<PresetViewModel> PresetsCollection { get; set; }
+    [Reactive] public ReadOnlyObservableCollection<PresetViewModel>? PresetsCollection { get; set; }
 
     [Reactive] public ReactiveCommand<ReadOnlyObservableCollection<PresetViewModel>, Unit>? Save { get; set; }
 
@@ -97,6 +97,8 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
     private void HandleDeactivation()
     {
         _presetsSourceList.Clear();
+
+        PresetsCollection = null;
 
         Save?.Dispose();
         Save = null;
