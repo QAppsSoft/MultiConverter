@@ -22,6 +22,7 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IActivatableViewM
     {
         ArgumentNullException.ThrowIfNull(preset);
         ArgumentNullException.ThrowIfNull(schedulerProvider);
+        ArgumentNullException.ThrowIfNull(optionsViewModelFactory);
 
         _preset = preset;
 
