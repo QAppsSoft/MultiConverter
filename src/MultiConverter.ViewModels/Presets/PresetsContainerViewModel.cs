@@ -51,6 +51,11 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
             PresetsCollection = presetsCollection;
 
+            if (PresetsCollection.Count > 0)
+            {
+                SelectedPreset = PresetsCollection.First();
+            }
+
             var canSave = presetsObservable.Filter(x => x.HasChanged)
                 .Count()
                 .GreaterThan(0);
@@ -72,6 +77,8 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
     [Reactive] public ReadOnlyObservableCollection<PresetViewModel>? PresetsCollection { get; set; }
 
     [Reactive] public ReactiveCommand<ReadOnlyObservableCollection<PresetViewModel>, Unit>? Save { get; set; }
+
+    [Reactive] public PresetViewModel? SelectedPreset { get; set; }
 
     [Reactive] public ReactiveCommand<Unit, Unit>? Reset { get; set; }
 
@@ -99,6 +106,7 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
         _presetsSourceList.Clear();
 
         PresetsCollection = null;
+        SelectedPreset = null;
 
         Save?.Dispose();
         Save = null;
