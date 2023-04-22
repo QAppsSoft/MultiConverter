@@ -14,7 +14,7 @@
 
             <StackPanel Orientation="Horizontal" Spacing="8" DockPanel.Dock="Bottom">
                 <Button Command="{CompiledBinding Add}">Add</Button>
-                <Button>Remove</Button>
+                <Button Command="{CompiledBinding Remove}" CommandParameter="{CompiledBinding SelectedPreset}">Remove</Button>
                 <Button Command="{CompiledBinding Reset}">Reset</Button>
                 <Button Command="{CompiledBinding Save}">Save</Button>
             </StackPanel>

@@ -75,6 +75,13 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
             Add = ReactiveCommand.Create(() => _presetsSourceList.Add(Preset.Empty), canAdd);
 
+            var canRemove = this.WhenAnyValue(vm => vm.SelectedPreset)
+                .IsNotNull();
+
+            Remove = ReactiveCommand.Create<PresetViewModel>(
+                vm => _presetsSourceList.Remove(vm.InitialPreset),
+                canRemove);
+
             presetsObservable.Connect().DisposeWith(disposable);
         });
     }
@@ -88,6 +95,8 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
     [Reactive] public ReactiveCommand<Unit, Unit>? Reset { get; set; }
 
     [Reactive] public ReactiveCommand<Unit, Unit>? Add { get; set; }
+
+    [Reactive] public ReactiveCommand<PresetViewModel, Unit>? Remove { get; set; }
 
     public ViewModelActivator Activator { get; } = new();
 
@@ -121,5 +130,8 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
         Add?.Dispose();
         Add = null;
+
+        Remove?.Dispose();
+        Remove = null;
     }
 }

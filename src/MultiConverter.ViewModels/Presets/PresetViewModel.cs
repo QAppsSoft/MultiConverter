@@ -14,7 +14,6 @@ namespace MultiConverter.ViewModels.Presets;
 
 public sealed class PresetViewModel : ViewModelBase, IChanged, IActivatableViewModel, IDisposable
 {
-    private readonly Preset _preset;
     private readonly SourceList<VideoFilter> _videoFilterSourceList = new();
     private readonly SourceList<AudioFilter> _audioFilterSourceList = new();
 
@@ -24,12 +23,12 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IActivatableViewM
         ArgumentNullException.ThrowIfNull(schedulerProvider);
         ArgumentNullException.ThrowIfNull(optionsViewModelFactory);
 
-        _preset = preset;
+        InitialPreset = preset;
 
-        Name = _preset.Name;
-        IsDefault = _preset.IsDefault;
+        Name = InitialPreset.Name;
+        IsDefault = InitialPreset.IsDefault;
 
-        OptionsVm = optionsViewModelFactory.Build(_preset.Options);
+        OptionsVm = optionsViewModelFactory.Build(InitialPreset.Options);
 
         this.WhenActivated(disposable =>
         {
@@ -53,6 +52,8 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IActivatableViewM
 
     public ViewModelActivator Activator { get; } = new();
 
+    public Preset InitialPreset { get; }
+
     private static void HandleActivation()
     {
         // Empty
@@ -66,10 +67,10 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IActivatableViewM
     private IObservable<bool> HasChangedObservable()
     {
         var nameHasChanged = this.WhenAnyValue(vm => vm.Name)
-            .Select(name => !string.Equals(name, _preset.Name, StringComparison.InvariantCulture));
+            .Select(name => !string.Equals(name, InitialPreset.Name, StringComparison.InvariantCulture));
 
         var isDefaultHasChanged = this.WhenAnyValue(vm => vm.IsDefault)
-            .Select(isDefault => isDefault != _preset.IsDefault);
+            .Select(isDefault => isDefault != InitialPreset.IsDefault);
 
         var optionsVmHasChanged = OptionsVm.WhenAnyValue(vm => vm.HasChanged);
 

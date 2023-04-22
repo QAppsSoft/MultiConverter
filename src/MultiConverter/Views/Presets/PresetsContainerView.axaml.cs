@@ -16,4 +16,3 @@ public partial class PresetsContainerView : ReactiveUserControl<PresetsContainer
         AvaloniaXamlLoader.Load(this);
     }
 }
-
