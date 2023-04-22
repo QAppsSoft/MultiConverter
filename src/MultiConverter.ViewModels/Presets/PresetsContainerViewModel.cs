@@ -70,7 +70,8 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
             var canAdd = presetsObservable.Filter(x => x.Name == Preset.Empty.Name)
                 .Count()
-                .EqualTo(0);
+                .EqualTo(0)
+                .StartWith(true);
 
             Add = ReactiveCommand.Create(() => _presetsSourceList.Add(Preset.Empty), canAdd);
 
