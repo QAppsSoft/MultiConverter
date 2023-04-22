@@ -42,6 +42,8 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
                 .Sort(SortExpressionComparer<Preset>.Ascending(x => x.Name).ThenByAscending(x => x.IsDefault))
                 .Transform(presetViewModelFactory.Build)
                 .DisposeMany()
+                .AutoRefresh(vm => vm.Name)
+                .AutoRefresh(vm => vm.HasChanged)
                 .Publish();
 
             presetsObservable.ObserveOn(schedulerProvider.Dispatcher)
