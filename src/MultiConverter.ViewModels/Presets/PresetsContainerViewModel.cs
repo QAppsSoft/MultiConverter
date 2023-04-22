@@ -71,6 +71,8 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
                 .EqualTo(0);
 
             Add = ReactiveCommand.Create(() => _presetsSourceList.Add(Preset.Empty), canAdd);
+
+            presetsObservable.Connect().DisposeWith(disposable);
         });
     }
 
