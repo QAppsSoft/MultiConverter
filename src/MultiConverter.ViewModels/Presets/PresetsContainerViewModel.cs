@@ -66,7 +66,11 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
                 models => presetsSetting.Write(CastPresets(models)),
                 canSave);
 
-            Reset = ReactiveCommand.Create(() => presetsSetting.Write(Array.Empty<Preset>()));
+            Reset = ReactiveCommand.Create(() =>
+            {
+                _presetsSourceList.Clear();
+                presetsSetting.Write(Array.Empty<Preset>());
+            });
 
             var canAdd = presetsObservable.Filter(x => x.Name == Preset.Empty.Name)
                 .Count()
