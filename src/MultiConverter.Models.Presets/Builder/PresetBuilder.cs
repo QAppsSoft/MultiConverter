@@ -55,6 +55,7 @@ public sealed class PresetBuilder
 
     public Preset Build()
     {
-        return new Preset(string.Empty, false, VideoFilters.ToArray(), AudioFilters.ToArray(), Options.ToArray());
+        return new Preset(string.Empty, false, VideoFilters.ToArray(), AudioFilters.ToArray(), Options.ToArray(),
+            false);
     }
 }

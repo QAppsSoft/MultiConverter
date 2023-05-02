@@ -27,6 +27,7 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IActivatableViewM
 
         Name = InitialPreset.Name;
         IsDefault = InitialPreset.IsDefault;
+        IsAdvanced = InitialPreset.IsAdvanced;
 
         OptionsVm = optionsViewModelFactory.Build(InitialPreset.Options);
 
@@ -47,6 +48,8 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IActivatableViewM
     [Reactive] public string Name { get; set; }
 
     [Reactive] public bool IsDefault { get; set; }
+
+    [Reactive] public bool IsAdvanced { get; set; }
 
     public OptionsViewModel OptionsVm { get; }
 
@@ -72,10 +75,14 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IActivatableViewM
         var isDefaultHasChanged = this.WhenAnyValue(vm => vm.IsDefault)
             .Select(isDefault => isDefault != InitialPreset.IsDefault);
 
+        var isAdvancedHasChanged = this.WhenAnyValue(vm => vm.IsAdvanced)
+            .Select(isAdvanced => isAdvanced != InitialPreset.IsAdvanced);
+
         var optionsVmHasChanged = OptionsVm.WhenAnyValue(vm => vm.HasChanged);
 
-        var hasChangedObservable = new[] { nameHasChanged, isDefaultHasChanged, optionsVmHasChanged }
-            .CombineLatest(statuses => statuses.AnyIsTrue());
+        var hasChangedObservable =
+            new[] { nameHasChanged, isDefaultHasChanged, isAdvancedHasChanged, optionsVmHasChanged }
+                .CombineLatest(statuses => statuses.AnyIsTrue());
 
         return hasChangedObservable;
     }
@@ -87,7 +94,8 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IActivatableViewM
         IsDefault,
         Array.Empty<VideoFilter>(), // TODO: Implement VideoFilter
         Array.Empty<AudioFilter>(), // TODO: Implement AudioFilter
-        OptionsVm
+        OptionsVm,
+        IsAdvanced
     );
 
     public static implicit operator Preset(PresetViewModel vm) => vm.ToPreset();
