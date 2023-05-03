@@ -27,8 +27,15 @@ public sealed class OptionsViewModelFactory : IOptionsViewModelFactory
     public OptionViewModelBase Build(IOption option) =>
         option switch
         {
-            AudioBitrateOption audioBitrateOption => new AudioBitrateOptionViewModel(audioBitrateOption, _schedulerProvider),
+            VideoCodecOption videoCodecOption => new VideoCodecOptionViewModel(videoCodecOption, _schedulerProvider),
+            VideoBitrateOption videoBitrateOption => new VideoBitrateOptionViewModel(videoBitrateOption, _schedulerProvider),
+            VideoAspectRatioOption videoAspectRatioOption => new VideoAspectRatioOptionViewModel(videoAspectRatioOption, _schedulerProvider),
             VideoFrameRateOption videoFrameRateOption => new VideoFrameRateOptionViewModel(videoFrameRateOption, _schedulerProvider),
+
+            AudioCodecOption audioCodecOption => new AudioCodecOptionViewModel(audioCodecOption, _schedulerProvider),
+            AudioBitrateOption audioBitrateOption => new AudioBitrateOptionViewModel(audioBitrateOption, _schedulerProvider),
+            AudioSamplingRateOption audioSamplingRateOption => new AudioSamplingRateOptionViewModel(audioSamplingRateOption, _schedulerProvider),
+
             _ => throw new ArgumentOutOfRangeException(nameof(option))
         };
 }
