@@ -38,10 +38,11 @@ public sealed class OptionsViewModel : ViewModelBase, IChanged, IDisposable
 
         var observableOptionViewModel = _optionSourceList.Connect()
             .Transform(optionsViewModelFactory.Build)
-            .AutoRefresh(vm => vm.HasChanged)
             .Publish();
 
-        observableOptionViewModel.Filter(vm => vm.HasChanged)
+        observableOptionViewModel
+            .AutoRefresh(vm => vm.HasChanged)
+            .Filter(vm => vm.HasChanged)
             .Count()
             .GreaterThan(0)
             .ObserveOn(schedulerProvider.Dispatcher)
