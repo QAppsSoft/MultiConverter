@@ -42,8 +42,6 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
                 .Sort(SortExpressionComparer<Preset>.Ascending(x => x.Name).ThenByAscending(x => x.IsDefault))
                 .Transform(presetViewModelFactory.Build)
                 .DisposeMany()
-                .AutoRefresh(vm => vm.Name)
-                .AutoRefresh(vm => vm.HasChanged)
                 .Publish();
 
             presetsObservable.ObserveOn(schedulerProvider.Dispatcher)
@@ -58,7 +56,9 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
                 SelectedPreset = PresetsCollection.First();
             }
 
-            var canSave = presetsObservable.Filter(x => x.HasChanged)
+            var canSave = presetsObservable
+                .AutoRefresh(vm => vm.HasChanged)
+                .Filter(x => x.HasChanged)
                 .Count()
                 .GreaterThan(0);
 
@@ -72,7 +72,9 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
                 presetsSetting.Write(Array.Empty<Preset>());
             });
 
-            var canAdd = presetsObservable.Filter(x => x.Name == Preset.Empty.Name)
+            var canAdd = presetsObservable
+                .AutoRefresh(vm => vm.Name)
+                .Filter(x => x.Name == Preset.Empty.Name)
                 .Count()
                 .EqualTo(0)
                 .StartWith(true);
