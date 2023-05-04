@@ -3,24 +3,42 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:presets="clr-namespace:MultiConverter.ViewModels.Presets;assembly=MultiConverter.ViewModels"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="presets:PresetsContainerViewModel"
              x:Class="MultiConverter.Views.Presets.PresetsContainerView">
-    <DockPanel LastChildFill="True" Margin="{StaticResource  SettingsViewMargin}">
-        <DockPanel DockPanel.Dock="Left" VerticalAlignment="Stretch" LastChildFill="False">
-            <ListBox DockPanel.Dock="Top"
-                     Items="{CompiledBinding PresetsCollection}"
-                     SelectedItem="{CompiledBinding SelectedPreset}" />
+    <DockPanel LastChildFill="True" Margin="{StaticResource SettingsViewMargin}">
 
-            <StackPanel Orientation="Horizontal" Spacing="8" DockPanel.Dock="Bottom">
-                <Button Command="{CompiledBinding Add}">Add</Button>
-                <Button Command="{CompiledBinding Remove}" CommandParameter="{CompiledBinding SelectedPreset}">Remove</Button>
-                <Button Command="{CompiledBinding Reset}">Reset</Button>
-                <Button Command="{CompiledBinding Save}">Save</Button>
-            </StackPanel>
-        </DockPanel>
+        <StackPanel Orientation="Horizontal" Spacing="8" DockPanel.Dock="Bottom">
+            <Button Command="{CompiledBinding Add}">Add</Button>
+            <Button Command="{CompiledBinding Remove}" CommandParameter="{CompiledBinding SelectedPreset}">Remove</Button>
+            <Button Command="{CompiledBinding Reset}">Reset</Button>
+            <Button Command="{CompiledBinding Save}">Save</Button>
+        </StackPanel>
 
-        <ContentControl Content="{CompiledBinding SelectedPreset, Mode=OneWay}"/>
+        <ListBox DockPanel.Dock="Left"
+                 Items="{CompiledBinding PresetsCollection}"
+                 SelectedItem="{CompiledBinding SelectedPreset}">
+            <ListBox.DataTemplates>
+                <DataTemplate x:DataType="presets:PresetViewModel">
+
+                    <Grid ColumnDefinitions="64 *">
+                        <controls:FAPathIcon Width="16" Height="16" Margin="4" Grid.Column="0"
+                                             IsVisible="{CompiledBinding IsDefault}"
+                                             Data="{DynamicResource VerifiedBadgeIcon}" />
+
+                        <Grid Grid.Column="1">
+                            <TextBlock Text="{CompiledBinding Name}"
+                                       IsVisible="{CompiledBinding Name, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                            <TextBlock Text="Not set"
+                                       IsVisible="{CompiledBinding Name, Converter={x:Static StringConverters.IsNullOrEmpty}}" />
+                        </Grid>
+
+                    </Grid>
+                </DataTemplate>
+            </ListBox.DataTemplates>
+        </ListBox>
+
+        <ContentControl Content="{CompiledBinding SelectedPreset, Mode=OneWay}" />
     </DockPanel>
 </UserControl>
-
