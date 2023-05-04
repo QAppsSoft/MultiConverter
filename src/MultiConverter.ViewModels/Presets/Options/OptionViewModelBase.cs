@@ -38,4 +38,5 @@ public sealed class ValuesUpdater
 {
     public string Caption { get; init; } = string.Empty;
     public Action Update { get; init; } = null!;
+    public void Execute() => Update();
 }
