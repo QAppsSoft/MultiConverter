@@ -26,10 +26,9 @@ public sealed class AudioCodecOptionViewModel : OptionViewModelBase
     private void InitializeDefaultOptions() =>
         DefaultOptions = new[]
         {
-            new ValuesUpdater { Caption = "MP1", Update = () => AudioCodec = "MP1" },
-            new ValuesUpdater { Caption = "MP2", Update = () => AudioCodec = "MP2" },
-            new ValuesUpdater { Caption = "MP3", Update = () => AudioCodec = "MP3" },
-            new ValuesUpdater { Caption = "AAC", Update = () => AudioCodec = "AAC" }
+            new ValuesUpdater { Caption = "MP2", Update = () => AudioCodec = "mp2" },
+            new ValuesUpdater { Caption = "MP3", Update = () => AudioCodec = "libmp3lame" },
+            new ValuesUpdater { Caption = "AAC", Update = () => AudioCodec = "aac" }
         };
 
     public static implicit operator AudioCodecOption(AudioCodecOptionViewModel vm) => new(vm.AudioCodec);
