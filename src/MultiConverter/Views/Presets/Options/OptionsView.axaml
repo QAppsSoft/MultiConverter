@@ -11,14 +11,15 @@
             <MenuItem Classes="ValuesUpdater" />
         </DataTemplate>
     </UserControl.DataTemplates>
-    <StackPanel Orientation="Vertical" Spacing="4">
-        <ContentControl Content="{CompiledBinding Options[0] }" />
-        <ContentControl Content="{CompiledBinding Options[1] }" />
-        <ContentControl Content="{CompiledBinding Options[2] }" />
-        <ContentControl Content="{CompiledBinding Options[3] }" />
-        <ContentControl Content="{CompiledBinding Options[4] }" />
-        <ContentControl Content="{CompiledBinding Options[5] }" />
-        <ContentControl Content="{CompiledBinding Options[6] }" />
-    </StackPanel>
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical" Spacing="4">
+            <ContentControl Content="{CompiledBinding Options[0] }" />
+            <ContentControl Content="{CompiledBinding Options[1] }" />
+            <ContentControl Content="{CompiledBinding Options[2] }" />
+            <ContentControl Content="{CompiledBinding Options[3] }" />
+            <ContentControl Content="{CompiledBinding Options[4] }" />
+            <ContentControl Content="{CompiledBinding Options[5] }" />
+            <ContentControl Content="{CompiledBinding Options[6] }" />
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
-

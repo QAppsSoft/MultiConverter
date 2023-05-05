@@ -23,7 +23,7 @@
         <controls:SettingsExpanderItem Content="Aspect ratio">
 
             <controls:SettingsExpanderItem.Footer>
-                <TextBlock Text="{CompiledBinding AspectRatio}" />
+                <TextBlock Text="{CompiledBinding AspectRatio}" MinWidth="150" />
             </controls:SettingsExpanderItem.Footer>
         </controls:SettingsExpanderItem>
 
