@@ -1,0 +1,14 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:options="clr-namespace:MultiConverter.ViewModels.Presets.Options;assembly=MultiConverter.ViewModels">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="MenuItem.ValuesUpdater" x:DataType="options:ValuesUpdater">
+        <Setter Property="Header" Value="{CompiledBinding Caption, Mode=OneWay}" />
+        <Setter Property="Command" Value="{CompiledBinding Execute}" />
+    </Style>
+</Styles>

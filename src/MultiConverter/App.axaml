@@ -8,6 +8,7 @@
     </Application.DataTemplates>
     <Application.Styles>
         <styling:FluentAvaloniaTheme />
+        <StyleInclude Source="/Styles/MenuStyles.axaml" />
     </Application.Styles>
     <Application.Resources>
         <ResourceDictionary>

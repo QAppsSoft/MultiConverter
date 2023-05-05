@@ -7,19 +7,16 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.Presets.Options.AudioBitrateOptionView"
              x:DataType="options:AudioBitrateOptionViewModel">
-    <controls:SettingsExpander Header="Audio bitrate">
+
+    <controls:SettingsExpander Header="Audio bitrate" Description="{CompiledBinding Bitrate, Mode=OneWay, StringFormat='{}{0} kbps'}">
 
         <controls:SettingsExpander.Footer>
-            <Button Content="Test">
+            <Button Height="32">
                 <Button.Flyout>
-                    <MenuFlyout ItemsSource="{CompiledBinding DefaultOptions}">
-                        <MenuFlyout.ItemTemplate>
-                            <DataTemplate x:DataType="options:ValuesUpdater">
-                                <Button Content="{CompiledBinding  Caption}" Command="{CompiledBinding Execute}" />
-                            </DataTemplate>
-                        </MenuFlyout.ItemTemplate>
-                    </MenuFlyout>
+                    <MenuFlyout ItemsSource="{CompiledBinding DefaultOptions, Mode=OneWay}" Placement="BottomEdgeAlignedRight" />
                 </Button.Flyout>
+
+                <controls:FAPathIcon Data="{DynamicResource MenuVerticalIcon}" />
             </Button>
         </controls:SettingsExpander.Footer>
 

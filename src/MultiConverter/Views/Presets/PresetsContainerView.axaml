@@ -39,6 +39,6 @@
             </ListBox.DataTemplates>
         </ListBox>
 
-        <ContentControl Content="{CompiledBinding SelectedPreset, Mode=OneWay}" />
+        <ContentControl Content="{CompiledBinding SelectedPreset, Mode=OneWay}" Margin="24" />
     </DockPanel>
 </UserControl>

@@ -6,6 +6,11 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.Presets.Options.OptionsView"
              x:DataType="options:OptionsViewModel">
+    <UserControl.DataTemplates>
+        <DataTemplate x:DataType="options:ValuesUpdater">
+            <MenuItem Classes="ValuesUpdater" />
+        </DataTemplate>
+    </UserControl.DataTemplates>
     <StackPanel Orientation="Vertical" Spacing="4">
         <ContentControl Content="{CompiledBinding Options[0] }" />
         <ContentControl Content="{CompiledBinding Options[1] }" />
@@ -13,7 +18,7 @@
         <ContentControl Content="{CompiledBinding Options[3] }" />
         <ContentControl Content="{CompiledBinding Options[4] }" />
         <ContentControl Content="{CompiledBinding Options[5] }" />
-        <!-- <ContentControl Content="{CompiledBinding Options[6] }" /> -->
+        <ContentControl Content="{CompiledBinding Options[6] }" />
     </StackPanel>
 </UserControl>
 
