@@ -11,7 +11,7 @@
     <controls:SettingsExpander Header="Audio bitrate" Description="{CompiledBinding Bitrate, Mode=OneWay, StringFormat='{}{0} kbps'}">
 
         <controls:SettingsExpander.Footer>
-            <Button Height="32">
+            <Button Height="32" IsVisible="{CompiledBinding HasValues}">
                 <Button.Flyout>
                     <MenuFlyout ItemsSource="{CompiledBinding DefaultOptions, Mode=OneWay}" Placement="BottomEdgeAlignedRight" />
                 </Button.Flyout>
