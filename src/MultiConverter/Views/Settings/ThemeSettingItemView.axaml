@@ -20,7 +20,7 @@
             </controls:SettingsExpander.IconSource>
 
             <controls:SettingsExpander.Footer>
-                <ComboBox Items="{CompiledBinding Themes}"
+                <ComboBox ItemsSource="{CompiledBinding Themes}"
                           SelectedItem="{CompiledBinding SelectedTheme}"
                           MinWidth="150" />
             </controls:SettingsExpander.Footer>

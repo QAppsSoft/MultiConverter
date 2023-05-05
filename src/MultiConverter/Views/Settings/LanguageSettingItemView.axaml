@@ -20,7 +20,7 @@
             </controls:SettingsExpander.IconSource>
 
             <controls:SettingsExpander.Footer>
-                <ComboBox Items="{CompiledBinding Languages}"
+                <ComboBox ItemsSource="{CompiledBinding Languages}"
                           SelectedItem="{CompiledBinding SelectedLanguage}"
                           MinWidth="150">
                     <ComboBox.ItemTemplate>

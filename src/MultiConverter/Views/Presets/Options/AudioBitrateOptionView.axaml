@@ -12,7 +12,7 @@
         <controls:SettingsExpander.Footer>
             <Button Content="Test">
                 <Button.Flyout>
-                    <MenuFlyout Items="{CompiledBinding DefaultOptions}">
+                    <MenuFlyout ItemsSource="{CompiledBinding DefaultOptions}">
                         <MenuFlyout.ItemTemplate>
                             <DataTemplate x:DataType="options:ValuesUpdater">
                                 <Button Content="{CompiledBinding  Caption}" Command="{CompiledBinding Execute}" />

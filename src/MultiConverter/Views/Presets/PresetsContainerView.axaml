@@ -17,7 +17,7 @@
         </StackPanel>
 
         <ListBox DockPanel.Dock="Left"
-                 Items="{CompiledBinding PresetsCollection}"
+                 ItemsSource="{CompiledBinding PresetsCollection}"
                  SelectedItem="{CompiledBinding SelectedPreset}">
             <ListBox.DataTemplates>
                 <DataTemplate x:DataType="presets:PresetViewModel">

@@ -30,7 +30,7 @@
 
         <TextBlock Text="{localization:Localize UI_OptionsView_VideoFiles}" FontWeight="Bold" />
 
-        <controls:SettingsExpander Header="{localization:Localize UI_OptionsView_SupportedExtensions}" Items="{CompiledBinding SupportedExtensions}"
+        <controls:SettingsExpander Header="{localization:Localize UI_OptionsView_SupportedExtensions}" ItemsSource="{CompiledBinding SupportedExtensions}"
                                    IsExpanded="False">
 
             <controls:SettingsExpander.IconSource>

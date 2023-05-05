@@ -10,7 +10,7 @@
              x:DataType="viewModels:MainViewModel"
              x:Class="MultiConverter.Views.ItemsView">
 
-    <ListBox Items="{CompiledBinding Pages}"
+    <ListBox ItemsSource="{CompiledBinding Pages}"
              SelectedItem="{CompiledBinding SelectedPage}"
              Background="Transparent">
 

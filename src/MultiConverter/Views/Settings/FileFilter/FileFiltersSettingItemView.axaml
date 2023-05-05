@@ -31,7 +31,7 @@
         <TextBlock Text="{localization:Localize UI_OptionsView_FileFilters}" FontWeight="Bold" />
 
         <controls:SettingsExpander Header="{localization:Localize UI_OptionsView_ExcludeFilesIf}"
-                                   Items="{CompiledBinding  FileFilters}"
+                                   ItemsSource="{CompiledBinding  FileFilters}"
                                    IsExpanded="True">
 
             <controls:SettingsExpander.IconSource>
