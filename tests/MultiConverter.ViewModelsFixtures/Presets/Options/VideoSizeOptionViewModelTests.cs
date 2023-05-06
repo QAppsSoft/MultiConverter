@@ -9,7 +9,7 @@ namespace MultiConverter.ViewModelsFixtures.Presets.Options;
 [TestFixture]
 public class VideoSizeOptionViewModelTests
 {
-    private static readonly VideoSize s_defaultSize = new(1920, 1080);
+    private static readonly VideoSize s_defaultSize = new(3000, 3000);
 
     [Test]
     public void New_VideoFrameRateOptionViewModel_After_Initialization()
@@ -19,7 +19,7 @@ public class VideoSizeOptionViewModelTests
         fixture.Height.Should().Be(s_defaultSize.Height);
         fixture.Width.Should().Be(s_defaultSize.Width);
         fixture.HasChanged.Should().BeFalse();
-        fixture.DefaultOptions.Length.Should().Be(4);
+        fixture.DefaultOptions.Length.Should().Be(9);
     }
 
     [Test]
@@ -39,9 +39,14 @@ public class VideoSizeOptionViewModelTests
 
     [Test]
     [TestCase(0, 320, 240)]
-    [TestCase(1, 400, 300)]
-    [TestCase(2, 800, 600)]
-    [TestCase(3, 1024, 768)]
+    [TestCase(1, 352, 240)]
+    [TestCase(2, 400, 300)]
+    [TestCase(3, 640, 480)]
+    [TestCase(4, 720, 480)]
+    [TestCase(5, 800, 600)]
+    [TestCase(6, 1024, 768)]
+    [TestCase(7, 1600, 1200)]
+    [TestCase(8, 1920, 1080)]
     public void Executing_ValuesUpdater_should_update_value(int index, int width, int height)
     {
         VideoSizeOptionViewModel fixture = InitializeFixture(s_defaultSize);

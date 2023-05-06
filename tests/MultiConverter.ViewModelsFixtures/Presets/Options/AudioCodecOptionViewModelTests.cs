@@ -9,6 +9,8 @@ namespace MultiConverter.ViewModelsFixtures.Presets.Options;
 [TestFixture]
 public class AudioCodecOptionViewModelTests
 {
+    private const string DefaultCodec = "mp1";
+
     [Test]
     public void New_VideoFrameRateOptionViewModel_After_Initialization()
     {
@@ -16,7 +18,7 @@ public class AudioCodecOptionViewModelTests
 
         fixture.AudioCodec.Should().Be(DefaultCodec);
         fixture.HasChanged.Should().BeFalse();
-        fixture.DefaultOptions.Length.Should().Be(4);
+        fixture.DefaultOptions.Length.Should().Be(3);
     }
 
     [Test]
@@ -32,13 +34,12 @@ public class AudioCodecOptionViewModelTests
     }
 
     [Test]
-    [TestCase(0, "MP1")]
-    [TestCase(1, "MP2")]
-    [TestCase(2, "MP3")]
-    [TestCase(3, "AAC")]
+    [TestCase(0, "mp2")]
+    [TestCase(1, "libmp3lame")]
+    [TestCase(2, "aac")]
     public void Executing_ValuesUpdater_should_update_value(int index, string codec)
     {
-        AudioCodecOptionViewModel fixture = InitializeFixture(AudioCodecOption.Default);
+        AudioCodecOptionViewModel fixture = InitializeFixture(DefaultCodec);
         ValuesUpdater updater = fixture.DefaultOptions[index];
 
         updater.Update.Invoke();
@@ -59,13 +60,10 @@ public class AudioCodecOptionViewModelTests
         fixture.AudioCodec.Should().Be(DefaultCodec);
     }
 
-
     private static AudioCodecOptionViewModel InitializeFixture(string? initialCodec = null)
     {
         ISchedulerProvider scheduler = new ImmediateSchedulers();
         AudioCodecOption option = new(initialCodec ?? DefaultCodec);
         return new AudioCodecOptionViewModel(option, scheduler);
     }
-
-    private const string DefaultCodec = "libmp3lame ";
 }
