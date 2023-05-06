@@ -7,6 +7,7 @@ public record Preset(string Name, bool IsDefault, VideoFilter[] VideoFilter, Aud
     IOption[] Options, bool IsAdvanced)
 {
     private static IOption[] GetBasicOptions { get; } = {
+        new VideoSizeOption(VideoSize.Default),
         new VideoCodecOption(VideoCodecOption.Default),
         new VideoBitrateOption(VideoBitrateOption.Default),
         new VideoAspectRatioOption(VideoAspectRatioOption.Default),

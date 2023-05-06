@@ -27,6 +27,7 @@ public sealed class OptionsViewModelFactory : IOptionsViewModelFactory
     public OptionViewModelBase Build(IOption option) =>
         option switch
         {
+            VideoSizeOption videoSizeOption => new VideoSizeOptionViewModel(videoSizeOption, _schedulerProvider),
             VideoCodecOption videoCodecOption => new VideoCodecOptionViewModel(videoCodecOption, _schedulerProvider),
             VideoBitrateOption videoBitrateOption => new VideoBitrateOptionViewModel(videoBitrateOption, _schedulerProvider),
             VideoAspectRatioOption videoAspectRatioOption => new VideoAspectRatioOptionViewModel(videoAspectRatioOption, _schedulerProvider),
