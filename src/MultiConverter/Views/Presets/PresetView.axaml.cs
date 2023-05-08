@@ -1,9 +1,10 @@
-﻿using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
+using MultiConverter.ViewModels.Presets;
 
 namespace MultiConverter.Views.Presets;
 
-public partial class PresetView : UserControl
+public partial class PresetView : ReactiveUserControl<PresetViewModel>
 {
     public PresetView()
     {
