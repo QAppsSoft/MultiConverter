@@ -13,7 +13,7 @@
             <Button Command="{CompiledBinding Add}">Add</Button>
             <Button Command="{CompiledBinding Remove}" CommandParameter="{CompiledBinding SelectedPreset}">Remove</Button>
             <Button Command="{CompiledBinding Reset}">Reset</Button>
-            <Button Command="{CompiledBinding Save}">Save</Button>
+            <Button Command="{CompiledBinding Save}" CommandParameter="{CompiledBinding PresetsCollection}">Save</Button>
         </StackPanel>
 
         <ListBox DockPanel.Dock="Left"
