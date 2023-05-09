@@ -16,23 +16,25 @@
             <Button Command="{CompiledBinding Save}" CommandParameter="{CompiledBinding PresetsCollection}">Save</Button>
         </StackPanel>
 
-        <ListBox DockPanel.Dock="Left"
+        <ListBox DockPanel.Dock="Left" MinWidth="150" HorizontalAlignment="Stretch"
                  ItemsSource="{CompiledBinding PresetsCollection}"
                  SelectedItem="{CompiledBinding SelectedPreset}">
             <ListBox.DataTemplates>
                 <DataTemplate x:DataType="presets:PresetViewModel">
 
-                    <Grid ColumnDefinitions="64 *">
-                        <controls:FAPathIcon Width="16" Height="16" Margin="4" Grid.Column="0"
-                                             IsVisible="{CompiledBinding IsDefault}"
-                                             Data="{DynamicResource VerifiedBadgeIcon}" />
-
-                        <Grid Grid.Column="1">
-                            <TextBlock Text="{CompiledBinding Name}"
+                    <Grid ColumnDefinitions="* 32">
+                        <Grid Grid.Column="0" VerticalAlignment="Stretch">
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="{CompiledBinding Name}"
                                        IsVisible="{CompiledBinding Name, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
-                            <TextBlock Text="Not set"
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="Not set"
                                        IsVisible="{CompiledBinding Name, Converter={x:Static StringConverters.IsNullOrEmpty}}" />
                         </Grid>
+
+                        <controls:FAPathIcon Grid.Column="1" Width="16" Height="16" Margin="4"
+                                             IsVisible="{CompiledBinding IsDefault}"
+                                             Data="{DynamicResource VerifiedBadgeIcon}" />
 
                     </Grid>
                 </DataTemplate>
