@@ -34,10 +34,6 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
             Disposable.Create(HandleDeactivation).DisposeWith(disposable);
 
-            presetsSetting.Value
-                .Subscribe(values => _presetsSourceList.Edit(ClearAndAdd(values)))
-                .DisposeWith(disposable);
-
             var presetsObservable = _presetsSourceList.Connect()
                 .Transform(presetViewModelFactory.Build)
                 .DisposeMany()
@@ -51,11 +47,6 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
                 .DisposeWith(disposable);
 
             PresetsCollection = presetsCollection;
-
-            if (PresetsCollection.Count > 0)
-            {
-                SelectedPreset = PresetsCollection.First();
-            }
 
             var canSave = presetsObservable
                 .AutoRefresh(vm => vm.HasChanged)
@@ -90,8 +81,23 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
                 canRemove);
 
             presetsObservable.Connect().DisposeWith(disposable);
+
+            presetsSetting.Value
+                .Subscribe(SetAndSelectPreset())
+                .DisposeWith(disposable);
         });
     }
+
+    private Action<Preset[]> SetAndSelectPreset() =>
+        values =>
+        {
+            _presetsSourceList.Edit(ClearAndAdd(values));
+
+            if (PresetsCollection?.Count > 0)
+            {
+                SelectedPreset = PresetsCollection.First();
+            }
+        };
 
     [Reactive] public ReadOnlyObservableCollection<PresetViewModel>? PresetsCollection { get; set; }
 
