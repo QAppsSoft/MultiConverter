@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using DynamicData;
 using DynamicData.Aggregation;
 using DynamicData.Binding;
@@ -22,12 +23,17 @@ namespace MultiConverter.ViewModels.Presets;
 public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewModel
 {
     private readonly SourceList<Preset> _presetsSourceList = new();
+    private readonly ISchedulerProvider _schedulerProvider;
+    private readonly ISetting<Preset[]> _presetsSetting;
 
     public PresetsContainerViewModel(ISetting<Preset[]> presetsSetting, ISchedulerProvider schedulerProvider, IPresetViewModelFactory presetViewModelFactory)
     {
         ArgumentNullException.ThrowIfNull(presetsSetting);
         ArgumentNullException.ThrowIfNull(schedulerProvider);
         ArgumentNullException.ThrowIfNull(presetViewModelFactory);
+
+        _presetsSetting = presetsSetting;
+        _schedulerProvider = schedulerProvider;
 
         this.WhenActivated(disposable =>
         {
@@ -40,74 +46,20 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
                 .DisposeMany()
                 .Publish();
 
-            presetsObservable
-                .Sort(SortExpressionComparer<PresetViewModel>.Descending(x => x.IsDefault).ThenByAscending(x => x.Name))
-                .ObserveOn(schedulerProvider.Dispatcher)
-                .Bind(out ReadOnlyObservableCollection<PresetViewModel>? presetsCollection)
-                .Subscribe()
-                .DisposeWith(disposable);
-
-            PresetsCollection = presetsCollection;
-
-            PresetsCollection.ObserveCollectionChangesOptional<PresetViewModel>()
-                .Select(changes => changes.NewItems.HasValue
-                    ? changes.NewItems.Value.First()
-                    : presetsCollection.FirstOrDefault())
-                .WhereNotNull()
-                .ObserveOn(schedulerProvider.Dispatcher)
-                .Subscribe(preset => SelectedPreset = preset)
-                .DisposeWith(disposable);
-
-            var canSave = presetsObservable
-                .AutoRefresh(vm => vm.HasChanged)
-                .Filter(x => x.HasChanged)
-                .Count()
-                .GreaterThan(0);
-
-            Save = ReactiveCommand.Create<ReadOnlyObservableCollection<PresetViewModel>>(
-                models => presetsSetting.Write(CastPresets(models)),
-                canSave);
-
-            Reset = ReactiveCommand.Create(() =>
-            {
-                _presetsSourceList.Clear();
-                presetsSetting.Write(Array.Empty<Preset>());
-            });
-
-            var canAdd = presetsObservable
-                .AutoRefresh(vm => vm.Name)
-                .Filter(x => x.Name == Preset.Empty.Name)
-                .Count()
-                .EqualTo(0)
-                .StartWith(true);
-
-            Add = ReactiveCommand.Create(() => _presetsSourceList.Add(Preset.Empty), canAdd);
-
-            var canRemove = this.WhenAnyValue(vm => vm.SelectedPreset)
-                .IsNotNull();
-
-            Remove = ReactiveCommand.Create<PresetViewModel>(
-                vm => _presetsSourceList.Remove(vm.InitialPreset),
-                canRemove);
+            InitializePresetsCollectionCommand(presetsObservable, disposable);
+            UpdateSelectionInPresetsCollectionChanged(disposable);
+            InitializeSaveCommand(presetsObservable);
+            InitializeResetCommand();
+            InitializeAddCommand(presetsObservable);
+            InitializeRemoveCommand();
 
             presetsObservable.Connect().DisposeWith(disposable);
 
-            presetsSetting.Value
+            _presetsSetting.Value
                 .Subscribe(SetAndSelectPreset())
                 .DisposeWith(disposable);
         });
     }
-
-    private Action<Preset[]> SetAndSelectPreset() =>
-        values =>
-        {
-            _presetsSourceList.Edit(ClearAndAdd(values));
-
-            if (PresetsCollection?.Count > 0)
-            {
-                SelectedPreset = PresetsCollection.First();
-            }
-        };
 
     [Reactive] public ReadOnlyObservableCollection<PresetViewModel>? PresetsCollection { get; set; }
 
@@ -122,6 +74,82 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
     [Reactive] public ReactiveCommand<PresetViewModel, Unit>? Remove { get; set; }
 
     public ViewModelActivator Activator { get; } = new();
+
+    private void InitializePresetsCollectionCommand(IConnectableObservable<IChangeSet<PresetViewModel>> presetsObservable,
+        CompositeDisposable disposable)
+    {
+        presetsObservable
+            .Sort(SortExpressionComparer<PresetViewModel>.Descending(x => x.IsDefault).ThenByAscending(x => x.Name))
+            .ObserveOn(_schedulerProvider.Dispatcher)
+            .Bind(out ReadOnlyObservableCollection<PresetViewModel>? presetsCollection)
+            .Subscribe()
+            .DisposeWith(disposable);
+
+        PresetsCollection = presetsCollection;
+    }
+
+    private void InitializeRemoveCommand()
+    {
+        var canRemove = this.WhenAnyValue(vm => vm.SelectedPreset)
+            .IsNotNull();
+
+        Remove = ReactiveCommand.Create<PresetViewModel>(
+            vm => _presetsSourceList.Remove(vm.InitialPreset),
+            canRemove);
+    }
+
+    private void InitializeAddCommand(IConnectableObservable<IChangeSet<PresetViewModel>> presetsObservable)
+    {
+        var canAdd = presetsObservable
+            .AutoRefresh(vm => vm.Name)
+            .Filter(x => x.Name == Preset.Empty.Name)
+            .Count()
+            .EqualTo(0)
+            .StartWith(true);
+
+        Add = ReactiveCommand.Create(() => _presetsSourceList.Add(Preset.Empty), canAdd);
+    }
+
+    private void InitializeResetCommand() =>
+        Reset = ReactiveCommand.Create(() =>
+        {
+            _presetsSourceList.Clear();
+            _presetsSetting.Write(Array.Empty<Preset>());
+        });
+
+    private void InitializeSaveCommand(IConnectableObservable<IChangeSet<PresetViewModel>> presetsObservable)
+    {
+        var canSave = presetsObservable
+            .AutoRefresh(vm => vm.HasChanged)
+            .Filter(x => x.HasChanged)
+            .Count()
+            .GreaterThan(0);
+
+        Save = ReactiveCommand.Create<ReadOnlyObservableCollection<PresetViewModel>>(
+            models => _presetsSetting.Write(CastPresets(models)),
+            canSave);
+    }
+
+    private void UpdateSelectionInPresetsCollectionChanged(CompositeDisposable disposable) =>
+        PresetsCollection.ObserveCollectionChangesOptional<PresetViewModel>()
+            .Select(changes => changes.NewItems.HasValue
+                ? changes.NewItems.Value.First()
+                : PresetsCollection.FirstOrDefault())
+            .WhereNotNull()
+            .ObserveOn(_schedulerProvider.Dispatcher)
+            .Subscribe(preset => SelectedPreset = preset)
+            .DisposeWith(disposable);
+
+    private Action<Preset[]> SetAndSelectPreset() =>
+        values =>
+        {
+            _presetsSourceList.Edit(ClearAndAdd(values));
+
+            if (PresetsCollection?.Count > 0)
+            {
+                SelectedPreset = PresetsCollection.First();
+            }
+        };
 
     private static Preset[] CastPresets(IEnumerable<PresetViewModel> presets) =>
         presets.Select(x=> x.ToPreset()).ToArray();
