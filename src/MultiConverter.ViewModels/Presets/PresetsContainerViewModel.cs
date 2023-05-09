@@ -39,12 +39,13 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
                 .DisposeWith(disposable);
 
             var presetsObservable = _presetsSourceList.Connect()
-                .Sort(SortExpressionComparer<Preset>.Ascending(x => x.Name).ThenByAscending(x => x.IsDefault))
                 .Transform(presetViewModelFactory.Build)
                 .DisposeMany()
                 .Publish();
 
-            presetsObservable.ObserveOn(schedulerProvider.Dispatcher)
+            presetsObservable
+                .Sort(SortExpressionComparer<PresetViewModel>.Descending(x => x.IsDefault).ThenByAscending(x => x.Name))
+                .ObserveOn(schedulerProvider.Dispatcher)
                 .Bind(out ReadOnlyObservableCollection<PresetViewModel>? presetsCollection)
                 .Subscribe()
                 .DisposeWith(disposable);
