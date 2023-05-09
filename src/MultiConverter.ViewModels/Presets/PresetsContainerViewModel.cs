@@ -12,6 +12,7 @@ using MultiConverter.Common;
 using MultiConverter.Extensions;
 using MultiConverter.Models.Presets;
 using MultiConverter.Services.Abstractions.Settings;
+using MultiConverter.ViewModels.Extensions;
 using MultiConverter.ViewModels.Presets.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -47,6 +48,15 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
                 .DisposeWith(disposable);
 
             PresetsCollection = presetsCollection;
+
+            PresetsCollection.ObserveCollectionChangesOptional<PresetViewModel>()
+                .Select(changes => changes.NewItems.HasValue
+                    ? changes.NewItems.Value.First()
+                    : presetsCollection.FirstOrDefault())
+                .WhereNotNull()
+                .ObserveOn(schedulerProvider.Dispatcher)
+                .Subscribe(preset => SelectedPreset = preset)
+                .DisposeWith(disposable);
 
             var canSave = presetsObservable
                 .AutoRefresh(vm => vm.HasChanged)
