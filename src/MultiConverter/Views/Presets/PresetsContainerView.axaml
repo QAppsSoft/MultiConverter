@@ -9,14 +9,39 @@
              x:Class="MultiConverter.Views.Presets.PresetsContainerView">
     <DockPanel LastChildFill="True" Margin="{StaticResource SettingsViewMargin}">
 
-        <StackPanel Orientation="Horizontal" Spacing="8" DockPanel.Dock="Bottom">
-            <Button Command="{CompiledBinding Add}">Add</Button>
-            <Button Command="{CompiledBinding Remove}" CommandParameter="{CompiledBinding SelectedPreset}">Remove</Button>
-            <Button Command="{CompiledBinding Reset}">Reset</Button>
-            <Button Command="{CompiledBinding Save}" CommandParameter="{CompiledBinding PresetsCollection}">Save</Button>
-        </StackPanel>
+        <Grid DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ColumnDefinitions="Auto * Auto" Margin="0 16 0 0">
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" DockPanel.Dock="Left">
+                <Button Command="{CompiledBinding Add}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <controls:FAPathIcon Data="{DynamicResource PlusIcon}" Width="16" />
+                        <TextBlock Text="Add" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{CompiledBinding Remove}" CommandParameter="{CompiledBinding SelectedPreset}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <controls:FAPathIcon Data="{DynamicResource MinusIcon}" Width="16" />
+                        <TextBlock Text="Remove" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
 
-        <ListBox DockPanel.Dock="Left" MinWidth="150" HorizontalAlignment="Stretch"
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" DockPanel.Dock="Right">
+                <Button Command="{CompiledBinding Save}" CommandParameter="{CompiledBinding PresetsCollection}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <controls:FAPathIcon Data="{DynamicResource SaveIcon}" Width="16" />
+                        <TextBlock Text="Save" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{CompiledBinding Reset}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <controls:FAPathIcon Data="{DynamicResource ResetIcon}" Width="16" />
+                        <TextBlock Text="Reset" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <ListBox DockPanel.Dock="Left" MinWidth="150" HorizontalAlignment="Stretch" Margin="0 0 8 0"
                  ItemsSource="{CompiledBinding PresetsCollection}"
                  SelectedItem="{CompiledBinding SelectedPreset}">
             <ListBox.DataTemplates>
@@ -41,6 +66,6 @@
             </ListBox.DataTemplates>
         </ListBox>
 
-        <ContentControl Content="{CompiledBinding SelectedPreset, Mode=OneWay}" Margin="24" />
+        <ContentControl Content="{CompiledBinding SelectedPreset, Mode=OneWay}"/>
     </DockPanel>
 </UserControl>
