@@ -12,10 +12,12 @@ using ReactiveUI.Fody.Helpers;
 
 namespace MultiConverter.ViewModels.Presets;
 
-public sealed class PresetViewModel : ViewModelBase, IChanged, IActivatableViewModel, IDisposable
+public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
 {
     private readonly SourceList<VideoFilter> _videoFilterSourceList = new();
     private readonly SourceList<AudioFilter> _audioFilterSourceList = new();
+
+    private readonly CompositeDisposable _cleanup = new();
 
     public PresetViewModel(Preset preset, ISchedulerProvider schedulerProvider, IOptionsViewModelFactory optionsViewModelFactory)
     {
@@ -31,16 +33,9 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IActivatableViewM
 
         OptionsVm = optionsViewModelFactory.Build(InitialPreset.Options);
 
-        this.WhenActivated(disposable =>
-        {
-            HandleActivation();
+        var hasChanged = HasChangedObservable();
 
-            Disposable.Create(HandleDeactivation).DisposeWith(disposable);
-
-            var hasChanged = HasChangedObservable();
-
-            hasChanged.ToPropertyEx(this, vm => vm.HasChanged).DisposeWith(disposable);
-        });
+        hasChanged.ToPropertyEx(this, vm => vm.HasChanged).DisposeWith(_cleanup);
     }
 
     [ObservableAsProperty] public bool HasChanged { get; }
@@ -53,19 +48,7 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IActivatableViewM
 
     public OptionsViewModel OptionsVm { get; }
 
-    public ViewModelActivator Activator { get; } = new();
-
     public Preset InitialPreset { get; }
-
-    private static void HandleActivation()
-    {
-        // Empty
-    }
-
-    private static void HandleDeactivation()
-    {
-        // Empty
-    }
 
     private IObservable<bool> HasChangedObservable()
     {
@@ -87,7 +70,11 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IActivatableViewM
         return hasChangedObservable;
     }
 
-    public void Dispose() => OptionsVm.Dispose();
+    public void Dispose()
+    {
+        _cleanup.Dispose();
+        OptionsVm.Dispose();
+    }
 
     public Preset ToPreset() => new(
         Name,
