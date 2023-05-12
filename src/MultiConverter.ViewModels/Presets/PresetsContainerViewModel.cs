@@ -48,6 +48,7 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
             InitializePresetsCollectionCommand(presetsObservable, disposable);
             UpdateSelectionInPresetsCollectionChanged(disposable);
+            OnDefaultSetSwitchOthersToFalse(presetsObservable, disposable);
             InitializeSaveCommand(presetsObservable);
             InitializeResetCommand();
             InitializeAddCommand(presetsObservable);
@@ -87,6 +88,17 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
         PresetsCollection = presetsCollection;
     }
+
+    private void OnDefaultSetSwitchOthersToFalse(IConnectableObservable<IChangeSet<PresetViewModel>> presetsObservable,
+        CompositeDisposable disposable) =>
+        presetsObservable.WhenPropertyChanged(vm => vm.IsDefault)
+            .Select(propertyValue => propertyValue.Sender)
+            .Where(vm => vm.IsDefault)
+            .ObserveOn(_schedulerProvider.Dispatcher)
+            .Subscribe(defaultPresetViewModel => PresetsCollection?.Where(vm => vm.IsDefault)
+                .Where(vm => vm != defaultPresetViewModel)
+                .ForEach(vm => vm.IsDefault = false))
+            .DisposeWith(disposable);
 
     private void InitializeRemoveCommand()
     {
