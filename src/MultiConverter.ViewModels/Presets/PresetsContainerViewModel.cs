@@ -143,7 +143,7 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
     }
 
     private void UpdateSelectionInPresetsCollectionChanged(CompositeDisposable disposable) =>
-        PresetsCollection.ObserveCollectionChangesOptional<PresetViewModel>()
+        PresetsCollection?.ObserveCollectionChangesOptional<PresetViewModel>()
             .Select(changes => changes.NewItems.HasValue
                 ? changes.NewItems.Value.First()
                 : PresetsCollection.FirstOrDefault())
