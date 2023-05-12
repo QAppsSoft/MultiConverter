@@ -46,7 +46,7 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
                 .DisposeMany()
                 .Publish();
 
-            InitializePresetsCollectionCommand(presetsObservable, disposable);
+            InitializePresetsCollection(presetsObservable, disposable);
             UpdateSelectionInPresetsCollectionChanged(disposable);
             OnDefaultSetSwitchOthersToFalse(presetsObservable, disposable);
             InitializeSaveCommand(presetsObservable);
@@ -76,7 +76,7 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
     public ViewModelActivator Activator { get; } = new();
 
-    private void InitializePresetsCollectionCommand(IConnectableObservable<IChangeSet<PresetViewModel>> presetsObservable,
+    private void InitializePresetsCollection(IConnectableObservable<IChangeSet<PresetViewModel>> presetsObservable,
         CompositeDisposable disposable)
     {
         presetsObservable
