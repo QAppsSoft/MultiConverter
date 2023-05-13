@@ -1,0 +1,5 @@
+<Project>
+  <PropertyGroup>
+    <TieredPGO>true</TieredPGO>
+  </PropertyGroup>
+</Project>
