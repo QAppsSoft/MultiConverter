@@ -61,14 +61,14 @@ MultiConverter aims to be a full replacement for a closed source video converter
 
 - [ ] Conversion Presets
   - [ ] Default preset selection
-  - [ ] Video format
+  - [X] Video format
     - Output format
     - Video codec
     - Bitrate
     - Resolution
     - Aspect ratio
     - Frames per second
-  - [ ] Audio format
+  - [X] Audio format
     - Audio codec
     - Bitrate
     - Sample rate
@@ -84,7 +84,7 @@ MultiConverter aims to be a full replacement for a closed source video converter
       - [ ] Audio normalization
       - [ ] Fix mono audio (this is for personal use)
   - [ ] Export and import
-  - [ ] Preset saving
+  - [X] Preset saving
   - [ ] Output file naming convention
 
 
