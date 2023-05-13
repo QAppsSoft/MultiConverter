@@ -37,7 +37,7 @@ MultiConverter aims to be a full replacement for a closed source video converter
   - [ ] Per file action
     - Play original/converted video (if exist)
     - Open original/converted containing folder
-    - Delete original/converted video filter
+    - Delete original/converted video
   - [ ] Compare video info
     - Duration
     - Size
