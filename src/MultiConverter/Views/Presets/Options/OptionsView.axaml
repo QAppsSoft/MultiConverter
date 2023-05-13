@@ -1,0 +1,25 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:options="clr-namespace:MultiConverter.ViewModels.Presets.Options;assembly=MultiConverter.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MultiConverter.Views.Presets.Options.OptionsView"
+             x:DataType="options:OptionsViewModel">
+    <UserControl.DataTemplates>
+        <DataTemplate x:DataType="options:ValuesUpdater">
+            <MenuItem Classes="ValuesUpdater" />
+        </DataTemplate>
+    </UserControl.DataTemplates>
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical" Spacing="4">
+            <ContentControl Content="{CompiledBinding Options[0] }" />
+            <ContentControl Content="{CompiledBinding Options[1] }" />
+            <ContentControl Content="{CompiledBinding Options[2] }" />
+            <ContentControl Content="{CompiledBinding Options[3] }" />
+            <ContentControl Content="{CompiledBinding Options[4] }" />
+            <ContentControl Content="{CompiledBinding Options[5] }" />
+            <ContentControl Content="{CompiledBinding Options[6] }" />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -23,10 +23,12 @@ public class SettingsModule : Module
             return factory.Create(converter, "GeneralOptions");
         }).SingleInstance();
 
-    private static void RegisterConverters(ContainerBuilder builder) =>
+    private static void RegisterConverters(ContainerBuilder builder)
+    {
         builder.RegisterType<GeneralOptionsConverter>()
             .As<IConverter<GeneralOptions>>()
             .SingleInstance();
+    }
 
     private static void RegisterCommonInterfaces(ContainerBuilder builder)
     {

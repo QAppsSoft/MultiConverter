@@ -10,9 +10,9 @@
 
     <Panel>
         <StackPanel Spacing="4" Orientation="Horizontal" IsVisible="{CompiledBinding Editing}">
-            <ComboBox Items="{CompiledBinding ApplyOnParts}"
+            <ComboBox ItemsSource="{CompiledBinding ApplyOnParts}"
                       SelectedItem="{CompiledBinding ApplyOn}" />
-            <ComboBox Items="{CompiledBinding Positions}" SelectedItem="{CompiledBinding Position}" />
+            <ComboBox ItemsSource="{CompiledBinding Positions}" SelectedItem="{CompiledBinding Position}" />
             <TextBox MinWidth="150">
                 <Interaction.Behaviors>
                     <behaviors:LostFocusUpdateBindingBehavior Text="{CompiledBinding Filter}" />

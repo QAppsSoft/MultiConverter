@@ -8,7 +8,7 @@
     </Application.DataTemplates>
     <Application.Styles>
         <styling:FluentAvaloniaTheme />
-        <StyleInclude Source="avares://FluentAvalonia.UI.Windowing/Styles/FAWindowingStyles.axaml" />
+        <StyleInclude Source="/Styles/MenuStyles.axaml" />
     </Application.Styles>
     <Application.Resources>
         <ResourceDictionary>

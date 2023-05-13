@@ -12,5 +12,6 @@ public static class Bootstrapper
         builder.RegisterModule<SettingsModule>();
         builder.RegisterModule<ViewModelsModule>();
         builder.RegisterModule<ServicesModule>();
+        builder.RegisterModule<PresetsModule>();
     }
 }

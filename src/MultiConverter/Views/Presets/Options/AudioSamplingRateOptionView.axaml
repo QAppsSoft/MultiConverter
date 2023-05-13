@@ -1,0 +1,33 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:options="clr-namespace:MultiConverter.ViewModels.Presets.Options;assembly=MultiConverter.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MultiConverter.Views.Presets.Options.AudioSamplingRateOptionView"
+             x:DataType="options:AudioSamplingRateOptionViewModel">
+
+    <controls:SettingsExpander Header="Audio sampling rate" Description="{CompiledBinding SamplingRate, Mode=OneWay, StringFormat='{}{0} Hz'}">
+
+        <controls:SettingsExpander.Footer>
+            <Button Height="32" IsVisible="{CompiledBinding HasValues}">
+                <Button.Flyout>
+                    <MenuFlyout ItemsSource="{CompiledBinding DefaultOptions, Mode=OneWay}" Placement="BottomEdgeAlignedRight" />
+                </Button.Flyout>
+
+                <controls:FAPathIcon Data="{DynamicResource MenuVerticalIcon}" />
+            </Button>
+        </controls:SettingsExpander.Footer>
+
+        <controls:SettingsExpanderItem Content="Sampling rate">
+
+            <controls:SettingsExpanderItem.Footer>
+                <NumericUpDown Value="{CompiledBinding SamplingRate}" MinWidth="150" ShowButtonSpinner="False" />
+            </controls:SettingsExpanderItem.Footer>
+        </controls:SettingsExpanderItem>
+
+    </controls:SettingsExpander>
+
+</UserControl>
+
