@@ -5,7 +5,7 @@ namespace MultiConverter.Services.Abstractions.Formats;
 
 public interface ICodecsProvider
 {
-    IEnumerable<MediaCodec> GetCodecs();
-    IEnumerable<MediaCodec> GetAudioCodecs();
-    IEnumerable<MediaCodec> GetVideoCodecs();
+    IEnumerable<Codec> GetCodecs();
+    IEnumerable<Codec> GetAudioCodecs();
+    IEnumerable<Codec> GetVideoCodecs();
 }
