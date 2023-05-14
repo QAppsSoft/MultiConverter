@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\MultiConverter.Models.Presets\MultiConverter.Models.Presets.csproj" />
       <ProjectReference Include="..\MultiConverter.Models\MultiConverter.Models.csproj" />
     </ItemGroup>
 
