@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\MultiConverter.Services.Formats\MultiConverter.Services.Formats.csproj" />
     <ProjectReference Include="..\..\src\MultiConverter.ViewModels\MultiConverter.ViewModels.csproj" />
     <ProjectReference Include="..\MultiConverter.Common.Testing\MultiConverter.Common.Testing.csproj" />
   </ItemGroup>
