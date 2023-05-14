@@ -7,7 +7,6 @@ public static class Bootstrapper
 {
     public static void Register(ContainerBuilder builder)
     {
-        builder.RegisterModule<AutoMapperModule>();
         builder.RegisterModule<ConfigurationModule>();
         builder.RegisterModule<LoggingModule>();
         builder.RegisterModule<SettingsModule>();
