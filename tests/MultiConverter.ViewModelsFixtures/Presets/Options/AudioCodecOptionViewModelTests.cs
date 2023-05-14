@@ -2,6 +2,7 @@
 using MultiConverter.Common;
 using MultiConverter.Common.Testing;
 using MultiConverter.Models.Presets.Options;
+using MultiConverter.Services.Formats;
 using MultiConverter.ViewModels.Presets.Options;
 
 namespace MultiConverter.ViewModelsFixtures.Presets.Options;
@@ -9,14 +10,14 @@ namespace MultiConverter.ViewModelsFixtures.Presets.Options;
 [TestFixture]
 public class AudioCodecOptionViewModelTests
 {
-    private const string DefaultCodec = "mp1";
+    private const string DefaultCodec = "flac";
 
     [Test]
     public void New_VideoFrameRateOptionViewModel_After_Initialization()
     {
         AudioCodecOptionViewModel fixture = InitializeFixture();
 
-        fixture.AudioCodec.Should().Be(DefaultCodec);
+        fixture.SelectedCodec.Name.Should().Be(DefaultCodec);
         fixture.HasChanged.Should().BeFalse();
         fixture.DefaultOptions.Length.Should().Be(3);
     }
@@ -27,10 +28,10 @@ public class AudioCodecOptionViewModelTests
         const string newCodec = "mp2";
         AudioCodecOptionViewModel fixture = InitializeFixture();
 
-        fixture.AudioCodec = newCodec;
+        fixture.SelectedCodec = fixture.Codecs.First(c => c.Name == newCodec);
 
         fixture.HasChanged.Should().BeTrue();
-        fixture.AudioCodec.Should().Be(newCodec);
+        fixture.SelectedCodec.Name.Should().Be(newCodec);
     }
 
     [Test]
@@ -44,7 +45,7 @@ public class AudioCodecOptionViewModelTests
 
         updater.Update.Invoke();
 
-        fixture.AudioCodec.Should().Be(codec);
+        fixture.SelectedCodec.Name.Should().Be(codec);
         fixture.HasChanged.Should().BeTrue();
     }
 
@@ -53,17 +54,18 @@ public class AudioCodecOptionViewModelTests
     {
         AudioCodecOptionViewModel fixture = InitializeFixture();
 
-        fixture.AudioCodec = "AAC";
-        fixture.AudioCodec = DefaultCodec;
+        fixture.SelectedCodec = fixture.Codecs.First(c => c.Name == "aac");
+        fixture.SelectedCodec = fixture.Codecs.First(c => c.Name == DefaultCodec);
 
         fixture.HasChanged.Should().BeFalse();
-        fixture.AudioCodec.Should().Be(DefaultCodec);
+        fixture.SelectedCodec.Name.Should().Be(DefaultCodec);
     }
 
     private static AudioCodecOptionViewModel InitializeFixture(string? initialCodec = null)
     {
         ISchedulerProvider scheduler = new ImmediateSchedulers();
         AudioCodecOption option = new(initialCodec ?? DefaultCodec);
-        return new AudioCodecOptionViewModel(option, scheduler);
+        CodecsProvider codecsProvider = new();
+        return new AudioCodecOptionViewModel(option, codecsProvider, scheduler);
     }
 }
