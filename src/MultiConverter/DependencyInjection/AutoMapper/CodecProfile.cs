@@ -8,8 +8,8 @@ namespace MultiConverter.DependencyInjection.AutoMapper;
 public class CodecProfile : Profile
 {
     public CodecProfile() =>
-        CreateMap<FFMpegCore.Enums.Codec, MediaCodec>()
-            .ConstructUsing(codec => new MediaCodec(
+        CreateMap<FFMpegCore.Enums.Codec, Codec>()
+            .ConstructUsing(codec => new Codec(
                 codec.Name,
                 MapType(codec.Type),
                 codec.DecodingSupported,

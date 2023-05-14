@@ -9,23 +9,23 @@ namespace MultiConverter.Services.Formats;
 public class CodecsProvider : ICodecsProvider
 {
     private readonly IMapper _mapper;
-    private readonly Lazy<IEnumerable<MediaCodec>> _codecs;
+    private readonly Lazy<IEnumerable<Codec>> _codecs;
 
     public CodecsProvider(IMapper mapper)
     {
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        _codecs = new Lazy<IEnumerable<MediaCodec>>(CodecsFactory);
+        _codecs = new Lazy<IEnumerable<Codec>>(CodecsFactory);
     }
 
-    private IEnumerable<MediaCodec> CodecsFactory()
+    private IEnumerable<Codec> CodecsFactory()
     {
         var ffmpegCodecs = FFMpeg.GetCodecs();
-        return _mapper.Map<IEnumerable<FFMpegCore.Enums.Codec>, IEnumerable<MediaCodec>>(ffmpegCodecs);
+        return _mapper.Map<IEnumerable<FFMpegCore.Enums.Codec>, IEnumerable<Codec>>(ffmpegCodecs);
     }
 
-    public IEnumerable<MediaCodec> GetCodecs() => _codecs.Value;
+    public IEnumerable<Codec> GetCodecs() => _codecs.Value;
 
-    public IEnumerable<MediaCodec> GetAudioCodecs() => _codecs.Value.Where(codec => codec.Type == CodecType.Audio);
+    public IEnumerable<Codec> GetAudioCodecs() => _codecs.Value.Where(codec => codec.Type == CodecType.Audio);
 
-    public IEnumerable<MediaCodec> GetVideoCodecs() => _codecs.Value.Where(codec => codec.Type == CodecType.Video);
+    public IEnumerable<Codec> GetVideoCodecs() => _codecs.Value.Where(codec => codec.Type == CodecType.Video);
 }
