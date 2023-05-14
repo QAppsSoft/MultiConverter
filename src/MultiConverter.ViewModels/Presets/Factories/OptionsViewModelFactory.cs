@@ -37,7 +37,7 @@ public sealed class OptionsViewModelFactory : IOptionsViewModelFactory
             VideoAspectRatioOption videoAspectRatioOption => new VideoAspectRatioOptionViewModel(videoAspectRatioOption, _schedulerProvider),
             VideoFrameRateOption videoFrameRateOption => new VideoFrameRateOptionViewModel(videoFrameRateOption, _schedulerProvider),
 
-            AudioCodecOption audioCodecOption => new AudioCodecOptionViewModel(audioCodecOption, _schedulerProvider),
+            AudioCodecOption audioCodecOption => new AudioCodecOptionViewModel(audioCodecOption, _codecsProvider, _schedulerProvider),
             AudioBitrateOption audioBitrateOption => new AudioBitrateOptionViewModel(audioBitrateOption, _schedulerProvider),
             AudioSamplingRateOption audioSamplingRateOption => new AudioSamplingRateOptionViewModel(audioSamplingRateOption, _schedulerProvider),
 
