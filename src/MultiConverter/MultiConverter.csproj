@@ -9,6 +9,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="7.0.1" />
+    <PackageReference Include="AutoMapper.Contrib.Autofac.DependencyInjection" Version="7.1.0" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0-preview8" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.999-cibuild0034035-beta" />
@@ -30,6 +31,7 @@
     <ProjectReference Include="..\MultiConverter.Languages\MultiConverter.Languages.csproj" />
     <ProjectReference Include="..\MultiConverter.Localization\MultiConverter.Localization.csproj" />
     <ProjectReference Include="..\MultiConverter.Services.Abstractions\MultiConverter.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\MultiConverter.Services.Formats\MultiConverter.Services.Formats.csproj" />
     <ProjectReference Include="..\MultiConverter.Services.Settings\MultiConverter.Services.Settings.csproj" />
     <ProjectReference Include="..\MultiConverter.ViewModels\MultiConverter.ViewModels.csproj" />
   </ItemGroup>
