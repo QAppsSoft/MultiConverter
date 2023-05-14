@@ -4,28 +4,34 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:options="clr-namespace:MultiConverter.ViewModels.Presets.Options;assembly=MultiConverter.ViewModels"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:formats="clr-namespace:MultiConverter.Models.Presets.Formats;assembly=MultiConverter.Models.Presets"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.Presets.Options.VideoCodecOptionView"
              x:DataType="options:VideoCodecOptionViewModel">
 
-    <controls:SettingsExpander Header="Video codec" Description="{CompiledBinding Codec, Mode=OneWay}">
+    <controls:SettingsExpander Header="Video codec" Description="{CompiledBinding SelectedCodec.Description, Mode=OneWay}">
 
         <controls:SettingsExpander.Footer>
-            <Button Height="32" IsVisible="{CompiledBinding HasValues}">
-                <Button.Flyout>
-                    <MenuFlyout ItemsSource="{CompiledBinding DefaultOptions, Mode=OneWay}" Placement="BottomEdgeAlignedRight" />
-                </Button.Flyout>
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <ComboBox ItemsSource="{CompiledBinding Codecs}"
+                          SelectedItem="{CompiledBinding SelectedCodec}"
+                          MinWidth="150">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="formats:Codec">
+                            <TextBlock Text="{CompiledBinding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
-                <controls:FAPathIcon Data="{DynamicResource MenuVerticalIcon}" />
-            </Button>
+                <Button Height="32" IsVisible="{CompiledBinding HasValues}">
+                    <Button.Flyout>
+                        <MenuFlyout ItemsSource="{CompiledBinding DefaultOptions, Mode=OneWay}" Placement="BottomEdgeAlignedRight" />
+                    </Button.Flyout>
+
+                    <controls:FAPathIcon Data="{DynamicResource MenuVerticalIcon}" />
+                </Button>
+            </StackPanel>
         </controls:SettingsExpander.Footer>
-
-        <controls:SettingsExpanderItem Content="Codec">
-
-            <controls:SettingsExpanderItem.Footer>
-                <TextBlock Text="{CompiledBinding Codec}" MinWidth="150" />
-            </controls:SettingsExpanderItem.Footer>
-        </controls:SettingsExpanderItem>
 
     </controls:SettingsExpander>
 </UserControl>
