@@ -22,9 +22,9 @@ public class CodecsProvider : ICodecsProvider
 
     public IEnumerable<Codec> GetCodecs() => _codecs.Value;
 
-    public IEnumerable<Codec> GetAudioCodecs() => _codecs.Value.Where(codec => codec is { Type: CodecType.Audio, EncodingSupported: true });
+    public IEnumerable<Codec> GetAudioCodecs() => GetCodecs().Where(codec => codec is { Type: CodecType.Audio, EncodingSupported: true });
 
-    public IEnumerable<Codec> GetVideoCodecs() => _codecs.Value.Where(codec => codec is { Type: CodecType.Video, EncodingSupported: true });
+    public IEnumerable<Codec> GetVideoCodecs() => GetCodecs().Where(codec => codec is { Type: CodecType.Video, EncodingSupported: true });
 
     private static Codec GenerateCodec(FFMpegCore.Enums.Codec codec)
     {
