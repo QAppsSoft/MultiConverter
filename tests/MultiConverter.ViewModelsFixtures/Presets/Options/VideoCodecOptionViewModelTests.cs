@@ -2,6 +2,8 @@
 using MultiConverter.Common;
 using MultiConverter.Common.Testing;
 using MultiConverter.Models.Presets.Options;
+using MultiConverter.Services.Abstractions.Formats;
+using MultiConverter.Services.Formats;
 using MultiConverter.ViewModels.Presets.Options;
 
 namespace MultiConverter.ViewModelsFixtures.Presets.Options;
@@ -9,7 +11,7 @@ namespace MultiConverter.ViewModelsFixtures.Presets.Options;
 [TestFixture]
 public class VideoCodecOptionViewModelTests
 {
-    private const string DefaultCodec = "mpeg4";
+    private const string DefaultCodecName = "mpeg4";
 
 
     [Test]
@@ -17,7 +19,7 @@ public class VideoCodecOptionViewModelTests
     {
         VideoCodecOptionViewModel fixture = InitializeFixture();
 
-        fixture.Codec.Should().Be(DefaultCodec);
+        fixture.SelectedCodec.Name.Should().Be(DefaultCodecName);
         fixture.HasChanged.Should().BeFalse();
         fixture.DefaultOptions.Length.Should().Be(4);
     }
@@ -25,13 +27,13 @@ public class VideoCodecOptionViewModelTests
     [Test]
     public void After_value_changed_HasChanged_should_be_true()
     {
-        const string newCodec = "libxvid";
+        const string newCodecName = "libxvid";
         VideoCodecOptionViewModel fixture = InitializeFixture();
 
-        fixture.Codec = newCodec;
+        fixture.SelectedCodec = fixture.Codecs.First(c => c.Name == newCodecName);
 
         fixture.HasChanged.Should().BeTrue();
-        fixture.Codec.Should().Be(newCodec);
+        fixture.SelectedCodec.Name.Should().Be(newCodecName);
     }
 
     [Test]
@@ -39,14 +41,14 @@ public class VideoCodecOptionViewModelTests
     [TestCase(1, "mpeg2video")]
     [TestCase(2, "mpeg4")]
     [TestCase(3, "libxvid")]
-    public void Executing_ValuesUpdater_should_update_value(int index, string codec)
+    public void Executing_ValuesUpdater_should_update_value(int index, string codecName)
     {
-        VideoCodecOptionViewModel fixture = InitializeFixture(VideoCodecOption.Default);
+        VideoCodecOptionViewModel fixture = InitializeFixture("h263");
         ValuesUpdater updater = fixture.DefaultOptions[index];
 
         updater.Update.Invoke();
 
-        fixture.Codec.Should().Be(codec);
+        fixture.SelectedCodec.Name.Should().Be(codecName);
         fixture.HasChanged.Should().BeTrue();
     }
 
@@ -55,17 +57,18 @@ public class VideoCodecOptionViewModelTests
     {
         VideoCodecOptionViewModel fixture = InitializeFixture();
 
-        fixture.Codec = "VP9";
-        fixture.Codec = DefaultCodec;
+        fixture.SelectedCodec = fixture.Codecs.First(c => c.Name == "libxvid");
+        fixture.SelectedCodec = fixture.Codecs.First(c => c.Name == DefaultCodecName);
 
         fixture.HasChanged.Should().BeFalse();
-        fixture.Codec.Should().Be(DefaultCodec);
+        fixture.SelectedCodec.Name.Should().Be(DefaultCodecName);
     }
 
     private static VideoCodecOptionViewModel InitializeFixture(string? initialCodec = null)
     {
         ISchedulerProvider scheduler = new ImmediateSchedulers();
-        VideoCodecOption option = new(initialCodec ?? DefaultCodec);
-        return new VideoCodecOptionViewModel(option, scheduler);
+        VideoCodecOption option = new(initialCodec ?? DefaultCodecName);
+        ICodecsProvider provider = new CodecsProvider();
+        return new VideoCodecOptionViewModel(option, provider,scheduler);
     }
 }
