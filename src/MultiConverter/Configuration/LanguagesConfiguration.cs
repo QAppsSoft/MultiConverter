@@ -2,7 +2,7 @@
 
 namespace MultiConverter.Configuration;
 
-public class LanguagesConfiguration
+public sealed class LanguagesConfiguration
 {
     public List<string> AvailableLocales { get; init; } = null!;
 }

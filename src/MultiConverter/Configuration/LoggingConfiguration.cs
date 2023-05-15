@@ -2,7 +2,7 @@
 
 namespace MultiConverter.Configuration;
 
-public class LoggingConfiguration
+public sealed class LoggingConfiguration
 {
     public string LogFileName { get; init; } = null!;
 
