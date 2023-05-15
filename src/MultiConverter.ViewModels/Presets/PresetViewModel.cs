@@ -19,11 +19,12 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
 
     private readonly CompositeDisposable _cleanup = new();
 
-    public PresetViewModel(Preset preset, ISchedulerProvider schedulerProvider, IOptionsViewModelFactory optionsViewModelFactory)
+    public PresetViewModel(Preset preset, ISchedulerProvider schedulerProvider, IOptionsViewModelFactory optionsViewModelFactory, IContainerFormatViewModelFactory containerFormatViewModelFactory)
     {
         ArgumentNullException.ThrowIfNull(preset);
         ArgumentNullException.ThrowIfNull(schedulerProvider);
         ArgumentNullException.ThrowIfNull(optionsViewModelFactory);
+        ArgumentNullException.ThrowIfNull(containerFormatViewModelFactory);
 
         InitialPreset = preset;
 
@@ -32,6 +33,7 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
         IsAdvanced = InitialPreset.IsAdvanced;
 
         OptionsVm = optionsViewModelFactory.Build(InitialPreset.Options);
+        FormatVm = containerFormatViewModelFactory.Build(preset.ContainerFormat);
 
         var hasChanged = HasChangedObservable();
 
@@ -48,6 +50,8 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
 
     public OptionsViewModel OptionsVm { get; }
 
+    public ContainerFormatViewModel FormatVm { get; }
+
     public Preset InitialPreset { get; }
 
     private IObservable<bool> HasChangedObservable()
@@ -63,8 +67,10 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
 
         var optionsVmHasChanged = OptionsVm.WhenAnyValue(vm => vm.HasChanged);
 
+        var formatHasChanged = FormatVm.WhenAnyValue(vm => vm.HasChanged);
+
         var hasChangedObservable =
-            new[] { nameHasChanged, isDefaultHasChanged, isAdvancedHasChanged, optionsVmHasChanged }
+            new[] { nameHasChanged, isDefaultHasChanged, isAdvancedHasChanged, optionsVmHasChanged, formatHasChanged }
                 .CombineLatest(statuses => statuses.AnyIsTrue());
 
         return hasChangedObservable;
@@ -82,7 +88,8 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
         Array.Empty<VideoFilter>(), // TODO: Implement VideoFilter
         Array.Empty<AudioFilter>(), // TODO: Implement AudioFilter
         OptionsVm,
-        IsAdvanced
+        IsAdvanced,
+        FormatVm
     );
 
     public static implicit operator Preset(PresetViewModel vm) => vm.ToPreset();

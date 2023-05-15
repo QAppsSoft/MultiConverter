@@ -41,6 +41,7 @@ public class ViewModelsModule : Module
         builder.RegisterType<PresetsContainerViewModel>().ExternallyOwned();
         builder.RegisterType<PresetViewModel>().ExternallyOwned();
         builder.RegisterType<PresetViewModelFactory>().As<IPresetViewModelFactory>().ExternallyOwned();
+        builder.RegisterType<ContainerFormatViewModelFactory>().As<IContainerFormatViewModelFactory>().ExternallyOwned();
         builder.RegisterType<OptionsViewModelFactory>().As<IOptionsViewModelFactory>().ExternallyOwned();
         builder.RegisterType<PresetOptionsProvider>().As<IPresetOptionsProvider>().ExternallyOwned();
         builder.RegisterType<OptionGeneratorStrategy>().As<IOptionGeneratorStrategy>().ExternallyOwned();
