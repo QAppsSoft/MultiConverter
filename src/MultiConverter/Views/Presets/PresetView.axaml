@@ -4,14 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:MultiConverter.ViewModels.Presets;assembly=MultiConverter.ViewModels"
              xmlns:view="clr-namespace:MultiConverter.Views.Presets"
+             xmlns:formats="clr-namespace:MultiConverter.Models.Presets.Formats;assembly=MultiConverter.Models.Presets"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.Presets.PresetView"
              x:DataType="vm:PresetViewModel">
     <DockPanel LastChildFill="True">
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Spacing="16" >
-            <TextBox Text="{CompiledBinding Name}" Watermark="Set Preset name here" VerticalAlignment="Center" MinWidth="220"/>
-            <ToggleSwitch IsChecked="{CompiledBinding IsDefault}" OnContent="Is default" OffContent="Not default" />
-        </StackPanel>
+        <Grid ColumnDefinitions="Auto * Auto" DockPanel.Dock="Top">
+            <StackPanel Grid.Column="0" Orientation="Horizontal"  Spacing="16">
+                <TextBox Text="{CompiledBinding Name}" Watermark="Set Preset name here" VerticalAlignment="Center" MinWidth="220"/>
+                <ToggleSwitch IsChecked="{CompiledBinding IsDefault}" OnContent="Is default" OffContent="Not default" />
+            </StackPanel>
+
+            <ComboBox Grid.Column="2" MinWidth="200" VerticalAlignment="Center"
+                      ItemsSource="{CompiledBinding FormatVm.Formats}"
+                      SelectedItem="{CompiledBinding FormatVm.SelectedFormat}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="formats:ContainerFormat">
+                        <StackPanel Orientation="Horizontal" Spacing="16">
+                            <TextBlock Text="{CompiledBinding Extension}" />
+                            <TextBlock Text="{CompiledBinding Description}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
 
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <view:PresetSimpleView IsVisible="{CompiledBinding !IsAdvanced}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />

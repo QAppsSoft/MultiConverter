@@ -18,11 +18,12 @@ public class ContainersFormatProvider : IContainersFormatProvider
     private static IEnumerable<ContainerFormat> ContainersFactory()
     {
         var containers = FFMpeg.GetContainerFormats();
-        return containers.Select(format =>
+        return containers.Where(f => f.MuxingSupported)
+            .Select(format =>
                 new ContainerFormat(
                     format.Name,
                     format.Description,
                     format.Extension))
-            .OrderBy(format => format.Name);
+            .OrderBy(format => format.Extension);
     }
 }
