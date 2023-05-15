@@ -4,11 +4,11 @@ namespace MultiConverter.Configuration;
 
 public class LoggingConfiguration
 {
-    public string LogFileName { get; set; }
+    public string LogFileName { get; init; } = null!;
 
-    public long LimitBytes { get; set; }
+    public long LimitBytes { get; init; }
 
-    public LogEventLevel DefaultLogLevel { get; set; }
+    public LogEventLevel DefaultLogLevel { get; init; }
 
-    public LogEventLevel MicrosoftLogLevel { get; set; }
+    public LogEventLevel MicrosoftLogLevel { get; init; }
 }
