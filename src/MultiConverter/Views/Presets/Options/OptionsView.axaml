@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:options="clr-namespace:MultiConverter.ViewModels.Presets.Options;assembly=MultiConverter.ViewModels"
+             xmlns:interfaces="clr-namespace:MultiConverter.Models.Presets.Interfaces;assembly=MultiConverter.Models.Presets"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.Presets.Options.OptionsView"
              x:DataType="options:OptionsViewModel">
@@ -12,15 +13,15 @@
         </DataTemplate>
     </UserControl.DataTemplates>
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-        <StackPanel Orientation="Vertical" Spacing="4">
-            <ContentControl Content="{CompiledBinding Options[0] }" />
-            <ContentControl Content="{CompiledBinding Options[1] }" />
-            <ContentControl Content="{CompiledBinding Options[2] }" />
-            <ContentControl Content="{CompiledBinding Options[3] }" />
-            <ContentControl Content="{CompiledBinding Options[4] }" />
-            <ContentControl Content="{CompiledBinding Options[5] }" />
-            <ContentControl Content="{CompiledBinding Options[6] }" />
-            <ContentControl Content="{CompiledBinding Options[7] }" />
-        </StackPanel>
+        <ItemsRepeater ItemsSource="{CompiledBinding Options}">
+            <ItemsRepeater.ItemTemplate>
+                <DataTemplate x:DataType="interfaces:IOption">
+                    <ContentControl Content="{CompiledBinding .}" />
+                </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+            <ItemsRepeater.Layout>
+                <StackLayout Spacing="4" Orientation="Vertical" />
+            </ItemsRepeater.Layout>
+        </ItemsRepeater>
     </ScrollViewer>
 </UserControl>
