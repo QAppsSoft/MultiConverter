@@ -80,6 +80,7 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
     {
         _cleanup.Dispose();
         OptionsVm.Dispose();
+        FormatVm.Dispose();
     }
 
     public Preset ToPreset() => new(
