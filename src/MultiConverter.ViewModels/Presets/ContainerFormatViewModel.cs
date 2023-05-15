@@ -18,7 +18,7 @@ public sealed class ContainerFormatViewModel : ViewModelBase, IChanged, IDisposa
 
     public ContainerFormatViewModel(string containerFormat, IContainersFormatProvider formatProvider, ISchedulerProvider schedulerProvider)
     {
-        Formats = formatProvider.Formats();
+        Formats = formatProvider.Formats().OrderByDescending(x => x.Favorite).ThenBy(x => x.Name);
         SelectedFormat = Formats.First(f => f.Name == containerFormat);
 
         this.WhenAnyValue(vm => vm.SelectedFormat)
