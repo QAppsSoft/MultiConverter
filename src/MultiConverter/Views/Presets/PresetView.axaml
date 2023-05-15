@@ -5,6 +5,7 @@
              xmlns:vm="clr-namespace:MultiConverter.ViewModels.Presets;assembly=MultiConverter.ViewModels"
              xmlns:view="clr-namespace:MultiConverter.Views.Presets"
              xmlns:formats="clr-namespace:MultiConverter.Models.Presets.Formats;assembly=MultiConverter.Models.Presets"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.Presets.PresetView"
              x:DataType="vm:PresetViewModel">
@@ -15,14 +16,18 @@
                 <ToggleSwitch IsChecked="{CompiledBinding IsDefault}" OnContent="Is default" OffContent="Not default" />
             </StackPanel>
 
-            <ComboBox Grid.Column="2" MinWidth="200" VerticalAlignment="Center"
+            <ComboBox Grid.Column="2" VerticalAlignment="Center"
                       ItemsSource="{CompiledBinding FormatVm.Formats}"
-                      SelectedItem="{CompiledBinding FormatVm.SelectedFormat}">
+                      SelectedItem="{CompiledBinding FormatVm.SelectedFormat}"
+                      MinWidth="150" MaxWidth="200">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="formats:ContainerFormat">
                         <StackPanel Orientation="Horizontal" Spacing="16">
-                            <TextBlock Text="{CompiledBinding Extension}" />
-                            <TextBlock Text="{CompiledBinding Description}" />
+                            <Grid Width="16">
+                                <controls:FAPathIcon Width="16" Height="16" Data="{DynamicResource StarFilledIcon}" IsVisible="{CompiledBinding Favorite}" />
+                            </Grid>
+                            <TextBlock Text="{CompiledBinding Extension}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                            <TextBlock Text="{CompiledBinding Description}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
