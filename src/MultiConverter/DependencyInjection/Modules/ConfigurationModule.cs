@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Microsoft.Extensions.Configuration;
 using MultiConverter.Configuration;
+using MultiConverter.Models.Configurations;
 
 namespace MultiConverter.DependencyInjection.Modules;
 
@@ -11,7 +12,18 @@ public class ConfigurationModule : Module
         RegisterConfiguration(builder);
         RegisterLoggingConfiguration(builder);
         RegisterLanguagesConfiguration(builder);
+        RegisterFavoriteFormatsConfiguration(builder);
     }
+
+    private static void RegisterFavoriteFormatsConfiguration(ContainerBuilder builder) =>
+        builder.Register(context =>
+            {
+                var configuration = context.Resolve<IConfiguration>();
+                FavoriteFormatsConfiguration formatsConfiguration = new();
+                configuration.GetSection("FavoriteFormats").Bind(formatsConfiguration);
+                return formatsConfiguration;
+            }
+        );
 
     private static void RegisterLanguagesConfiguration(ContainerBuilder builder) =>
         builder.Register(x =>
