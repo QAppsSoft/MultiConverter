@@ -6,6 +6,13 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.Presets.PresetSimpleView"
              x:DataType="presets:PresetViewModel">
-    <ContentControl Content="{CompiledBinding OptionsVm}" />
+    <TabControl Padding="0">
+        <TabItem Header="Basic">
+            <ContentControl Content="{CompiledBinding OptionsVm}" />
+        </TabItem>
+        <TabItem Header="Others">
+            <ContentControl Content="{CompiledBinding PostConversionVm}" />
+        </TabItem>
+    </TabControl>
 </UserControl>
 
