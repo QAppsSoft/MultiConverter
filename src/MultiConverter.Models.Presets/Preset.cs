@@ -4,7 +4,7 @@ using MultiConverter.Models.Presets.Options;
 namespace MultiConverter.Models.Presets;
 
 public record Preset(string Name, bool IsDefault, VideoFilter[] VideoFilter, AudioFilter[] AudioFilter,
-    IOption[] Options, bool IsAdvanced, string ContainerFormat)
+    IOption[] Options, bool IsAdvanced, string ContainerFormat, InputPostConversion PostConversion)
 {
     private static IOption[] GetBasicOptions { get; } = {
         new VideoSizeOption(VideoSize.Default),
@@ -25,5 +25,7 @@ public record Preset(string Name, bool IsDefault, VideoFilter[] VideoFilter, Aud
         Array.Empty<AudioFilter>(),
         GetBasicOptions,
         false,
-        "matroska");
+        "matroska",
+        InputPostConversion.Default
+    );
 }
