@@ -2,4 +2,4 @@
 
 namespace MultiConverter.Models.Presets.Formats;
 
-public record Codec(string Name, CodecType Type, bool DecodingSupported, bool EncodingSupported, string Description);
+public record Codec(string Name, CodecType Type, bool DecodingSupported, bool EncodingSupported, string Description, bool Favorite);
