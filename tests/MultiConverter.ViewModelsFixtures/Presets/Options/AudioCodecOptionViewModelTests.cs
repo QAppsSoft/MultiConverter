@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using MultiConverter.Common;
 using MultiConverter.Common.Testing;
+using MultiConverter.Models.Configurations;
 using MultiConverter.Models.Presets.Options;
 using MultiConverter.Services.Formats;
 using MultiConverter.ViewModels.Presets.Options;
@@ -65,7 +66,8 @@ public class AudioCodecOptionViewModelTests
     {
         ISchedulerProvider scheduler = new ImmediateSchedulers();
         AudioCodecOption option = new(initialCodec ?? DefaultCodec);
-        CodecsProvider codecsProvider = new();
+        FavoriteCodecsConfiguration configuration = new() { Favorites = new List<string>() };
+        CodecsProvider codecsProvider = new(configuration);
         return new AudioCodecOptionViewModel(option, codecsProvider, scheduler);
     }
 }
