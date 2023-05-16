@@ -13,7 +13,19 @@ public class ConfigurationModule : Module
         RegisterLoggingConfiguration(builder);
         RegisterLanguagesConfiguration(builder);
         RegisterFavoriteFormatsConfiguration(builder);
+        RegisterFavoriteCodecsConfiguration(builder);
     }
+
+    private static void RegisterFavoriteCodecsConfiguration(ContainerBuilder builder) =>
+        builder.Register(context =>
+            {
+                var configuration = context.Resolve<IConfiguration>();
+                FavoriteCodecsConfiguration codecsConfiguration = new();
+                configuration.GetSection("FavoriteCodecs").Bind(codecsConfiguration);
+                return codecsConfiguration;
+            }
+        );
+
 
     private static void RegisterFavoriteFormatsConfiguration(ContainerBuilder builder) =>
         builder.Register(context =>
