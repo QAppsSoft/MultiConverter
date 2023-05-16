@@ -13,15 +13,37 @@
 
         <controls:SettingsExpander.Footer>
             <StackPanel Orientation="Horizontal" Spacing="8">
+
                 <ComboBox ItemsSource="{CompiledBinding Codecs}"
                           SelectedItem="{CompiledBinding SelectedCodec}"
-                          MinWidth="150">
+                          MinWidth="150" MaxWidth="200">
                     <ComboBox.ItemTemplate>
                         <DataTemplate x:DataType="formats:Codec">
-                            <TextBlock Text="{CompiledBinding Name}" />
+
+                            <Grid ColumnDefinitions="16 16 Auto 16 *" MaxWidth="300" HorizontalAlignment="Left">
+                                <Grid Grid.Column="0" Width="16">
+                                    <controls:FAPathIcon Width="16" Height="16" Data="{DynamicResource StarFilledIcon}" IsVisible="{CompiledBinding Favorite}" />
+                                </Grid>
+                                <TextBlock Grid.Column="2" Text="{CompiledBinding Name}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Grid.Column="4" Text="{CompiledBinding Description}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                            </Grid>
+
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
+
+
+                <!-- <ComboBox ItemsSource="{CompiledBinding Codecs}" -->
+                <!--           SelectedItem="{CompiledBinding SelectedCodec}" -->
+                <!--           MinWidth="150"> -->
+                <!--     <ComboBox.ItemTemplate> -->
+                <!--         <DataTemplate x:DataType="formats:Codec"> -->
+                <!--             <TextBlock Text="{CompiledBinding Name}" /> -->
+                <!--         </DataTemplate> -->
+                <!--     </ComboBox.ItemTemplate> -->
+                <!-- </ComboBox> -->
+
+
 
                 <Button Height="32" IsVisible="{CompiledBinding HasValues}">
                     <Button.Flyout>
