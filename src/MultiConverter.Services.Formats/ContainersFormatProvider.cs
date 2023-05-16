@@ -35,6 +35,7 @@ public class ContainersFormatProvider : IContainersFormatProvider
                     favorite
                 );
             })
-            .OrderBy(format => format.Extension);
+            .OrderByDescending(x => x.Favorite)
+            .ThenBy(x => x.Name);
     }
 }
