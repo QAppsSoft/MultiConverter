@@ -7,6 +7,7 @@ using MultiConverter.Extensions;
 using MultiConverter.Models.Presets;
 using MultiConverter.ViewModels.Presets.Interfaces;
 using MultiConverter.ViewModels.Presets.Options;
+using MultiConverter.ViewModels.Presets.Output;
 using MultiConverter.ViewModels.Presets.Subtitles;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -24,7 +25,8 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
         IOptionsViewModelFactory optionsViewModelFactory,
         IContainerFormatViewModelFactory containerFormatViewModelFactory,
         IPostConversionViewModelFactory postConversionViewModelFactory,
-        ISubtitleStyleViewModelFactory subtitleStyleViewModelFactory)
+        ISubtitleStyleViewModelFactory subtitleStyleViewModelFactory,
+        IOutputTemplateViewModelFactory outputTemplateViewModelFactory)
     {
         ArgumentNullException.ThrowIfNull(preset);
         ArgumentNullException.ThrowIfNull(schedulerProvider);
@@ -32,6 +34,7 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
         ArgumentNullException.ThrowIfNull(containerFormatViewModelFactory);
         ArgumentNullException.ThrowIfNull(postConversionViewModelFactory);
         ArgumentNullException.ThrowIfNull(subtitleStyleViewModelFactory);
+        ArgumentNullException.ThrowIfNull(outputTemplateViewModelFactory);
 
         InitialPreset = preset;
 
@@ -43,6 +46,7 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
         FormatVm = containerFormatViewModelFactory.Build(preset.ContainerFormat);
         PostConversionVm = postConversionViewModelFactory.Build(preset.PostConversion);
         SubtitleStyleVm = subtitleStyleViewModelFactory.Build(preset.SubtitleStyle);
+        OutputTemplateVm = outputTemplateViewModelFactory.Build(preset.OutputPathTemplate);
 
         var hasChanged = HasChangedObservable();
 
@@ -57,6 +61,8 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
 
     [Reactive] public bool IsAdvanced { get; set; }
 
+    public OutputTemplateViewModel OutputTemplateVm { get; }
+
     public OptionsViewModel OptionsVm { get; }
 
     public ContainerFormatViewModel FormatVm { get; }
@@ -69,32 +75,18 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
 
     private IObservable<bool> HasChangedObservable()
     {
-        var nameHasChanged = this.WhenAnyValue(vm => vm.Name)
-            .Select(name => !string.Equals(name, InitialPreset.Name, StringComparison.InvariantCulture));
-
-        var isDefaultHasChanged = this.WhenAnyValue(vm => vm.IsDefault)
-            .Select(isDefault => isDefault != InitialPreset.IsDefault);
-
-        var isAdvancedHasChanged = this.WhenAnyValue(vm => vm.IsAdvanced)
-            .Select(isAdvanced => isAdvanced != InitialPreset.IsAdvanced);
-
-        var optionsVmHasChanged = OptionsVm.WhenAnyValue(vm => vm.HasChanged);
-
-        var formatHasChanged = FormatVm.WhenAnyValue(vm => vm.HasChanged);
-
-        var postConversionChanged = PostConversionVm.WhenAnyValue(vm => vm.HasChanged);
-
-        var subtitleStyleChanged = SubtitleStyleVm.WhenAnyValue(vm => vm.HasChanged);
-
-        var hasChangedObservable =
-            new[]
-                {
-                    nameHasChanged, isDefaultHasChanged, isAdvancedHasChanged, optionsVmHasChanged,
-                    formatHasChanged, postConversionChanged, subtitleStyleChanged
-                }
-                .CombineLatest(statuses => statuses.AnyIsTrue());
-
-        return hasChangedObservable;
+        return new[]
+        {
+            this.WhenAnyValue(vm => vm.Name).Select(name => !string.Equals(name, InitialPreset.Name, StringComparison.InvariantCulture)),
+            this.WhenAnyValue(vm => vm.IsDefault).Select(isDefault => isDefault != InitialPreset.IsDefault),
+            this.WhenAnyValue(vm => vm.IsDefault).Select(isDefault => isDefault != InitialPreset.IsDefault),
+            this.WhenAnyValue(vm => vm.IsAdvanced).Select(isAdvanced => isAdvanced != InitialPreset.IsAdvanced),
+            OptionsVm.WhenAnyValue(vm => vm.HasChanged),
+            FormatVm.WhenAnyValue(vm => vm.HasChanged),
+            PostConversionVm.WhenAnyValue(vm => vm.HasChanged),
+            SubtitleStyleVm.WhenAnyValue(vm => vm.HasChanged),
+            OutputTemplateVm.WhenAnyValue(vm=>vm.HasChanged)
+        }.CombineLatest(statuses => statuses.AnyIsTrue());
     }
 
     public void Dispose()
@@ -115,7 +107,8 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
         IsAdvanced,
         FormatVm,
         PostConversionVm,
-        SubtitleStyleVm
+        SubtitleStyleVm,
+        OutputTemplateVm
     );
 
     public static implicit operator Preset(PresetViewModel vm) => vm.ToPreset();
