@@ -14,7 +14,12 @@
             <ContentControl Content="{CompiledBinding SubtitleStyleVm}" />
         </TabItem>
         <TabItem Header="Others">
-            <ContentControl Content="{CompiledBinding PostConversionVm}" />
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Orientation="Vertical" Spacing="4">
+                    <ContentControl Content="{CompiledBinding PostConversionVm}" />
+                    <ContentControl Content="{CompiledBinding OutputTemplateVm}" />
+                </StackPanel>
+            </ScrollViewer>
         </TabItem>
     </TabControl>
 </UserControl>
