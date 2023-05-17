@@ -32,7 +32,7 @@
                 <controls:PathIconSource Data="{DynamicResource FontSizeIcon}" />
             </controls:SettingsExpanderItem.IconSource>
             <controls:SettingsExpanderItem.Footer>
-                <NumericUpDown Value="{CompiledBinding FontSize}" MinWidth="150" />
+                <NumericUpDown Value="{CompiledBinding FontSize}" MinWidth="150" Minimum="1" Increment="1" />
             </controls:SettingsExpanderItem.Footer>
         </controls:SettingsExpanderItem>
 
@@ -56,6 +56,33 @@
                         <controls:FAPathIcon Data="{DynamicResource StrikeoutIcon}" Width="16" Height="16" />
                     </ToggleButton>
                 </StackPanel>
+            </controls:SettingsExpanderItem.Footer>
+        </controls:SettingsExpanderItem>
+
+        <controls:SettingsExpanderItem Content="Left margin">
+            <controls:SettingsExpanderItem.IconSource>
+                <controls:PathIconSource Data="{DynamicResource AlignLeftIcon}" />
+            </controls:SettingsExpanderItem.IconSource>
+            <controls:SettingsExpanderItem.Footer>
+                <NumericUpDown Value="{CompiledBinding MarginL}" MinWidth="150" Minimum="0" Increment="1" />
+            </controls:SettingsExpanderItem.Footer>
+        </controls:SettingsExpanderItem>
+
+        <controls:SettingsExpanderItem Content="Right margin">
+            <controls:SettingsExpanderItem.IconSource>
+                <controls:PathIconSource Data="{DynamicResource AlignRightIcon}" />
+            </controls:SettingsExpanderItem.IconSource>
+            <controls:SettingsExpanderItem.Footer>
+                <NumericUpDown Value="{CompiledBinding MarginR}" MinWidth="150" Minimum="0" Increment="1" />
+            </controls:SettingsExpanderItem.Footer>
+        </controls:SettingsExpanderItem>
+
+        <controls:SettingsExpanderItem Content="Vertical margin">
+            <controls:SettingsExpanderItem.IconSource>
+                <controls:PathIconSource Data="{DynamicResource AlignBottomIcon}" />
+            </controls:SettingsExpanderItem.IconSource>
+            <controls:SettingsExpanderItem.Footer>
+                <NumericUpDown Value="{CompiledBinding MarginV}" MinWidth="150" Minimum="0" Increment="1" />
             </controls:SettingsExpanderItem.Footer>
         </controls:SettingsExpanderItem>
 
