@@ -10,9 +10,11 @@
         <TabItem Header="Basic">
             <ContentControl Content="{CompiledBinding OptionsVm}" />
         </TabItem>
+        <TabItem Header="Subtitles">
+            <ContentControl Content="{CompiledBinding SubtitleStyleVm}" />
+        </TabItem>
         <TabItem Header="Others">
             <ContentControl Content="{CompiledBinding PostConversionVm}" />
         </TabItem>
     </TabControl>
 </UserControl>
-
