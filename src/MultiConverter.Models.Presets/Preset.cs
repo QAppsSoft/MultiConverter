@@ -1,12 +1,13 @@
 ﻿using MultiConverter.Models.Presets.Interfaces;
 using MultiConverter.Models.Presets.Options;
+using MultiConverter.Models.Presets.Output;
 using MultiConverter.Models.Presets.Subtitles;
 
 namespace MultiConverter.Models.Presets;
 
 public record Preset(string Name, bool IsDefault, VideoFilter[] VideoFilter, AudioFilter[] AudioFilter,
     IOption[] Options, bool IsAdvanced, string ContainerFormat, InputPostConversion PostConversion,
-    SubtitleStyle SubtitleStyle)
+    SubtitleStyle SubtitleStyle, OutputPathTemplate OutputPathTemplate)
 {
     private static IOption[] GetBasicOptions { get; } = {
         new VideoSizeOption(VideoSize.Default),
@@ -29,6 +30,6 @@ public record Preset(string Name, bool IsDefault, VideoFilter[] VideoFilter, Aud
         false,
         "matroska",
         InputPostConversion.Default,
-        SubtitleStyle.Default
+        SubtitleStyle.Default, OutputPathTemplate.Default
     );
 }
