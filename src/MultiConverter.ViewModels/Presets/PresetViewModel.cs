@@ -5,9 +5,9 @@ using DynamicData;
 using MultiConverter.Common;
 using MultiConverter.Extensions;
 using MultiConverter.Models.Presets;
-using MultiConverter.ViewModels.Presets.Factories;
 using MultiConverter.ViewModels.Presets.Interfaces;
 using MultiConverter.ViewModels.Presets.Options;
+using MultiConverter.ViewModels.Presets.Subtitles;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -20,13 +20,18 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
 
     private readonly CompositeDisposable _cleanup = new();
 
-    public PresetViewModel(Preset preset, ISchedulerProvider schedulerProvider, IOptionsViewModelFactory optionsViewModelFactory, IContainerFormatViewModelFactory containerFormatViewModelFactory, IPostConversionViewModelFactory postConversionViewModelFactory)
+    public PresetViewModel(Preset preset, ISchedulerProvider schedulerProvider,
+        IOptionsViewModelFactory optionsViewModelFactory,
+        IContainerFormatViewModelFactory containerFormatViewModelFactory,
+        IPostConversionViewModelFactory postConversionViewModelFactory,
+        ISubtitleStyleViewModelFactory subtitleStyleViewModelFactory)
     {
         ArgumentNullException.ThrowIfNull(preset);
         ArgumentNullException.ThrowIfNull(schedulerProvider);
         ArgumentNullException.ThrowIfNull(optionsViewModelFactory);
         ArgumentNullException.ThrowIfNull(containerFormatViewModelFactory);
         ArgumentNullException.ThrowIfNull(postConversionViewModelFactory);
+        ArgumentNullException.ThrowIfNull(subtitleStyleViewModelFactory);
 
         InitialPreset = preset;
 
@@ -37,6 +42,7 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
         OptionsVm = optionsViewModelFactory.Build(preset.Options);
         FormatVm = containerFormatViewModelFactory.Build(preset.ContainerFormat);
         PostConversionVm = postConversionViewModelFactory.Build(preset.PostConversion);
+        SubtitleStyleVm = subtitleStyleViewModelFactory.Build(preset.SubtitleStyle);
 
         var hasChanged = HasChangedObservable();
 
@@ -57,6 +63,8 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
 
     public InputPostConversionViewModel PostConversionVm { get; }
 
+    public SubtitleStyleViewModel SubtitleStyleVm { get; }
+
     public Preset InitialPreset { get; }
 
     private IObservable<bool> HasChangedObservable()
@@ -76,11 +84,13 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
 
         var postConversionChanged = PostConversionVm.WhenAnyValue(vm => vm.HasChanged);
 
+        var subtitleStyleChanged = SubtitleStyleVm.WhenAnyValue(vm => vm.HasChanged);
+
         var hasChangedObservable =
             new[]
                 {
                     nameHasChanged, isDefaultHasChanged, isAdvancedHasChanged, optionsVmHasChanged,
-                    formatHasChanged, postConversionChanged
+                    formatHasChanged, postConversionChanged, subtitleStyleChanged
                 }
                 .CombineLatest(statuses => statuses.AnyIsTrue());
 
@@ -93,6 +103,7 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
         OptionsVm.Dispose();
         FormatVm.Dispose();
         PostConversionVm.Dispose();
+        SubtitleStyleVm.Dispose();
     }
 
     public Preset ToPreset() => new(
@@ -103,7 +114,8 @@ public sealed class PresetViewModel : ViewModelBase, IChanged, IDisposable
         OptionsVm,
         IsAdvanced,
         FormatVm,
-        PostConversionVm
+        PostConversionVm,
+        SubtitleStyleVm
     );
 
     public static implicit operator Preset(PresetViewModel vm) => vm.ToPreset();
