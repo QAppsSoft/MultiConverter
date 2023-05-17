@@ -12,24 +12,28 @@ public sealed class PresetViewModelFactory : IPresetViewModelFactory
     private readonly IContainerFormatViewModelFactory _containerFormatViewModelFactory;
     private readonly IPostConversionViewModelFactory _postConversionViewModelFactory;
     private readonly ISubtitleStyleViewModelFactory _subtitleStyleViewModelFactory;
+    private readonly IOutputTemplateViewModelFactory _outputTemplateViewModelFactory;
 
     public PresetViewModelFactory(ISchedulerProvider schedulerProvider,
         IOptionsViewModelFactory optionsViewModelFactory,
         IContainerFormatViewModelFactory containerFormatViewModelFactory,
         IPostConversionViewModelFactory postConversionViewModelFactory,
-        ISubtitleStyleViewModelFactory subtitleStyleViewModelFactory)
+        ISubtitleStyleViewModelFactory subtitleStyleViewModelFactory,
+        IOutputTemplateViewModelFactory outputTemplateViewModelFactory)
     {
         ArgumentNullException.ThrowIfNull(schedulerProvider);
         ArgumentNullException.ThrowIfNull(optionsViewModelFactory);
         ArgumentNullException.ThrowIfNull(containerFormatViewModelFactory);
         ArgumentNullException.ThrowIfNull(postConversionViewModelFactory);
         ArgumentNullException.ThrowIfNull(subtitleStyleViewModelFactory);
+        ArgumentNullException.ThrowIfNull(outputTemplateViewModelFactory);
 
         _schedulerProvider = schedulerProvider;
         _optionsViewModelFactory = optionsViewModelFactory;
         _containerFormatViewModelFactory = containerFormatViewModelFactory;
         _postConversionViewModelFactory = postConversionViewModelFactory;
         _subtitleStyleViewModelFactory = subtitleStyleViewModelFactory;
+        _outputTemplateViewModelFactory = outputTemplateViewModelFactory;
     }
 
     public PresetViewModel Build(Preset preset) => new(
@@ -38,6 +42,7 @@ public sealed class PresetViewModelFactory : IPresetViewModelFactory
         _optionsViewModelFactory,
         _containerFormatViewModelFactory,
         _postConversionViewModelFactory,
-        _subtitleStyleViewModelFactory
+        _subtitleStyleViewModelFactory,
+        _outputTemplateViewModelFactory
     );
 }
