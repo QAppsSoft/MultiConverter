@@ -1,4 +1,5 @@
 ﻿using MultiConverter.Models.Presets.Base;
+using MultiConverter.Models.Presets.Subtitles;
 
 namespace MultiConverter.Models.Presets.Builder;
 
@@ -56,6 +57,6 @@ public sealed class PresetBuilder
     public Preset Build()
     {
         return new Preset(string.Empty, false, VideoFilters.ToArray(), AudioFilters.ToArray(), Options.ToArray(),
-            false, string.Empty, InputPostConversion.Default);
+            false, string.Empty, InputPostConversion.Default, SubtitleStyle.Default);
     }
 }
