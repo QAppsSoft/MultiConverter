@@ -1,0 +1,44 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:subtitles="clr-namespace:MultiConverter.ViewModels.Presets.Subtitles;assembly=MultiConverter.ViewModels"
+             xmlns:converters="clr-namespace:MultiConverter.Views.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MultiConverter.Views.Presets.Subtitles.ColorsStyleView"
+             x:DataType="subtitles:SubtitleStyleViewModel">
+
+    <UserControl.Resources>
+        <converters:AssColorConverter x:Key="AssColorConverter" />
+    </UserControl.Resources>
+
+    <controls:SettingsExpander Header="Primary color" Description="This is the color that a subtitle will normally appear in.">
+        <controls:SettingsExpander.IconSource>
+            <controls:PathIconSource Data="{DynamicResource ColorPaletteIcon}" />
+        </controls:SettingsExpander.IconSource>
+        <controls:SettingsExpander.Footer>
+            <ColorPicker Color="{CompiledBinding PrimaryColour, Converter={StaticResource AssColorConverter}}" />
+        </controls:SettingsExpander.Footer>
+
+        <controls:SettingsExpanderItem Content="Secondary color" Description="Color used instead of the Primary color when a subtitle is automatically shifted to prevent an onscreen collision.">
+            <controls:SettingsExpanderItem.Footer>
+                <ColorPicker Color="{CompiledBinding SecondaryColour, Converter={StaticResource AssColorConverter}}" />
+            </controls:SettingsExpanderItem.Footer>
+        </controls:SettingsExpanderItem>
+
+        <controls:SettingsExpanderItem Content="Outline color" Description="This color may be used instead of the Primary or Secondary color when a subtitle is automatically shifted to prevent an onscreen collision.">
+            <controls:SettingsExpanderItem.Footer>
+                <ColorPicker Color="{CompiledBinding OutlineColour, Converter={StaticResource AssColorConverter}}" />
+            </controls:SettingsExpanderItem.Footer>
+        </controls:SettingsExpanderItem>
+
+        <controls:SettingsExpanderItem Content="Back color" Name="BackColor" Description="This is the color of the subtitle outline or shadow, if these are used.">
+            <controls:SettingsExpanderItem.Footer>
+                <ColorPicker Color="{CompiledBinding BackColour, Converter={StaticResource AssColorConverter}}" />
+            </controls:SettingsExpanderItem.Footer>
+        </controls:SettingsExpanderItem>
+
+    </controls:SettingsExpander>
+</UserControl>
+

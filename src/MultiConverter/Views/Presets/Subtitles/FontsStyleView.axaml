@@ -1,0 +1,63 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:subtitles="clr-namespace:MultiConverter.ViewModels.Presets.Subtitles;assembly=MultiConverter.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MultiConverter.Views.Presets.Subtitles.FontsStyleView"
+             x:DataType="subtitles:SubtitleStyleViewModel">
+
+    <UserControl.Styles>
+        <Style Selector="ToggleButton.FontFormat">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="CornerRadius" Value="0" />
+        </Style>
+    </UserControl.Styles>
+
+    <controls:SettingsExpander Header="Font" IsExpanded="True">
+        <controls:SettingsExpander.IconSource>
+            <controls:PathIconSource Data="{DynamicResource ChooseFontIcon}" />
+        </controls:SettingsExpander.IconSource>
+        <controls:SettingsExpander.Footer>
+            <ComboBox ItemsSource="{CompiledBinding Fonts}"
+                      SelectedItem="{CompiledBinding FontName}"
+                      MinWidth="150" />
+        </controls:SettingsExpander.Footer>
+
+        <controls:SettingsExpanderItem Content="Font size">
+            <controls:SettingsExpanderItem.IconSource>
+                <controls:PathIconSource Data="{DynamicResource FontSizeIcon}" />
+            </controls:SettingsExpanderItem.IconSource>
+            <controls:SettingsExpanderItem.Footer>
+                <NumericUpDown Value="{CompiledBinding FontSize}" MinWidth="150" />
+            </controls:SettingsExpanderItem.Footer>
+        </controls:SettingsExpanderItem>
+
+        <controls:SettingsExpanderItem Content="Font style">
+            <controls:SettingsExpanderItem.IconSource>
+                <controls:PathIconSource Data="{DynamicResource FontStyleIcon}" />
+            </controls:SettingsExpanderItem.IconSource>
+
+            <controls:SettingsExpanderItem.Footer>
+                <StackPanel Orientation="Horizontal">
+                    <ToggleButton IsChecked="{CompiledBinding Bold}" Classes="FontFormat" CornerRadius="4 0 0 4">
+                        <controls:FAPathIcon Data="{DynamicResource BoldIcon}" Width="16" Height="16" />
+                    </ToggleButton>
+                    <ToggleButton IsChecked="{CompiledBinding Italic}" Classes="FontFormat">
+                        <controls:FAPathIcon Data="{DynamicResource ItalicIcon}" Width="16" Height="16" />
+                    </ToggleButton>
+                    <ToggleButton IsChecked="{CompiledBinding Underline}" Classes="FontFormat">
+                        <controls:FAPathIcon Data="{DynamicResource UnderlineIcon}" Width="16" Height="16" />
+                    </ToggleButton>
+                    <ToggleButton IsChecked="{CompiledBinding StrikeOut}" Classes="FontFormat" CornerRadius="0 4 4 0">
+                        <controls:FAPathIcon Data="{DynamicResource StrikeoutIcon}" Width="16" Height="16" />
+                    </ToggleButton>
+                </StackPanel>
+            </controls:SettingsExpanderItem.Footer>
+        </controls:SettingsExpanderItem>
+
+    </controls:SettingsExpander>
+</UserControl>
