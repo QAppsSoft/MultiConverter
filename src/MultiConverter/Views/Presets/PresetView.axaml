@@ -16,7 +16,7 @@
                 <ToggleSwitch IsChecked="{CompiledBinding IsDefault}" OnContent="Is default" OffContent="Not default" />
             </StackPanel>
 
-            <ComboBox Grid.Column="2" VerticalAlignment="Center"
+            <ComboBox Grid.Column="2" VerticalAlignment="Center" IsEnabled="{CompiledBinding !OutputTemplateVm.OverrideContainerExtension}"
                       ItemsSource="{CompiledBinding FormatVm.Formats}"
                       SelectedItem="{CompiledBinding FormatVm.SelectedFormat}"
                       MinWidth="150" MaxWidth="200">

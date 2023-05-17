@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:output="clr-namespace:MultiConverter.ViewModels.Presets.Output;assembly=MultiConverter.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MultiConverter.Views.Presets.Output.OutputTemplateView"
+             x:DataType="output:OutputTemplateViewModel">
+
+    <controls:SettingsExpander Header="Output template" >
+        <controls:SettingsExpander.Footer>
+            <TextBox Text="{CompiledBinding Template}" MinWidth="150"/>
+        </controls:SettingsExpander.Footer>
+
+        <controls:SettingsExpanderItem Content="Override output file extension" >
+            <controls:SettingsExpanderItem.Footer>
+                <ToggleSwitch IsChecked="{CompiledBinding OverrideContainerExtension}" />
+            </controls:SettingsExpanderItem.Footer>
+        </controls:SettingsExpanderItem>
+
+        <controls:SettingsExpanderItem Content="Output file extension" IsEnabled="{CompiledBinding OverrideContainerExtension}">
+            <controls:SettingsExpanderItem.Footer>
+                <TextBox Text="{CompiledBinding OutputExtension}" MinWidth="150" />
+            </controls:SettingsExpanderItem.Footer>
+        </controls:SettingsExpanderItem>
+
+    </controls:SettingsExpander>
+
+</UserControl>
+

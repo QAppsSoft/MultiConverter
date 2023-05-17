@@ -47,6 +47,7 @@ public class ViewModelsModule : Module
         builder.RegisterType<PresetOptionsProvider>().As<IPresetOptionsProvider>().ExternallyOwned();
         builder.RegisterType<OptionGeneratorStrategy>().As<IOptionGeneratorStrategy>().ExternallyOwned();
         builder.RegisterType<SubtitleStyleViewModelFactory>().As<ISubtitleStyleViewModelFactory>().ExternallyOwned();
+        builder.RegisterType<OutputTemplateViewModelFactory>().As<IOutputTemplateViewModelFactory>().ExternallyOwned();
 
         // Register IOptionProcessor
         builder.RegisterType<AudioBitrateOptionProcessor>().As<IOptionProcessor<IOption>>().SingleInstance();
