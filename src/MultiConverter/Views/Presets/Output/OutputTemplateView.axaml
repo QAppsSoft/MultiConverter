@@ -4,14 +4,41 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              xmlns:output="clr-namespace:MultiConverter.ViewModels.Presets.Output;assembly=MultiConverter.ViewModels"
+             xmlns:converters="clr-namespace:MultiConverter.Views.Converters"
+             xmlns:enums="clr-namespace:MultiConverter.Models.Presets.Enums;assembly=MultiConverter.Models.Presets"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MultiConverter.Views.Presets.Output.OutputTemplateView"
              x:DataType="output:OutputTemplateViewModel">
 
-    <controls:SettingsExpander Header="Output template" >
+    <controls:SettingsExpander Header="Output action selection" IsExpanded="True">
+        <controls:SettingsExpander.IconSource>
+            <controls:PathIconSource Data="{DynamicResource FolderIcon}" />
+        </controls:SettingsExpander.IconSource>
         <controls:SettingsExpander.Footer>
-            <TextBox Text="{CompiledBinding Template}" MinWidth="150"/>
+            <ComboBox ItemsSource="{CompiledBinding OutputPathItems}" SelectedItem="{CompiledBinding OutputPathSelected}" MinWidth="150" />
         </controls:SettingsExpander.Footer>
+
+        <controls:SettingsExpanderItem Content="Output template" IsVisible="{CompiledBinding OutputPathSelected, Converter={x:Static converters:OutputPathSelectionConverter.IsVisibleIf}, ConverterParameter={x:Static enums:OutputPathSelection.AdvancedTemplate}}">
+            <controls:SettingsExpanderItem.Footer>
+                <TextBox Text="{CompiledBinding Template}" MinWidth="150" />
+            </controls:SettingsExpanderItem.Footer>
+        </controls:SettingsExpanderItem>
+
+        <controls:SettingsExpanderItem Content="File output path" IsVisible="{CompiledBinding OutputPathSelected, Converter={x:Static converters:OutputPathSelectionConverter.IsVisibleIf}, ConverterParameter={x:Static enums:OutputPathSelection.FixedPath}}" >
+            <controls:SettingsExpanderItem.Footer>
+                <TextBox Text="{CompiledBinding FixedPath}" MinWidth="150">
+                    <TextBox.InnerRightContent>
+                        <Button Command="{CompiledBinding SelectFolder}">...</Button>
+                    </TextBox.InnerRightContent>
+                </TextBox>
+            </controls:SettingsExpanderItem.Footer>
+        </controls:SettingsExpanderItem>
+
+        <controls:SettingsExpanderItem Content="Add to path on name collision" IsVisible="{CompiledBinding OutputPathSelected, Converter={x:Static converters:OutputPathSelectionConverter.IsVisibleIf}, ConverterParameter={x:Static enums:OutputPathSelection.SameAsInput}}" >
+            <controls:SettingsExpanderItem.Footer>
+                <TextBox Text="{CompiledBinding AddInPathCollision}" MinWidth="150" />
+            </controls:SettingsExpanderItem.Footer>
+        </controls:SettingsExpanderItem>
 
         <controls:SettingsExpanderItem Content="Override output file extension" >
             <controls:SettingsExpanderItem.Footer>
