@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using FFMpegCore;
+using MultiConverter.Models.Configurations;
 using MultiConverter.Services.Abstractions.Formats;
 using Splat;
 
@@ -11,7 +13,12 @@ public static class BackgroundTasksRunner
 
     private static async Task RunTasksAsync(IReadonlyDependencyResolver resolver)
     {
-        resolver.GetRequiredService<IContainersFormatProvider>().Formats(); // Initialize in background
-        resolver.GetRequiredService<ICodecsProvider>().GetCodecs(); // Initialize in background
+        var overrides = resolver.GetRequiredService<ExtensionOverridesConfiguration>();
+        var ffOptions = GlobalFFOptions.Current;
+        ffOptions.ExtensionOverrides = overrides.Overrides;
+        GlobalFFOptions.Configure(ffOptions);
+
+        resolver.GetRequiredService<IContainersFormatProvider>().Formats();
+        resolver.GetRequiredService<ICodecsProvider>().GetCodecs();
     }
 }
