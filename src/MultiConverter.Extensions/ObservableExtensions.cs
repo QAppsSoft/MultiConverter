@@ -60,4 +60,11 @@ public static class ObservableExtensions
     /// </summary>
     /// <param name="observable">The observable</param>
     public static IObservable<bool> IsNotNull<T>(this IObservable<T> observable) => observable.Select(x => x is not null);
+
+    /// <summary>
+    ///     Invert any received bool value
+    /// </summary>
+    /// <param name="observable"></param>
+    /// <returns>An stream of bool with inverted values</returns>
+    public static IObservable<bool> InvertValue(this IObservable<bool> observable) => observable.Select(value => !value);
 }
