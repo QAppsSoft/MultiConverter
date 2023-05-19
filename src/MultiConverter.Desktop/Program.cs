@@ -4,7 +4,6 @@ using System.Threading;
 using Autofac;
 using Avalonia;
 using Avalonia.Controls;
-using FFMpegCore;
 using MultiConverter.DependencyInjection;
 using MultiConverter.Extension;
 using ReactiveUI;
@@ -73,7 +72,6 @@ internal static class Program
     // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp()
     {
-        InitializeFFmpegCore();
         InitializeAutofac();
         RunBackgroundTasks();
 
@@ -90,12 +88,5 @@ internal static class Program
             .With(new AvaloniaNativePlatformOptions()
             {
             });
-    }
-
-    private static void InitializeFFmpegCore()
-    {
-        var ffOptions = GlobalFFOptions.Current;
-        ffOptions.ExtensionOverrides.Add("matroska", ".mkv");
-        GlobalFFOptions.Configure(ffOptions);
     }
 }
