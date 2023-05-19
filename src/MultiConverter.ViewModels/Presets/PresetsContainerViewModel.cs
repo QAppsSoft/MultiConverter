@@ -53,6 +53,7 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
             InitializeResetCommand();
             InitializeAddCommand(presetsObservable);
             InitializeRemoveCommand();
+            InitializeCloneCommand(presetsObservable);
 
             presetsObservable.Connect().DisposeWith(disposable);
 
@@ -73,6 +74,8 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
     [Reactive] public ReactiveCommand<Unit, Unit>? Add { get; set; }
 
     [Reactive] public ReactiveCommand<PresetViewModel, Unit>? Remove { get; set; }
+
+    [Reactive] public ReactiveCommand<PresetViewModel, Unit>? Clone { get; set; }
 
     public ViewModelActivator Activator { get; } = new();
 
@@ -128,6 +131,35 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
             _presetsSourceList.Clear();
             _presetsSetting.Write(Array.Empty<Preset>());
         });
+
+    private void InitializeCloneCommand(IConnectableObservable<IChangeSet<PresetViewModel>> presetsObservable)
+    {
+        var anySelected = this.WhenAnyValue(vm => vm.SelectedPreset)
+            .IsNotNull();
+
+        var selectedNotChanged = this.WhenAnyValue(vm => vm.SelectedPreset)
+            .Select(preset => preset is null ? Observable.Return(false) : preset.WhenAnyValue(vm => vm.HasChanged))
+            .Switch()
+            .InvertValue();
+
+        var noEmptyName = presetsObservable
+            .AutoRefresh(vm => vm.Name)
+            .Filter(x => x.Name == Preset.Empty.Name)
+            .Count()
+            .EqualTo(0)
+            .StartWith(true);
+
+        var canClone = anySelected.CombineLatest(selectedNotChanged, noEmptyName)
+            .Select(tuple => tuple is { First: true, Second: true, Third: true });
+
+        Clone = ReactiveCommand.Create<PresetViewModel>(ClonePreset, canClone);
+
+        void ClonePreset(PresetViewModel preset)
+        {
+            Preset clonedPreset = (Preset)preset with { Name = string.Empty, IsDefault = false };
+            _presetsSourceList.Add(clonedPreset);
+        }
+    }
 
     private void InitializeSaveCommand(IConnectableObservable<IChangeSet<PresetViewModel>> presetsObservable)
     {
@@ -196,5 +228,8 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
         Remove?.Dispose();
         Remove = null;
+
+        Clone?.Dispose();
+        Clone = null;
     }
 }
