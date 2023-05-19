@@ -10,59 +10,67 @@
              x:Class="MultiConverter.Views.Presets.Output.OutputTemplateView"
              x:DataType="output:OutputTemplateViewModel">
 
-    <controls:SettingsExpander Header="Output action selection" IsExpanded="True"
-                               Description="Select where to put the output video file">
-        <controls:SettingsExpander.IconSource>
-            <controls:PathIconSource Data="{DynamicResource FolderIcon}" />
-        </controls:SettingsExpander.IconSource>
-        <controls:SettingsExpander.Footer>
-            <ComboBox ItemsSource="{CompiledBinding OutputPathItems}"
-                      SelectedItem="{CompiledBinding OutputPathSelected}" MinWidth="150" />
-        </controls:SettingsExpander.Footer>
+    <StackPanel Orientation="Vertical" Spacing="4">
 
-        <controls:SettingsExpanderItem Content="Output template"
-                                       IsVisible="{CompiledBinding OutputPathSelected, Converter={x:Static converters:OutputPathSelectionConverter.IsVisibleIf}, ConverterParameter={x:Static enums:OutputPathSelection.AdvancedTemplate}}"
-                                       Description="Template used to generate the output video, file name and path">
-            <controls:SettingsExpanderItem.Footer>
-                <TextBox Text="{CompiledBinding Template}" MinWidth="150" />
-            </controls:SettingsExpanderItem.Footer>
-        </controls:SettingsExpanderItem>
+        <controls:SettingsExpander Header="Output action selection" IsExpanded="True"
+                                   Description="Select where to put the output video file">
+            <controls:SettingsExpander.IconSource>
+                <controls:PathIconSource Data="{DynamicResource FolderIcon}" />
+            </controls:SettingsExpander.IconSource>
+            <controls:SettingsExpander.Footer>
+                <ComboBox ItemsSource="{CompiledBinding OutputPathItems}"
+                          SelectedItem="{CompiledBinding OutputPathSelected}" MinWidth="150" />
+            </controls:SettingsExpander.Footer>
 
-        <controls:SettingsExpanderItem Content="File output path"
-                                       IsVisible="{CompiledBinding OutputPathSelected, Converter={x:Static converters:OutputPathSelectionConverter.IsVisibleIf}, ConverterParameter={x:Static enums:OutputPathSelection.FixedPath}}"
-                                       Description="Select the path to put all converted video files">
-            <controls:SettingsExpanderItem.Footer>
-                <TextBox Text="{CompiledBinding FixedPath}" MinWidth="150" MaxWidth="300">
-                    <TextBox.InnerRightContent>
-                        <Button Command="{CompiledBinding SelectFolder}">...</Button>
-                    </TextBox.InnerRightContent>
-                </TextBox>
-            </controls:SettingsExpanderItem.Footer>
-        </controls:SettingsExpanderItem>
+            <controls:SettingsExpanderItem Content="Output template"
+                                           IsVisible="{CompiledBinding OutputPathSelected, Converter={x:Static converters:OutputPathSelectionConverter.IsVisibleIf}, ConverterParameter={x:Static enums:OutputPathSelection.AdvancedTemplate}}"
+                                           Description="Template used to generate the output video, file name and path">
+                <controls:SettingsExpanderItem.Footer>
+                    <TextBox Text="{CompiledBinding Template}" MinWidth="150" />
+                </controls:SettingsExpanderItem.Footer>
+            </controls:SettingsExpanderItem>
 
-        <controls:SettingsExpanderItem Content="Add to path on name collision"
-                                       IsVisible="{CompiledBinding OutputPathSelected, Converter={x:Static converters:OutputPathSelectionConverter.IsVisibleIf}, ConverterParameter={x:Static enums:OutputPathSelection.SameAsInput}}"
-                                       Description="Add this to the output file if input and output files has the same path">
-            <controls:SettingsExpanderItem.Footer>
-                <TextBox Text="{CompiledBinding AddInPathCollision}" MinWidth="150" />
-            </controls:SettingsExpanderItem.Footer>
-        </controls:SettingsExpanderItem>
+            <controls:SettingsExpanderItem Content="File output path"
+                                           IsVisible="{CompiledBinding OutputPathSelected, Converter={x:Static converters:OutputPathSelectionConverter.IsVisibleIf}, ConverterParameter={x:Static enums:OutputPathSelection.FixedPath}}"
+                                           Description="Select the path to put all converted video files">
+                <controls:SettingsExpanderItem.Footer>
+                    <TextBox Text="{CompiledBinding FixedPath}" MinWidth="150" MaxWidth="300">
+                        <TextBox.InnerRightContent>
+                            <Button Command="{CompiledBinding SelectFolder}">...</Button>
+                        </TextBox.InnerRightContent>
+                    </TextBox>
+                </controls:SettingsExpanderItem.Footer>
+            </controls:SettingsExpanderItem>
 
-        <controls:SettingsExpanderItem Content="Override output file extension"
-                                       Description="Enable to ignore the selected container by using an extension">
-            <controls:SettingsExpanderItem.Footer>
+            <controls:SettingsExpanderItem Content="Add to path on name collision"
+                                           IsVisible="{CompiledBinding OutputPathSelected, Converter={x:Static converters:OutputPathSelectionConverter.IsVisibleIf}, ConverterParameter={x:Static enums:OutputPathSelection.SameAsInput}}"
+                                           Description="Add this to the output file if input and output files has the same path">
+                <controls:SettingsExpanderItem.Footer>
+                    <TextBox Text="{CompiledBinding AddInPathCollision}" MinWidth="150" />
+                </controls:SettingsExpanderItem.Footer>
+            </controls:SettingsExpanderItem>
+
+        </controls:SettingsExpander>
+
+        <controls:SettingsExpander Header="Override output file extension" IsExpanded="True"
+                                   Description="Enable to ignore the selected container by using an extension">
+            <controls:SettingsExpander.IconSource>
+                <controls:PathIconSource Data="{DynamicResource MkvExtensionIcon}" />
+            </controls:SettingsExpander.IconSource>
+            <controls:SettingsExpander.Footer>
                 <ToggleSwitch IsChecked="{CompiledBinding OverrideContainerExtension}" />
-            </controls:SettingsExpanderItem.Footer>
-        </controls:SettingsExpanderItem>
+            </controls:SettingsExpander.Footer>
 
-        <controls:SettingsExpanderItem Content="Output file extension"
-                                       IsEnabled="{CompiledBinding OverrideContainerExtension}"
-                                       Description="Extension to use by video files">
-            <controls:SettingsExpanderItem.Footer>
-                <TextBox Text="{CompiledBinding OutputExtension}" MinWidth="150" />
-            </controls:SettingsExpanderItem.Footer>
-        </controls:SettingsExpanderItem>
+            <controls:SettingsExpanderItem Content="Output file extension"
+                                           IsEnabled="{CompiledBinding OverrideContainerExtension}"
+                                           Description="Extension to use by video files">
+                <controls:SettingsExpanderItem.Footer>
+                    <TextBox Text="{CompiledBinding OutputExtension}" MinWidth="150" />
+                </controls:SettingsExpanderItem.Footer>
+            </controls:SettingsExpanderItem>
 
-    </controls:SettingsExpander>
+        </controls:SettingsExpander>
+
+    </StackPanel>
 
 </UserControl>
