@@ -14,7 +14,18 @@ public class ConfigurationModule : Module
         RegisterLanguagesConfiguration(builder);
         RegisterFavoriteFormatsConfiguration(builder);
         RegisterFavoriteCodecsConfiguration(builder);
+        RegisterExtensionOverridesConfiguration(builder);
     }
+
+    private static void RegisterExtensionOverridesConfiguration(ContainerBuilder builder) =>
+        builder.Register(context =>
+            {
+                var configuration = context.Resolve<IConfiguration>();
+                ExtensionOverridesConfiguration overridesConfiguration = new();
+                configuration.GetSection("ExtensionOverrides").Bind(overridesConfiguration);
+                return overridesConfiguration;
+            }
+        );
 
     private static void RegisterFavoriteCodecsConfiguration(ContainerBuilder builder) =>
         builder.Register(context =>
@@ -25,7 +36,6 @@ public class ConfigurationModule : Module
                 return codecsConfiguration;
             }
         );
-
 
     private static void RegisterFavoriteFormatsConfiguration(ContainerBuilder builder) =>
         builder.Register(context =>
