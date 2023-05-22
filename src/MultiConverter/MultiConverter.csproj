@@ -31,6 +31,7 @@
     <ProjectReference Include="..\MultiConverter.Localization\MultiConverter.Localization.csproj" />
     <ProjectReference Include="..\MultiConverter.Services.Abstractions\MultiConverter.Services.Abstractions.csproj" />
     <ProjectReference Include="..\MultiConverter.Services.Formats\MultiConverter.Services.Formats.csproj" />
+    <ProjectReference Include="..\MultiConverter.Services.Presets\MultiConverter.Services.Presets.csproj" />
     <ProjectReference Include="..\MultiConverter.Services.Settings\MultiConverter.Services.Settings.csproj" />
     <ProjectReference Include="..\MultiConverter.ViewModels\MultiConverter.ViewModels.csproj" />
   </ItemGroup>

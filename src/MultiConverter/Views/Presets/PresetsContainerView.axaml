@@ -4,19 +4,36 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:presets="clr-namespace:MultiConverter.ViewModels.Presets;assembly=MultiConverter.ViewModels"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:presetsProvider="clr-namespace:MultiConverter.Models.PresetsProvider;assembly=MultiConverter.Models.PresetsProvider"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="presets:PresetsContainerViewModel"
              x:Class="MultiConverter.Views.Presets.PresetsContainerView">
+
+    <UserControl.DataTemplates>
+        <DataTemplate DataType="{x:Type presetsProvider:PresetsProviderItem}">
+            <MenuItem Header="{CompiledBinding Name}"
+                      Command="{CompiledBinding #AddPresetSplitButton.((presets:PresetsContainerViewModel)DataContext).AddDefaultPreset}"
+                      CommandParameter="{CompiledBinding}" />
+        </DataTemplate>
+    </UserControl.DataTemplates>
+
     <DockPanel LastChildFill="True" Margin="{StaticResource SettingsViewMargin}">
 
         <Grid DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ColumnDefinitions="Auto * Auto" Margin="0 16 0 0">
             <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" DockPanel.Dock="Left">
-                <Button Command="{CompiledBinding Add}">
+
+                <SplitButton Command="{CompiledBinding Add}" Name="AddPresetSplitButton">
+
+                    <SplitButton.Flyout>
+                        <MenuFlyout ItemsSource="{CompiledBinding DefaultPresets, Mode=OneWay}" Placement="TopEdgeAlignedLeft" />
+                    </SplitButton.Flyout>
+
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <controls:FAPathIcon Data="{DynamicResource PlusIcon}" Width="16" />
                         <TextBlock Text="Add" VerticalAlignment="Center" />
                     </StackPanel>
-                </Button>
+                </SplitButton>
+
                 <Button Command="{CompiledBinding Remove}" CommandParameter="{CompiledBinding SelectedPreset}">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <controls:FAPathIcon Data="{DynamicResource MinusIcon}" Width="16" />
