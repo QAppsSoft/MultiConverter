@@ -12,6 +12,8 @@ using DynamicData.Binding;
 using MultiConverter.Common;
 using MultiConverter.Extensions;
 using MultiConverter.Models.Presets;
+using MultiConverter.Models.PresetsProvider;
+using MultiConverter.Services.Abstractions.Presets;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.ViewModels.Extensions;
 using MultiConverter.ViewModels.Presets.Interfaces;
@@ -26,14 +28,17 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
     private readonly ISchedulerProvider _schedulerProvider;
     private readonly ISetting<Preset[]> _presetsSetting;
 
-    public PresetsContainerViewModel(ISetting<Preset[]> presetsSetting, ISchedulerProvider schedulerProvider, IPresetViewModelFactory presetViewModelFactory)
+    public PresetsContainerViewModel(ISetting<Preset[]> presetsSetting, ISchedulerProvider schedulerProvider,
+        IPresetViewModelFactory presetViewModelFactory, IDefaultPresetsProvider presetsProvider)
     {
         ArgumentNullException.ThrowIfNull(presetsSetting);
         ArgumentNullException.ThrowIfNull(schedulerProvider);
         ArgumentNullException.ThrowIfNull(presetViewModelFactory);
+        ArgumentNullException.ThrowIfNull(presetsProvider);
 
         _presetsSetting = presetsSetting;
         _schedulerProvider = schedulerProvider;
+        DefaultPresets = presetsProvider.DefaultPresets;
 
         this.WhenActivated(disposable =>
         {
@@ -52,6 +57,7 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
             InitializeSaveCommand(presetsObservable);
             InitializeResetCommand();
             InitializeAddCommand(presetsObservable);
+            InitializeAddPresetCommand(presetsObservable);
             InitializeRemoveCommand();
             InitializeCloneCommand(presetsObservable);
 
@@ -63,6 +69,8 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
         });
     }
 
+    public IEnumerable<PresetsProviderItem> DefaultPresets { get; }
+
     [Reactive] public ReadOnlyObservableCollection<PresetViewModel>? PresetsCollection { get; set; }
 
     [Reactive] public ReactiveCommand<ReadOnlyObservableCollection<PresetViewModel>, Unit>? Save { get; set; }
@@ -73,11 +81,25 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
     [Reactive] public ReactiveCommand<Unit, Unit>? Add { get; set; }
 
+    [Reactive] public ReactiveCommand<PresetsProviderItem, Unit>? AddDefaultPreset { get; set; }
+
     [Reactive] public ReactiveCommand<PresetViewModel, Unit>? Remove { get; set; }
 
     [Reactive] public ReactiveCommand<PresetViewModel, Unit>? Clone { get; set; }
 
     public ViewModelActivator Activator { get; } = new();
+
+    private void InitializeAddPresetCommand(IConnectableObservable<IChangeSet<PresetViewModel>> presetsObservable)
+    {
+        var canAdd = presetsObservable
+            .AutoRefresh(vm => vm.Name)
+            .Filter(x => x.Name == Preset.Empty.Name)
+            .Count()
+            .EqualTo(0)
+            .StartWith(true);
+
+        AddDefaultPreset = ReactiveCommand.Create<PresetsProviderItem>(item => _presetsSourceList.Add(item.Preset), canAdd);
+    }
 
     private void InitializePresetsCollection(IConnectableObservable<IChangeSet<PresetViewModel>> presetsObservable,
         CompositeDisposable disposable)
@@ -225,6 +247,9 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
         Add?.Dispose();
         Add = null;
+
+        AddDefaultPreset?.Dispose();
+        AddDefaultPreset = null;
 
         Remove?.Dispose();
         Remove = null;
