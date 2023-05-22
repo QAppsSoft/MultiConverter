@@ -6,4 +6,6 @@ namespace MultiConverter.Models.Presets.Options;
 public record AudioSamplingRateOption(int SamplingRate = 44100) : OptionBase
 {
     public override IArgument GetArgument() => new AudioSamplingRateArgument(SamplingRate);
+
+    public static int Default { get; } = 44100;
 }
