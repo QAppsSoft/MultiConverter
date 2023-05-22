@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0"/>
-    <PackageReference Include="Microsoft.Reactive.Testing" Version="5.0.0"/>
+    <PackageReference Include="Microsoft.Reactive.Testing" Version="6.0.0"/>
     <PackageReference Include="GitHubActionsTestLogger" Version="2.1.0"/>
     <PackageReference Include="FluentAssertions" Version="6.11.0"/>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0"/>
