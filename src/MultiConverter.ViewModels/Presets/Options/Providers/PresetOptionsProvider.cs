@@ -19,6 +19,7 @@ public sealed class PresetOptionsProvider : IPresetOptionsProvider
             typeof(AudioBitrateOption),
             typeof(AudioCodecOption),
             typeof(AudioSamplingRateOption),
+            typeof(AudioChannelsOption),
 
             typeof(VideoFrameRateOption),
             typeof(VideoAspectRatioOption),

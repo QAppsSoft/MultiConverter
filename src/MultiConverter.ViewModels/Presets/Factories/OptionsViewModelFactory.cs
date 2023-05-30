@@ -40,6 +40,7 @@ public sealed class OptionsViewModelFactory : IOptionsViewModelFactory
             AudioCodecOption audioCodecOption => new AudioCodecOptionViewModel(audioCodecOption, _codecsProvider, _schedulerProvider),
             AudioBitrateOption audioBitrateOption => new AudioBitrateOptionViewModel(audioBitrateOption, _schedulerProvider),
             AudioSamplingRateOption audioSamplingRateOption => new AudioSamplingRateOptionViewModel(audioSamplingRateOption, _schedulerProvider),
+            AudioChannelsOption audioChannelsOption => new AudioChannelsOptionViewModel(audioChannelsOption, _schedulerProvider),
 
             _ => throw new ArgumentOutOfRangeException(nameof(option))
         };
