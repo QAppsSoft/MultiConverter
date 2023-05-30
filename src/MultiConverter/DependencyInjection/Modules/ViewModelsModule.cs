@@ -58,6 +58,7 @@ public class ViewModelsModule : Module
         builder.RegisterType<VideoCodecOptionProcessor>().As<IOptionProcessor<IOption>>().SingleInstance();
         builder.RegisterType<VideoFrameRateOptionProcessor>().As<IOptionProcessor<IOption>>().SingleInstance();
         builder.RegisterType<VideoSizeOptionProcessor>().As<IOptionProcessor<IOption>>().SingleInstance();
+        builder.RegisterType<AudioChannelsOptionProcessor>().As<IOptionProcessor<IOption>>().SingleInstance();
     }
 
     private static void RegisterSettingsViewModel(ContainerBuilder builder)

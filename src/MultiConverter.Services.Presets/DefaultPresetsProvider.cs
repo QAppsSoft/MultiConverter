@@ -33,7 +33,8 @@ public class DefaultPresetsProvider : IDefaultPresetsProvider
                 .With(new VideoFrameRateOption(VideoFrameRateOption.Default))
                 .With(new AudioCodecOption(AudioCodecOption.Default))
                 .With(new AudioBitrateOption(AudioBitrateOption.Default))
-                .With(new AudioSamplingRateOption(AudioSamplingRateOption.Default)))
+                .With(new AudioSamplingRateOption(AudioSamplingRateOption.Default))
+                .With(new AudioChannelsOption(AudioChannelsOption.Default)))
             .Build();
 
     private static Preset BuildMpeg4() =>
@@ -50,6 +51,7 @@ public class DefaultPresetsProvider : IDefaultPresetsProvider
                 .With(new VideoFrameRateOption(VideoFrameRateOption.Default))
                 .With(new AudioCodecOption("aac"))
                 .With(new AudioBitrateOption(160))
-                .With(new AudioSamplingRateOption(48000)))
+                .With(new AudioSamplingRateOption(48000))
+                .With(new AudioChannelsOption(AudioChannelsOption.Default)))
             .Build();
 }

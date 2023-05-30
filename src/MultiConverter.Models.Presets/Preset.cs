@@ -18,7 +18,8 @@ public record Preset(string Name, bool IsDefault, VideoFilter[] VideoFilter, Aud
 
         new AudioCodecOption(AudioCodecOption.Default),
         new AudioBitrateOption(),
-        new AudioSamplingRateOption()
+        new AudioSamplingRateOption(),
+        new AudioChannelsOption(2)
     };
 
     public static Preset Empty { get; } = new(

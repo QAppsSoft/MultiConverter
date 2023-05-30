@@ -28,6 +28,7 @@ public class PresetJsonTypeResolver : DefaultJsonTypeInfoResolver
                     new JsonDerivedType(typeof(AudioBitrateOption), nameof(AudioBitrateOption)),
                     new JsonDerivedType(typeof(AudioCodecOption), nameof(AudioCodecOption)),
                     new JsonDerivedType(typeof(AudioSamplingRateOption), nameof(AudioSamplingRateOption)),
+                    new JsonDerivedType(typeof(AudioChannelsOption), nameof(AudioChannelsOption)),
 
                     new JsonDerivedType(typeof(VideoAspectRatioOption), nameof(VideoAspectRatioOption)),
                     new JsonDerivedType(typeof(VideoBitrateOption), nameof(VideoBitrateOption)),
