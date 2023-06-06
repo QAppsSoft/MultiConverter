@@ -185,11 +185,29 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
     private void InitializeSaveCommand(IConnectableObservable<IChangeSet<PresetViewModel>> presetsObservable)
     {
-        var canSave = presetsObservable
+        var hasChanged = presetsObservable
             .AutoRefresh(vm => vm.HasChanged)
             .Filter(x => x.HasChanged)
             .Count()
-            .GreaterThan(0);
+            .GreaterThan(0)
+            .StartWith(false);
+
+        var notEquals = presetsObservable
+            .ToCollection()
+            .Select(x => x.Select(y => y.ToPreset()).ToArray())
+            .CombineLatest(_presetsSetting.Value,
+                (localPresets, settingsPresets) => !localPresets.SequenceEqual(settingsPresets))
+            .StartWith(false);
+
+        var noEmptyName = presetsObservable
+            .AutoRefresh(vm => vm.Name)
+            .Filter(x => x.Name == Preset.Empty.Name)
+            .Count()
+            .EqualTo(0)
+            .StartWith(true);
+
+        var canSave = hasChanged.CombineLatest(notEquals, noEmptyName,
+            (changed, notEquals, noEmpty) => noEmpty && (changed || notEquals));
 
         Save = ReactiveCommand.Create<ReadOnlyObservableCollection<PresetViewModel>>(
             models => _presetsSetting.Write(CastPresets(models)),
