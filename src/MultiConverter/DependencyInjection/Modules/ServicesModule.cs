@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using MultiConverter.Common;
 using MultiConverter.Infrastructure;
-using MultiConverter.Services;
 using MultiConverter.Services.Abstractions;
+using MultiConverter.Services.Abstractions.Dialogs;
 using MultiConverter.Services.Abstractions.Formats;
 using MultiConverter.Services.Abstractions.Presets;
 using MultiConverter.Services.Formats;

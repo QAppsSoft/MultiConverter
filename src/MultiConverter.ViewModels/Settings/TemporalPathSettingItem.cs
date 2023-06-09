@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using MultiConverter.Common;
 using MultiConverter.Localization;
 using MultiConverter.Models.Settings.General;
-using MultiConverter.Services;
+using MultiConverter.Services.Abstractions.Dialogs;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.ViewModels.Settings.Interfaces;
 using ReactiveUI;

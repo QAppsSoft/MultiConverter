@@ -3,7 +3,7 @@ using Moq;
 using Moq.AutoMock;
 using MultiConverter.Common.Testing;
 using MultiConverter.Models.Settings.General;
-using MultiConverter.Services;
+using MultiConverter.Services.Abstractions.Dialogs;
 using MultiConverter.ViewModels.Settings;
 
 namespace MultiConverter.ViewModelsFixtures.Settings;

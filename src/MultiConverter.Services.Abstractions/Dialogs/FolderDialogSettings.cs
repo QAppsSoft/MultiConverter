@@ -1,4 +1,4 @@
-namespace MultiConverter.Services;
+namespace MultiConverter.Services.Abstractions.Dialogs;
 
 public class FolderDialogSettings
 {

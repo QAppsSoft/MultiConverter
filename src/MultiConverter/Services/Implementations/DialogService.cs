@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Avalonia.Controls;
+using MultiConverter.Services.Abstractions.Dialogs;
 
 namespace MultiConverter.Services.Implementations;
 

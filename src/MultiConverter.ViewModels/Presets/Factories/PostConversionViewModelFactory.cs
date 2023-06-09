@@ -1,7 +1,7 @@
 ﻿using System;
 using MultiConverter.Common;
 using MultiConverter.Models.Presets;
-using MultiConverter.Services;
+using MultiConverter.Services.Abstractions.Dialogs;
 using MultiConverter.ViewModels.Presets.Interfaces;
 
 namespace MultiConverter.ViewModels.Presets.Factories;

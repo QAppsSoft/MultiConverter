@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace MultiConverter.Services;
+namespace MultiConverter.Services.Abstractions.Dialogs;
 
 public interface IDialogService
 {

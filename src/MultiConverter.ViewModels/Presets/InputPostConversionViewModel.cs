@@ -7,7 +7,7 @@ using MultiConverter.Common;
 using MultiConverter.Extensions;
 using MultiConverter.Models.Presets;
 using MultiConverter.Models.Presets.Enums;
-using MultiConverter.Services;
+using MultiConverter.Services.Abstractions.Dialogs;
 using MultiConverter.ViewModels.Presets.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
