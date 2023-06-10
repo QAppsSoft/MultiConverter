@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MultiConverter.Services.Abstractions\MultiConverter.Services.Abstractions.csproj" />
+      <ProjectReference Include="..\MultiConverter.Services.Settings\MultiConverter.Services.Settings.csproj" />
     </ItemGroup>
 
 </Project>

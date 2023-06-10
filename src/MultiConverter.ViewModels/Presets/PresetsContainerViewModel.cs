@@ -6,6 +6,7 @@ using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Threading.Tasks;
 using DynamicData;
 using DynamicData.Aggregation;
 using DynamicData.Binding;
@@ -26,18 +27,22 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 {
     private readonly SourceList<Preset> _presetsSourceList = new();
     private readonly ISchedulerProvider _schedulerProvider;
+    private readonly IExternalPresetsManager _externalPresetsManager;
     private readonly ISetting<Preset[]> _presetsSetting;
 
     public PresetsContainerViewModel(ISetting<Preset[]> presetsSetting, ISchedulerProvider schedulerProvider,
-        IPresetViewModelFactory presetViewModelFactory, IDefaultPresetsProvider presetsProvider)
+        IPresetViewModelFactory presetViewModelFactory, IDefaultPresetsProvider presetsProvider,
+        IExternalPresetsManager externalPresetsManager)
     {
         ArgumentNullException.ThrowIfNull(presetsSetting);
         ArgumentNullException.ThrowIfNull(schedulerProvider);
         ArgumentNullException.ThrowIfNull(presetViewModelFactory);
         ArgumentNullException.ThrowIfNull(presetsProvider);
+        ArgumentNullException.ThrowIfNull(externalPresetsManager);
 
         _presetsSetting = presetsSetting;
         _schedulerProvider = schedulerProvider;
+        _externalPresetsManager = externalPresetsManager;
         DefaultPresets = presetsProvider.DefaultPresets;
 
         this.WhenActivated(disposable =>
@@ -60,6 +65,9 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
             InitializeAddPresetCommand(presetsObservable);
             InitializeRemoveCommand();
             InitializeCloneCommand(presetsObservable);
+            InitializeImportCommand();
+            InitializeExportSelectedCommand();
+            InitializeExportAllCommand();
 
             presetsObservable.Connect().DisposeWith(disposable);
 
@@ -87,7 +95,61 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
     [Reactive] public ReactiveCommand<PresetViewModel, Unit>? Clone { get; set; }
 
+    [Reactive] public ReactiveCommand<Unit, Unit>? Import { get; set; }
+
+    [Reactive] public ReactiveCommand<PresetViewModel, Unit>? ExportSelected { get; set; }
+
+    [Reactive] public ReactiveCommand<IEnumerable<PresetViewModel>, Unit>? ExportAll { get; set; }
+
     public ViewModelActivator Activator { get; } = new();
+
+    public Interaction<Unit, string?> OpenFileDialog { get; } = new();
+
+    public Interaction<Unit, string?> SaveFileDialog { get; } = new();
+
+    public async Task ImportPresetsAsync()
+    {
+        string? filePath = await OpenFileDialog.Handle(Unit.Default);
+
+        if (filePath is not null)
+        {
+            var presets = await _externalPresetsManager.GetPresetAsync(filePath);
+            _presetsSourceList.AddRange(presets);
+        }
+    }
+
+    public async Task SavePresetsFileAsync(Preset[] presets)
+    {
+        string? filePath = await SaveFileDialog.Handle(Unit.Default);
+
+        if (filePath is not null && !await _externalPresetsManager.TryExportPresetAsync(presets, filePath))
+        {
+            // TODO: Signal a failed preset export
+        }
+    }
+
+    private void InitializeExportSelectedCommand()
+    {
+        ExportSelected = ReactiveCommand.CreateFromTask<PresetViewModel>(async (vm, _) =>
+        {
+            Preset[] presets = { vm.ToPreset() };
+            await SavePresetsFileAsync(presets);
+        });
+    }
+
+    private void InitializeExportAllCommand()
+    {
+        ExportAll = ReactiveCommand.CreateFromTask<IEnumerable<PresetViewModel>>(async (vms, _) =>
+        {
+            Preset[] presets = vms.Select(vm => vm.ToPreset()).ToArray();
+            await SavePresetsFileAsync(presets);
+        });
+    }
+
+    private void InitializeImportCommand()
+    {
+        Import = ReactiveCommand.CreateFromTask(ImportPresetsAsync);
+    }
 
     private void InitializeAddPresetCommand(IConnectableObservable<IChangeSet<PresetViewModel>> presetsObservable)
     {
@@ -274,5 +336,14 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
         Clone?.Dispose();
         Clone = null;
+
+        Import?.Dispose();
+        Import = null;
+
+        ExportSelected?.Dispose();
+        ExportSelected = null;
+
+        ExportAll?.Dispose();
+        ExportAll = null;
     }
 }
