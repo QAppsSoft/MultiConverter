@@ -22,5 +22,6 @@ public class ServicesModule : Module
         builder.RegisterType<CodecsProvider>().As<ICodecsProvider>().SingleInstance();
         builder.RegisterType<ContainersFormatProvider>().As<IContainersFormatProvider>().SingleInstance();
         builder.RegisterType<DefaultPresetsProvider>().As<IDefaultPresetsProvider>().SingleInstance();
+        builder.RegisterType<ExternalPresetsManager>().As<IExternalPresetsManager>().SingleInstance();
     }
 }
