@@ -14,7 +14,7 @@ public class TemporalPathOptionItemTests : OptionsTestBase
     {
         Mock<IDialogService> dialogService = mocker.GetMock<IDialogService>();
         dialogService.Setup(x => x.ShowFolderSelectorAsync(It.IsAny<FolderDialogSettings?>()))
-            .ReturnsAsync(selectedPath);
+            .ReturnsAsync(selectedPath is null ? Array.Empty<string>() : new[] { selectedPath });
     }
 
     [Test]

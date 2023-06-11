@@ -68,17 +68,17 @@ public sealed class InputPostConversionViewModel : ViewModelBase, IChanged, IDis
     {
         // TODO: Localize dialog title
         FolderDialogSettings dialogSetting = string.IsNullOrEmpty(ArchiveFolderPath)
-            ? new FolderDialogSettings()
-            : new FolderDialogSettings(directory: ArchiveFolderPath);
+            ? new FolderDialogSettings(false, "Select Archive destination Path")
+            : new FolderDialogSettings(false, "Select Archive destination Path", Directory: ArchiveFolderPath);
 
-        string? newArchivePath = await dialogService.ShowFolderSelectorAsync(dialogSetting);
+        string[] archivePath = await dialogService.ShowFolderSelectorAsync(dialogSetting);
 
-        if (newArchivePath == null)
+        if (archivePath.Length == 0)
         {
             return;
         }
 
-        ArchiveFolderPath = newArchivePath;
+        ArchiveFolderPath = archivePath[0];
     }
 
     private IObservable<bool> HasChangedObservable(InputPostConversion inputPostConversion)
