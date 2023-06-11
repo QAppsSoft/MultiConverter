@@ -14,6 +14,7 @@ using MultiConverter.Common;
 using MultiConverter.Extensions;
 using MultiConverter.Models.Presets;
 using MultiConverter.Models.PresetsProvider;
+using MultiConverter.Services.Abstractions.Dialogs;
 using MultiConverter.Services.Abstractions.Presets;
 using MultiConverter.Services.Abstractions.Settings;
 using MultiConverter.ViewModels.Extensions;
@@ -27,12 +28,11 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 {
     private readonly SourceList<Preset> _presetsSourceList = new();
     private readonly ISchedulerProvider _schedulerProvider;
-    private readonly IExternalPresetsManager _externalPresetsManager;
     private readonly ISetting<Preset[]> _presetsSetting;
 
     public PresetsContainerViewModel(ISetting<Preset[]> presetsSetting, ISchedulerProvider schedulerProvider,
         IPresetViewModelFactory presetViewModelFactory, IDefaultPresetsProvider presetsProvider,
-        IExternalPresetsManager externalPresetsManager)
+        IExternalPresetsManager externalPresetsManager, IDialogService dialogService)
     {
         ArgumentNullException.ThrowIfNull(presetsSetting);
         ArgumentNullException.ThrowIfNull(schedulerProvider);
@@ -42,7 +42,6 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
         _presetsSetting = presetsSetting;
         _schedulerProvider = schedulerProvider;
-        _externalPresetsManager = externalPresetsManager;
         DefaultPresets = presetsProvider.DefaultPresets;
 
         this.WhenActivated(disposable =>
@@ -65,9 +64,9 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
             InitializeAddPresetCommand(presetsObservable);
             InitializeRemoveCommand();
             InitializeCloneCommand(presetsObservable);
-            InitializeImportCommand();
-            InitializeExportSelectedCommand();
-            InitializeExportAllCommand();
+            InitializeImportCommand(dialogService, externalPresetsManager);
+            InitializeExportSelectedCommand(dialogService, externalPresetsManager);
+            InitializeExportAllCommand(dialogService, externalPresetsManager);
 
             presetsObservable.Connect().DisposeWith(disposable);
 
@@ -103,52 +102,54 @@ public sealed class PresetsContainerViewModel : ViewModelBase, IActivatableViewM
 
     public ViewModelActivator Activator { get; } = new();
 
-    public Interaction<Unit, string?> OpenFileDialog { get; } = new();
-
-    public Interaction<Unit, string?> SaveFileDialog { get; } = new();
-
-    public async Task ImportPresetsAsync()
+    private static async Task SavePresetsFileAsync(Preset[] presets, IDialogService dialogService, IExternalPresetsManager presetsManager)
     {
-        string? filePath = await OpenFileDialog.Handle(Unit.Default);
+        FileDialogExtensions[] extensions = { new("MultiConverter Presets Container", new[] { "*.mcp" }) };
+        SaveFileDialogSettings options = new(extensions, false, "New Preset", "Select Preset to import");
 
-        if (filePath is not null)
-        {
-            var presets = await _externalPresetsManager.GetPresetAsync(filePath);
-            _presetsSourceList.AddRange(presets);
-        }
-    }
+        string? filePath = await dialogService.ShowSaveFileDialogSelectorAsync(options);
 
-    public async Task SavePresetsFileAsync(Preset[] presets)
-    {
-        string? filePath = await SaveFileDialog.Handle(Unit.Default);
-
-        if (filePath is not null && !await _externalPresetsManager.TryExportPresetAsync(presets, filePath))
+        if (filePath is not null && !await presetsManager.TryExportPresetAsync(presets, filePath))
         {
             // TODO: Signal a failed preset export
         }
     }
 
-    private void InitializeExportSelectedCommand()
+    private async Task ImportPresetsAsync(IDialogService dialogService, IExternalPresetsManager presetsManager)
+    {
+        FileDialogExtensions[] extensions = { new("MultiConverter Presets Container", new[] { "*.mcp" }) };
+        OpenFileDialogSettings options = new(false, extensions, "Select Preset to import");
+
+        string[] folderPaths = await dialogService.ShowOpenFileDialogSelectorAsync(options);
+
+        if (folderPaths.Length > 0)
+        {
+            var presets = await presetsManager.GetPresetAsync(folderPaths[0]);
+            _presetsSourceList.AddRange(presets);
+        }
+    }
+
+    private void InitializeExportSelectedCommand(IDialogService dialogService, IExternalPresetsManager presetsManager)
     {
         ExportSelected = ReactiveCommand.CreateFromTask<PresetViewModel>(async (vm, _) =>
         {
             Preset[] presets = { vm.ToPreset() };
-            await SavePresetsFileAsync(presets);
+            await SavePresetsFileAsync(presets, dialogService, presetsManager);
         });
     }
 
-    private void InitializeExportAllCommand()
+    private void InitializeExportAllCommand(IDialogService dialogService, IExternalPresetsManager presetsManager)
     {
         ExportAll = ReactiveCommand.CreateFromTask<IEnumerable<PresetViewModel>>(async (vms, _) =>
         {
             Preset[] presets = vms.Select(vm => vm.ToPreset()).ToArray();
-            await SavePresetsFileAsync(presets);
+            await SavePresetsFileAsync(presets, dialogService, presetsManager);
         });
     }
 
-    private void InitializeImportCommand()
+    private void InitializeImportCommand(IDialogService dialogService, IExternalPresetsManager presetsManager)
     {
-        Import = ReactiveCommand.CreateFromTask(ImportPresetsAsync);
+        Import = ReactiveCommand.CreateFromTask(() => ImportPresetsAsync(dialogService, presetsManager));
     }
 
     private void InitializeAddPresetCommand(IConnectableObservable<IChangeSet<PresetViewModel>> presetsObservable)
