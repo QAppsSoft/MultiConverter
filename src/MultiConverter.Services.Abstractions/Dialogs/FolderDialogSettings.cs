@@ -1,16 +1,3 @@
 namespace MultiConverter.Services.Abstractions.Dialogs;
 
-public class FolderDialogSettings
-{
-    public FolderDialogSettings(string? title = null, string? directory = null)
-    {
-        Title = title;
-        Directory = directory;
-    }
-
-    public string? Title { get; }
-
-    public string? Directory { get; }
-
-    public static FolderDialogSettings Default { get; } = new();
-}
+public record FolderDialogSettings(bool AllowMultiple, string Title, string? Directory = null) : DialogSettingsBase(Title, Directory);

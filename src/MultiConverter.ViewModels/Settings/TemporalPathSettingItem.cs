@@ -74,16 +74,16 @@ public sealed class TemporalPathSettingItem : ViewModelBase, ISettingItem, IDisp
     {
         const string localizedTitle = "UI_OptionsView_TemporalPathDialogTitle";
 
-        FolderDialogSettings dialogSetting = new(TranslationSource.Instance[localizedTitle], TemporalPath);
+        FolderDialogSettings dialogSetting = new(false, TranslationSource.Instance[localizedTitle], TemporalPath);
 
-        string? newTemporalPath = await dialogService.ShowFolderSelectorAsync(dialogSetting);
+        string[] temporalPath = await dialogService.ShowFolderSelectorAsync(dialogSetting);
 
-        if (newTemporalPath == null)
+        if (temporalPath.Length == 0)
         {
             return;
         }
 
-        TemporalPath = newTemporalPath;
+        TemporalPath = temporalPath[0];
     }
 
     [Reactive] public string TemporalPath { get; set; } = string.Empty;

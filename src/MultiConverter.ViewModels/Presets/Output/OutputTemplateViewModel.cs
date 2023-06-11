@@ -53,16 +53,16 @@ public sealed class OutputTemplateViewModel : ViewModelBase, IChanged, IDisposab
 
     private async Task UpdateOutputPath(IDialogService dialogService)
     {
-        FolderDialogSettings dialogSetting = new(FixedPath);
+        FolderDialogSettings dialogSetting = new(false, FixedPath);
 
-        string? fixedPath = await dialogService.ShowFolderSelectorAsync(dialogSetting);
+        string[] fixedPath = await dialogService.ShowFolderSelectorAsync(dialogSetting);
 
-        if (fixedPath == null)
+        if (fixedPath.Length == 0)
         {
             return;
         }
 
-        FixedPath = fixedPath;
+        FixedPath = fixedPath[0];
     }
 
     private void InitializeProperties(OutputPathTemplate outputPathTemplate)
