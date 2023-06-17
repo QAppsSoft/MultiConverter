@@ -10,7 +10,7 @@
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/QAppsSoft/MultiConverter?color=%23483D8B)
 [![wakatime](https://wakatime.com/badge/user/1b3378e8-624e-4952-b453-87d2dfdbc51e/project/23e5bf26-2c9a-4516-beb0-bfbab9b4e252.svg)](https://wakatime.com/badge/user/1b3378e8-624e-4952-b453-87d2dfdbc51e/project/23e5bf26-2c9a-4516-beb0-bfbab9b4e252)
 
-MultiConverter aims to be a full replacement for a closed source video converter used in my daily job (developed by me). I will reuse some parts of the original code but mostly will be new code. This was my first attempt in WPF and C#.
+MultiConverter aims to be a full replacement for a closed source video converter used in my daily job (developed by me). I will reuse some parts of the original code but mostly will be new code. This was my first serious attempt in WPF and C#, but for the rebuild GUI will use AvaloniaUI.
 
 ### TODO
 
