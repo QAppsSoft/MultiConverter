@@ -12,6 +12,10 @@
 
 MultiConverter aims to be a full replacement for a closed source video converter used in my daily job (developed by me). I will reuse some parts of the original code but mostly will be new code. This was my first serious attempt in WPF and C#, but for the rebuild GUI will use AvaloniaUI.
 
+## Stats
+
+![Alt](https://repobeats.axiom.co/api/embed/7c405245f1b3d33ce2207a03442cf791644ca4c0.svg "Repobeats analytics image")
+
 ### TODO
 
 - [X] Video loading and analysis
