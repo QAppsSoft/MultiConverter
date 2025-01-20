@@ -24,7 +24,7 @@
     <PackageReference Include="Splat.Microsoft.Extensions.Logging" Version="15.2.22" />
     <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
     <PackageReference Include="System.Text.Encoding.Extensions" Version="4.3.0" />
-    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+    <PackageReference Include="System.Text.Json" Version="9.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MultiConverter.Common\MultiConverter.Common.csproj" />
