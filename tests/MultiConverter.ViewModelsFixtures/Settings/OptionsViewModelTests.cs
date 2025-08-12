@@ -1,7 +1,7 @@
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using FluentAssertions;
+using AwesomeAssertions;
 using Moq.AutoMock;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions.Settings;

@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 using MultiConverter.ViewModels.Presets.Options.Providers;
 using MultiConverter.ViewModels.Presets.Options.Providers.Interfaces;
 using MultiConverter.ViewModels.Presets.Options.Providers.Strategy;

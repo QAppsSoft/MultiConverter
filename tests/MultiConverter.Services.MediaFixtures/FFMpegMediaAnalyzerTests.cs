@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using FluentAssertions;
+using AwesomeAssertions;
 using MultiConverter.Models.Media;
 using MultiConverter.Services.Abstractions.Media;
 using MultiConverter.Services.Media;
