@@ -14,7 +14,7 @@ public sealed class FileSettingsStore : ISettingsStore
     {
         _logger = logger;
         Location = path ?? Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             "MultiConverter");
 
         var dir = new DirectoryInfo(Location);
