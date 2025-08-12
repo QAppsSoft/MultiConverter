@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 using Moq;
 using Moq.AutoMock;
 using MultiConverter.Common.Testing;

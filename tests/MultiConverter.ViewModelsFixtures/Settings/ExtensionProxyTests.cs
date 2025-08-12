@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 using MultiConverter.ViewModels.Settings;
 
 namespace MultiConverter.ViewModelsFixtures.Settings;

@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using FluentAssertions;
+using AwesomeAssertions;
 using MultiConverter.Models.Settings;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Services.Abstractions.Settings;

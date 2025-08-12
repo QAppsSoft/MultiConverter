@@ -1,4 +1,4 @@
-using FluentAssertions;
+using AwesomeAssertions;
 using MultiConverter.Models.Settings.General;
 using NUnit.Framework;
 

@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 using MultiConverter.Common.Utils;
 using MultiConverter.Models.Settings.General;
 

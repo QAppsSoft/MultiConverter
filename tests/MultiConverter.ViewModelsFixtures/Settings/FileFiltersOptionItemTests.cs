@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.Models.Settings.General.FileFilters;
 using MultiConverter.ViewModels.Settings;

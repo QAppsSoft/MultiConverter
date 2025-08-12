@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using FluentAssertions;
+using AwesomeAssertions;
 using MultiConverter.Configuration;
 using MultiConverter.Extensions;
 using MultiConverter.Localization;

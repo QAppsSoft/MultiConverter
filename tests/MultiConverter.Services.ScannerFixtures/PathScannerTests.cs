@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Reactive.Linq;
-using FluentAssertions;
+using AwesomeAssertions;
 using MultiConverter.Common.Testing;
 using MultiConverter.Services.Scanner;
 using NUnit.Framework;

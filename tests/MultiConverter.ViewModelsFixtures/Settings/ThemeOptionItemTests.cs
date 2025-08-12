@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 using Moq.AutoMock;
 using MultiConverter.Models.Settings.General;
 using MultiConverter.ViewModels.Settings;

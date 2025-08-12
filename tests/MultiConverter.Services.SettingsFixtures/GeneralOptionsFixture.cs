@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using FluentAssertions;
+using AwesomeAssertions;
 using MultiConverter.Models.Settings;
 using MultiConverter.Models.Settings.General;
 using NUnit.Framework;
