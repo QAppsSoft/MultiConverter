@@ -16,7 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia.Desktop" Version="11.3.3" />
-    <PackageReference Include="Splat.Autofac" Version="15.4.1" />
+    <PackageReference Include="Splat.Autofac" Version="15.5.3" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
   </ItemGroup>
   <ItemGroup>
